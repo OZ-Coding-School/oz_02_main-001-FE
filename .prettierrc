@@ -11,5 +11,19 @@
   "endOfLine": "auto",
   "jsxBracketSameLine": true,
   "jsxSingleQuote": false,
-  "quoteProps": "as-needed"
+  "quoteProps": "as-needed",
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "html"
+      }
+    },
+    {
+      "files": "*.css",
+      "options": {
+        "parser": "css"
+      }
+    }
+  ]
 }

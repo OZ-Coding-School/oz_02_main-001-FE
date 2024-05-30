@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  font-family: "Pretendard"
+}
+
 @font-face {
   font-family: "Pretendard";
   font-weight: 500;
