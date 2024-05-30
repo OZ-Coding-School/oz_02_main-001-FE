@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* body {
-    font-family: "Pretendard";
-}
-
 @font-face {
   font-family: "Pretendard";
   font-weight: 500;
@@ -16,4 +12,4 @@
       url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff') format('woff'),
       url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.ttf') format("truetype");
   font-display: swap;
-} */
+}
