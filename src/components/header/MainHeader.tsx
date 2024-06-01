@@ -3,6 +3,10 @@ import { IoIosSearch } from "react-icons/io";
 import Bell from "./Bell";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * MainPage에서 사용되는 헤더입니다.
+ * @returns
+ */
 const MainHeader: React.FC = () => {
   const navigate = useNavigate();
   const handleClick = () => {

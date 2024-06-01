@@ -6,17 +6,20 @@ interface HeaderProps {
   hasBackBtn?: boolean;
   title?: string;
   hasBell?: boolean;
-  hasButton?: boolean;
   handleBackBtnClick?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  hasBackBtn,
-  title,
-  hasBell,
-  hasButton,
-  handleBackBtnClick,
-}) => {
+/**
+ * Bookmark, IngredientSelection,
+ * Liked, Notification, Profile, Recommended 페이지에서 사용되는 헤더입니다.
+ * @param hasBackBtn BackButton 유무
+ * @param title 타이틀이 없으면 작성 X
+ * @param hasBell Bell 유무
+ * @param handleBackBtnClick BackButton 이벤트 핸들러
+ * @returns
+ */
+
+const Header: React.FC<HeaderProps> = ({ hasBackBtn, title, hasBell, handleBackBtnClick }) => {
   return (
     <div className="flex justify-center items-center h-[50px] relative border-b-[1px]">
       {hasBackBtn && (
@@ -32,13 +35,6 @@ const Header: React.FC<HeaderProps> = ({
       {hasBell && (
         <div className="absolute right-0">
           <Bell hasNotification={true} />
-        </div>
-      )}
-      {hasButton && (
-        <div className="absolute right-0">
-          <div className="flex justify-center items-center w-[50px] h-[50px] relative cursor-pointer">
-            <button>다음</button>
-          </div>
         </div>
       )}
     </div>

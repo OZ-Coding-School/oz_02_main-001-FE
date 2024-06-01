@@ -1,11 +1,11 @@
 import Footer from "@components/footer/Footer";
-import Header from "@components/header/Header";
+import ButtonHeader from "@components/header/ButtonHeader";
 import React from "react";
 
 const RecipeRegistrationPage = () => {
   return (
     <div>
-      <Header hasBackBtn={true} title="레시피 작성 (1/4)" hasButton={true} />
+      <ButtonHeader title="레시피 작성 (1/4)" buttonText="다음" />
       <p>RecipeRegistrationPage</p>
       <Footer page="recipeRegistration" />
     </div>

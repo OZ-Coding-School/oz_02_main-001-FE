@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { RiShare2Line } from "react-icons/ri";
 import MoreButton from "@components/buttons/MoreButton";
 
+/**
+ * RecipePage에서 사용되는 Header입니다.
+ * @returns
+ */
 const RecipeHeader: React.FC = () => {
   const navigate = useNavigate();
   const handleClick = () => {

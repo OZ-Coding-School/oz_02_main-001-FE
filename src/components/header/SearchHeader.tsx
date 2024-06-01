@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import BackButton from "./BackButton";
 
+/**
+ * SearchPage에서 사용되는 헤더입니다.
+ * @returns
+ */
 const SearchHeader: React.FC = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(-1);
   };
+
   return (
     <div className="flex items-center h-[50px] relative border-b-[1px]">
       <BackButton handleClick={handleClick} />

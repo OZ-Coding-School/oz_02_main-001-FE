@@ -9,7 +9,7 @@ const NotificationPage = () => {
   };
   return (
     <div>
-      <Header hasBackBtn={true} title="알림" hasBell={true} handleClick={handleClick} />
+      <Header hasBackBtn={true} title="알림" hasBell={true} handleBackBtnClick={handleClick} />
       <p>NotificationPage</p>
     </div>
   );

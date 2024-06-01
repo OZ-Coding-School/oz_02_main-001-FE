@@ -7,6 +7,14 @@ interface BellProps {
   hasNotification: boolean;
 }
 
+/**
+ * Bell 컴포넌트 입니다.
+ * 알림이 있는지 여부를 판단하여 컴포넌트가 바뀝니다.(hasNotification)
+ * 알림 페이지라면 컴포넌트 아이콘이 바뀝니다. (isNoticePage)
+ * @param hasNotification 현재 알람이 있는지 여부
+ * @returns
+ */
+
 const Bell: React.FC<BellProps> = ({ hasNotification }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
