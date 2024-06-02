@@ -1,11 +1,11 @@
 import React from "react";
-import ReciepeItems from "@components/reciepItem/ReciepeItems";
+import ReciepeItem from "@components/reciepItem/ReciepeItem";
 
 const MainPage = () => {
   return (
-    <div>
+    <div className="grid gap-2">
       <p>MainPage</p>
-      <ReciepeItems />
+      <ReciepeItem />
     </div>
   );
 };
