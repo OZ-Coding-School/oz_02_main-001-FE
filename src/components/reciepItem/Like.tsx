@@ -1,44 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface LikeProps {
-  recipeId?: number;
+  id?: number;
+  likes: number;
+  likeStatus: number;
 }
 
-const Like: React.FC<LikeProps> = ({ recipeId }) => {
+const dummyData: LikeProps = {
+  id: 1,
+  likes: 10,
+  likeStatus: -1,
+};
+
+const Like: React.FC<LikeProps> = ({ id, likes, likeStatus }) => {
   const [likeState, setLikeState] = useState<{ likes: number; isLiked: boolean }>({
-    likes: 0,
-    isLiked: false,
+    likes: dummyData.likes,
+    isLiked: dummyData.likeStatus === 1,
   });
 
-  useEffect(() => {
-    async function fetchLikes() {
-      try {
-        const response = await fetch(`/api/v1/recipes/${recipeId}/likes`);
-        const data = await response.json();
-        setLikeState(data);
-      } catch (error) {
-        console.error("좋아요 수 불러오기", error);
-      }
-    }
-    {
-      /* api 호출 중 발생할 수 있는 에러 처리 */
-    }
-    fetchLikes();
-  }, [recipeId]);
-
-  const handleLike = async () => {
-    try {
-      const response = await fetch(
-        `/api/v1/recipes/${recipeId}/${likeState.isLiked ? "unlike" : "like"}`,
-        {
-          method: "POST",
-        },
-      );
-      const data = await response.json();
-      setLikeState(data);
-    } catch (error) {
-      console.error("좋아요 처리 실패", error);
-    }
+  const handleLike = () => {
+    setLikeState((prevState) => ({
+      likes: prevState.isLiked ? prevState.likes - 1 : prevState.likes + 1,
+      isLiked: !prevState.isLiked,
+    }));
   };
 
   return (
