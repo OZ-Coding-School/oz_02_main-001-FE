@@ -1,3 +1,4 @@
+import FilteringButtons from "@components/filtering/FilteringButtons";
 import SearchHeader from "@components/header/SearchHeader";
 import RecipeList from "@components/recipe/RecipeList";
 import { RecipeType } from "src/types/recipeItemType";
@@ -36,10 +37,11 @@ const data: RecipeType[] = [
   },
 ];
 
-const SearchPage = () => {
+const SearchPage: React.FC = () => {
   return (
     <div>
       <SearchHeader />
+      <FilteringButtons />
       <RecipeList recipeData={data} />
     </div>
   );
