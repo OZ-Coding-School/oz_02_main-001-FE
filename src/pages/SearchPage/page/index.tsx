@@ -37,12 +37,11 @@ const data: RecipeType[] = [
   },
 ];
 
-const SearchPage = () => {
+const SearchPage: React.FC = () => {
   return (
     <div>
       <SearchHeader />
       <FilteringButtons />
-      <p>SearchPge</p>
       <RecipeList recipeData={data} />
     </div>
   );
