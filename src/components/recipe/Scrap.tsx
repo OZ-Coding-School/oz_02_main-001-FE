@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 
 interface ScrapProps {
-  id?: number;
   book: number;
   bookStatus: number;
 }
 
-const dummyData: ScrapProps = {
-  id: 1,
-  book: 10,
-  bookStatus: -1,
-};
-
-const Scrap: React.FC<ScrapProps> = ({ id, book, bookStatus }) => {
+const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
   const [scrapCount, setScrapCount] = useState<{ book: number; booked: boolean }>({
-    book: dummyData.book,
-    booked: dummyData.bookStatus === 1,
+    book,
+    booked: bookStatus === 1,
   });
 
   const handleScrap = () => {

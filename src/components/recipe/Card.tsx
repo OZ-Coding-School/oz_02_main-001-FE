@@ -1,13 +1,18 @@
 import { useState } from "react";
 
 interface CardProps {
-  image?: File;
+  image?: string;
   width?: number;
   height?: number;
   rounded?: number;
 }
 
-const Card: React.FC = ({ image, width = 110, height = 110, rounded = 5 }: CardProps) => {
+const Card: React.FC<CardProps> = ({
+  image,
+  width = 110,
+  height = 110,
+  rounded = 5,
+}: CardProps) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const roundedStyle = {
