@@ -2,7 +2,7 @@ import React from "react";
 import { FaPlus } from "react-icons/fa6";
 
 interface BigButtonProps {
-  handleClick: () => void;
+  handleClick?: () => void;
   buttonText: string;
   disabled?: boolean;
 }
