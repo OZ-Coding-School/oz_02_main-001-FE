@@ -11,7 +11,8 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
     booked: bookStatus === 1,
   });
 
-  const handleScrap = () => {
+  const handleScrap = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setScrapCount((prevState) => ({
       book: prevState.booked ? prevState.book - 1 : prevState.book + 1,
       booked: !prevState.booked,
@@ -21,7 +22,7 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
   return (
     <div className="flex items-center">
       <button
-        className={`ml-3 rounded-full focus:outline-none transition-colors ${
+        className={`rounded-full focus:outline-none transition-colors ${
           scrapCount.booked ? "bg-white text-leafGreen" : "bg-white text-leafGreen"
         }`}
         onClick={handleScrap}

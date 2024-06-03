@@ -11,7 +11,8 @@ const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
     isLiked: likeStatus === 1,
   });
 
-  const handleLike = () => {
+  const handleLike = (event: React.MouseEvent) => {
+    event.stopPropagation();
     setLikeState((prevState) => ({
       like: prevState.isLiked ? prevState.like - 1 : prevState.like + 1,
       isLiked: !prevState.isLiked,
