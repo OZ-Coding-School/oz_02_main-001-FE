@@ -1,11 +1,14 @@
+import Footer from "@components/footer/Footer";
+import MainHeader from "@components/header/MainHeader";
 import RecipeItems from "@components/reciepItem/RecipeItem";
 import React from "react";
 
 const MainPage = () => {
   return (
-    <div className="grid gap-2">
+    <div>
+      <MainHeader />
       <p>MainPage</p>
-      <RecipeItems />
+      <Footer page="main" />
     </div>
   );
 };
