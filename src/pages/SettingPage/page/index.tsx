@@ -9,6 +9,7 @@ const SettingPage: React.FC = () => {
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalName, setModalName] = useState<string>("");
+
   const handleBackBtnClick = (): void => {
     navigate(-1);
   };
@@ -45,7 +46,7 @@ const SettingPage: React.FC = () => {
   return (
     <>
       <Header hasBackBtn={true} title="설정" handleBackBtnClick={handleBackBtnClick} />
-      <div className="flex flex-col p-5 gap-y-[14px]">
+      <div className="flex flex-col p-4 gap-y-[14px]">
         <div className="flex flex-row items-center justify-between">
           <p className="text-[20px]">알림 설정</p>
           <button
