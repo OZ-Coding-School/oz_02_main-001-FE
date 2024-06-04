@@ -20,11 +20,15 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
   return (
     <div className="flex justify-between items-center h-[50px] relative border-b-[1px]">
       <BackButton handleClick={handleClick} />
-      <div className="flex">
-        <div className="flex justify-center items-center w-[40px] h-[50px]">
+      <div className="flex ">
+        <div className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer">
           <RiShare2Line className="w-[24px] h-[24px]" />
         </div>
-        {canUpdate && <MoreButton />}
+        {canUpdate && (
+          <div className="flex items-center">
+            <MoreButton />
+          </div>
+        )}
       </div>
     </div>
   );

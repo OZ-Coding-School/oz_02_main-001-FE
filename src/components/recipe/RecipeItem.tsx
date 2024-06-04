@@ -19,8 +19,8 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
       className="border border-[#D7D7D7] rounded-md p-2 flex items-center gap-3"
       onClick={handleClick}
     >
-      <div className="border w-[110px] h-[110px] rounded-[5px] border-gray-200">
-        <img src={recipe.image} className="w-full h-full" />
+      <div className="w-[110px] h-[110px]">
+        <img src={recipe.image} className="w-full h-full rounded-[5px]" />
       </div>
       <div className="h-[110px] flex flex-col justify-between">
         <div className="flex flex-col items-left">

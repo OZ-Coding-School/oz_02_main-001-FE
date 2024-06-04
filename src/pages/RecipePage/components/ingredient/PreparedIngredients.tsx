@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BadgeTitle from "../title/BadgeTitle";
 import BigButton from "@components/buttons/BigButton";
 
@@ -7,8 +7,13 @@ interface PreparedIngredientsProps {
 }
 
 const PreparedIngredients: React.FC<PreparedIngredientsProps> = ({ ingredients }) => {
+  const [isMoreClicked, setIsMoreClicked] = useState<boolean>(false);
   const previewIngredients = ingredients.slice(0, 4);
-  const moreIngredients = ingredients.slice(0, 4);
+  const moreIngredients = ingredients.slice(4);
+
+  const handleClick = () => {
+    setIsMoreClicked((prev) => !prev);
+  };
 
   return (
     <div className="grid gap-5">
@@ -28,9 +33,21 @@ const PreparedIngredients: React.FC<PreparedIngredientsProps> = ({ ingredients }
               </div>
             </div>
           ))}
+          {isMoreClicked &&
+            moreIngredients.map((ingredient) => (
+              <div className="flex justify-between" key={ingredient.id}>
+                <span>{ingredient.name}</span>
+                <div>
+                  <span>{ingredient.quantity}</span> {ingredient.unit}
+                </div>
+              </div>
+            ))}
         </div>
         <div className="w-[98%]">
-          <BigButton buttonText="재료 더 보기" />
+          <BigButton
+            buttonText={isMoreClicked ? "재료 접기" : "재료 더 보기"}
+            handleClick={handleClick}
+          />
         </div>
       </div>
     </div>
