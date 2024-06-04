@@ -14,7 +14,7 @@ const MainPage = () => {
     setIsMainPageModalOpen(false);
   };
 
-  const handleSubmitModal = (name: string, gender: string, age: string) => {
+  const handleSubmitModal = (name: string, gender: string, age: number, pushConsent: boolean) => {
     setIsMainPageModalOpen(false);
   };
 
@@ -22,7 +22,11 @@ const MainPage = () => {
     <div>
       <MainHeader />
       <p>MainPage</p>
-      <Modal isOpen={isMainPageModalOpen} onClose={handleCloseModal} onSubmit={handleSubmitModal} />
+      <Modal
+        isOpen={isMainPageModalOpen}
+        handleCloseModal={handleCloseModal}
+        onSubmit={handleSubmitModal}
+      />
       <Footer page="main" />
     </div>
   );
