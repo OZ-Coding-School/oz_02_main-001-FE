@@ -1,7 +1,6 @@
 import React from "react";
 import Like from "./Like";
 import Scrap from "./Scrap";
-import Card from "./Card";
 import { RecipeType } from "src/types/recipeItemType";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +19,9 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
       className="border border-[#D7D7D7] rounded-md p-2 flex items-center gap-3"
       onClick={handleClick}
     >
-      <Card image={recipe.image} />
+      <div className="border w-[110px] h-[110px] rounded-[5px] border-gray-200">
+        <img src={recipe.image} className="w-full h-full" />
+      </div>
       <div className="h-[110px] flex flex-col justify-between">
         <div className="flex flex-col items-left">
           <span className="text-[20px] w-auto">{recipe.title}</span>

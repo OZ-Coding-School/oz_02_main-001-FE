@@ -17,6 +17,7 @@ import MyPage from "./pages/MyPage/page";
 import ProfilePage from "./pages/ProfilePage/page";
 import RecommendedRecipePage from "./pages/RecommendedRecipePage/page";
 import ErrorPage from "./pages/ErrorPage";
+import SettingPage from "./pages/SettingPage/page";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/bookmark" element={<BookMarkPage />} />
           <Route path="/liked" element={<LikedPage />} />
           <Route path="/account" element={<MyPage />} />
+          <Route path="/setting" element={<SettingPage />} />
           <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
