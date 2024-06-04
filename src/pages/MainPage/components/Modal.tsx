@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit }) => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log({ name, gender, age });
+    onSubmit(name, gender, age);
     navigate("/");
   };
 
