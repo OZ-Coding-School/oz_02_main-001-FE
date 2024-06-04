@@ -12,7 +12,8 @@ interface BigButtonProps {
 const BigButton: React.FC<BigButtonProps> = ({ handleClick, buttonText, disabled }) => {
   return (
     <button
-      className={`${buttonText === "첫 레시피 등록하기" ? "w-[60%]" : "w-[90%]"}  h-[48px] rounded-[6px] text-[16px] text-center ${buttonText === "재료 더 보기" ? "text-midnightGray bg-iceBlue" : "text-redPink bg-softPink"} `}
+      className={`${buttonText === "첫 레시피 등록하기" ? "w-[60%]" : "w-full"}  h-[48px] rounded-[6px] text-[16px] text-center 
+      ${buttonText === "재료 더 보기" ? "text-midnightGray bg-iceBlue" : "text-redPink bg-softPink"} `}
       onClick={handleClick}
       disabled={disabled}
     >

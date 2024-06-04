@@ -14,6 +14,7 @@ type CommentType = {
   id: number;
   userId: number;
   userNickname: string;
+  canUpdate: number;
   profileImage: string;
   updatedAt: string;
   comment: string;
@@ -27,6 +28,7 @@ type UserType = {
 };
 
 type RecipeDataType = {
+  canUpdate: number;
   title: string;
   mainImage: string;
   category: string;
