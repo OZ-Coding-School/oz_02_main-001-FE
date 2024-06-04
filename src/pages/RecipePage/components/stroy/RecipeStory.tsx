@@ -7,10 +7,12 @@ interface RecipeStoryProps {
 
 const RecipeStory: React.FC<RecipeStoryProps> = ({ story }) => {
   return (
-    <div className="grid gap-5 pt-5 border-t">
-      <BadgeTitle type="story" title="뚝딱 이야기" />
-      {story}
-    </div>
+    story && (
+      <div className="grid gap-5 pt-5 border-t">
+        <BadgeTitle type="story" title="뚝딱 이야기" />
+        {story}
+      </div>
+    )
   );
 };
 
