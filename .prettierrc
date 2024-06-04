@@ -9,6 +9,7 @@
   "trailingComma": "all",
   "arrowParens": "always",
   "endOfLine": "auto",
+  "bracketSameLine": true,
   "jsxSingleQuote": false,
   "quoteProps": "as-needed",
   "overrides": [
