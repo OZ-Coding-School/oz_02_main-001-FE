@@ -12,8 +12,9 @@ type StepType = {
 
 type CommentType = {
   id: number;
-  user_Id: number;
-  user_Nickname: string;
+  userId: number;
+  userNickname: string;
+  profileImage: string;
   updatedAt: string;
   comment: string;
 };

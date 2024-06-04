@@ -10,7 +10,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
     <div className="grid gap-5">
       <BadgeTitle type="step" title="조리 순서" />
       {steps.map((step, index) => (
-        <div>
+        <div className="flex flex-col gap-2">
           <div className="flex items-center bg-lightBeige w-fit px-3 py-[0.1rem] rounded-[5px]">
             <span className="text-oliveGray text-[0.8rem]">step {index + 1}</span>
           </div>

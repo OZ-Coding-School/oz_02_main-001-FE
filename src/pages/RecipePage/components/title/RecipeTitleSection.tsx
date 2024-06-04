@@ -20,7 +20,7 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
 }) => {
   return (
     <div
-      className="grid gap-6 p-5 bg-white
+      className="grid gap-6 p-6 bg-white
     "
     >
       <div className="flex justify-between">
@@ -28,7 +28,9 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
           <span className="text-[1.5rem]">{title}</span>
           <span className="text-[0.8rem] text-[#000000]/50">{date}</span>
         </div>
-        <Scrap book={bookmark} bookStatus={bookmarkStatus} />
+        <div className="pt-[0.3rem]">
+          <Scrap book={bookmark} bookStatus={bookmarkStatus} />
+        </div>
       </div>
       <div className="flex items-center gap-4">
         <img src={testUrl} className="w-[60px] h-[60px] rounded-full" />
