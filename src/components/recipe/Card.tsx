@@ -1,20 +1,18 @@
-import { useState } from "react";
+import React from "react";
 
 interface CardProps {
-  image?: string;
+  imageUrl?: string;
   width?: number;
   height?: number;
   rounded?: number;
 }
 
 const Card: React.FC<CardProps> = ({
-  image,
+  imageUrl,
   width = 110,
   height = 110,
   rounded = 5,
 }: CardProps) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-
   const roundedStyle = {
     borderRadius: `${rounded}px`,
   };
