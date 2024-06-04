@@ -147,7 +147,9 @@ const MyPage: React.FC = () => {
                 </>
               )}
             </h2>
-            <p className="text-[15px] text-gray-400">게시물 {accountData.cnt}</p>
+            <p className="text-[15px] text-gray-400">
+              게시물 <span className="text-redPink">{accountData.cnt}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -159,6 +161,7 @@ const MyPage: React.FC = () => {
         />
       )}
       <PostsList
+        whoProfile="user"
         postsCount={accountData.cnt}
         linkTo="/recipeRegistration"
         buttonText="첫 레시피 등록하기"

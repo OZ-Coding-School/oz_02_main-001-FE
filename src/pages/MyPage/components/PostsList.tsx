@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { RecipesType } from "src/types/accountRecipeType";
 
 interface PostsListProps {
+  whoProfile: string;
   postsCount: number;
   linkTo?: string;
   buttonText: string;
@@ -11,6 +12,7 @@ interface PostsListProps {
 }
 
 const PostsList: React.FC<PostsListProps> = ({
+  whoProfile,
   postsCount,
   linkTo,
   buttonText,
@@ -24,9 +26,19 @@ const PostsList: React.FC<PostsListProps> = ({
             className="flex justify-center items-center"
             style={{ height: "calc(100vh - 300px)" }}
           >
-            <Link to={`${linkTo}`} className="w-full flex justify-center">
-              <BigButton buttonText={buttonText} />
-            </Link>
+            {whoProfile === "user" ? (
+              <>
+                <Link to={`${linkTo}`} className="w-full flex justify-center">
+                  <BigButton buttonText={buttonText} />
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="w-full flex justify-center">
+                  <BigButton buttonText={buttonText} disabled={true} />
+                </div>
+              </>
+            )}
           </div>
         </>
       ) : (
