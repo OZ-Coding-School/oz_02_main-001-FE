@@ -2,24 +2,12 @@ import Footer from "@components/footer/Footer";
 import AccountHeader from "@components/header/AccountHeader";
 import React, { useEffect, useState } from "react";
 import noProfile from "@assets/images/noProfile.png";
-import BigButton from "@components/buttons/BigButton";
 import { AiOutlineEdit } from "react-icons/ai";
 import recipeImg from "@assets/images/recipe.png";
-import { Link } from "react-router-dom";
 import { MdOutlineDone } from "react-icons/md";
 import ProceedModal from "@components/modal/ProceedModal";
-
-type RecipesType = {
-  id: number;
-  recipeImage: string;
-};
-
-type AccountDataType = {
-  image: string;
-  nickname: string;
-  cnt: number;
-  recipes: RecipesType[];
-};
+import { AccountDataType } from "src/types/accountRecipeType";
+import PostsList from "../components/PostsList";
 
 const accountData: AccountDataType = {
   image: noProfile,
@@ -61,13 +49,13 @@ const MyPage: React.FC = () => {
     setIsEdit(!isEdit);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    setUserNickname(event.target.value);
-  };
-
   const handleSave = (): void => {
-    // api put으로 수정할 예정
+    if (userNickname.length < 2) {
+      alert("닉네임은 2글자 이상이어야 합니다.");
+      return;
+    }
+    // api 연동 - 이름 중복 검사도 백엔드에서 진행할 예정
+    console.log(userNickname.length);
     setUserNickname(userNickname);
     setIsEdit(!isEdit);
   };
@@ -91,6 +79,14 @@ const MyPage: React.FC = () => {
     }
   };
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    event.preventDefault();
+    const value = event.target.value;
+    // 숫자, 영문, 한글 외의 문자는 제거
+    const validValue = value.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]/g, "");
+    setUserNickname(validValue);
+  };
+
   const handleDeleteImage = (): void => {
     // api 데이터 업데이트 코드 추가 예정
     setImage(noProfile);
@@ -100,38 +96,41 @@ const MyPage: React.FC = () => {
   const handleCloseModal = (): void => {
     setShowModal(false);
   };
+
   return (
     <div>
       <AccountHeader />
-      <div className="flex ml-[40px] items-center my-10">
-        <div className="flex gap-[30px]">
-          <img
-            src={image}
-            alt="프로필 이미지"
-            className="w-[100px] h-[100px] mx-auto rounded-full cursor-pointer"
-            onClick={handleProfileClick}
-          />
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
+      <div className="flex ml-[6%] mr-[2%] items-center my-10">
+        <div className="flex gap-[20px] ">
+          <div>
+            <img
+              src={image}
+              alt="프로필 이미지"
+              className="w-[90px] h-[90px] mx-auto rounded-full cursor-pointer border border-gray-200"
+              onClick={handleProfileClick}
+            />
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+          </div>
           <div className="flex flex-col justify-center gap-y-1">
-            <h2 className="text-[23px] font-semibold flex flex-row gap-[10px]">
+            <h2 className="text-[19px] font-semibold flex flex-row gap-[10px]">
               {isEdit ? (
                 <>
                   <input
                     type="text"
-                    className="border border-gray-400 rounded-[6px] pl-[10px] py-[3px] "
+                    className="border border-gray-400 rounded-[6px] px-[10px] py-[1px] w-[180px]"
                     value={userNickname}
-                    placeholder="닉네임을 입력해주세요."
+                    placeholder="닉네임을 입력하세요."
                     onChange={handleInputChange}
-                    maxLength={16}
+                    maxLength={10}
                   />
                   <MdOutlineDone
                     color="#F78181"
-                    size={32}
+                    size={28}
                     onClick={handleSave}
                     className="cursor-pointer"
                   />
@@ -142,7 +141,7 @@ const MyPage: React.FC = () => {
                   <AiOutlineEdit
                     color="#F78181"
                     className="cursor-pointer"
-                    size={32}
+                    size={24}
                     onClick={handleEditNicknameClick}
                   />
                 </>
@@ -159,36 +158,13 @@ const MyPage: React.FC = () => {
           handleRightClick={handleCloseModal}
         />
       )}
-      {accountData.cnt === 0 ? (
-        <>
-          <div
-            className="flex justify-center items-center"
-            style={{ height: "calc(100vh - 300px)" }}
-          >
-            <Link to="/recipeRegistration" className="w-full flex justify-center">
-              <BigButton buttonText="첫 레시피 등록하기" />
-            </Link>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="grid grid-cols-3 gap-[1px] p-5 mb-[50px]">
-            {accountData.recipes.map((recipeItem, index) => (
-              <Link
-                to={`/recipe/:${recipeItem.id}`}
-                key={index}
-                className="w-full h-[150.66px] rounded-[6px] border border-gray-200 cursor-pointer"
-              >
-                <img
-                  src={recipeItem.recipeImage}
-                  alt="레시피 완성 이미지"
-                  className=" rounded-[6px] w-full h-full object-cover"
-                />
-              </Link>
-            ))}
-          </div>
-        </>
-      )}
+      <PostsList
+        postsCount={accountData.cnt}
+        linkTo="/recipeRegistration"
+        buttonText="첫 레시피 등록하기"
+        postsRecipeList={accountData.recipes}
+      />
+
       <Footer page="account" />
     </div>
   );
