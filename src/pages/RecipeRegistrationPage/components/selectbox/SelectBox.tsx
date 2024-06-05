@@ -21,10 +21,10 @@ const SelectBox: React.FC<SelectBoxProps> = ({ placeholder, options }) => {
 
   return (
     <div className="flex flex-col gap-1 w-full h-[50px]">
-      <div>
+      <div className="relative z-0">
         <button
           className="flex justify-start items-center w-full h-[50px]
-        px-2  relative rounded-[5px] border border-softBlue focus:outline-none"
+        px-2 rounded-[5px] border border-softBlue focus:outline-none"
           onClick={handleCategoryClick}
         >
           {selectedCategory}
@@ -35,7 +35,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({ placeholder, options }) => {
       </div>
 
       {isClicked && (
-        <ul className="flex flex-col gap-1 border w-full p-1 rounded-[5px] ">
+        <ul className="flex flex-col gap-1 border w-full min-h-[110px] p-1 rounded-[5px] overflow-auto relative z-[5] bg-white ">
           {options.map((option, index) => (
             <li key={option + index}>
               <button
