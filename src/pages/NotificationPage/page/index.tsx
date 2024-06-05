@@ -12,36 +12,32 @@ const NotificationPage = () => {
 
   const dummyData: NotificationType[] = [
     {
-      id: 1,
-      user: "24번째 냉장고",
+      nickname: "2400번째 냉장고",
       title: "토마토 달걀볶음",
-      like: "좋아요를 눌렀어요!",
-      reply: "댓글을 남겼어요!",
-      isRead: false,
+      type: "like",
+      status: 1,
+      date: "2024-06-04",
     },
     {
-      id: 2,
-      user: "2번째 냉장고",
+      nickname: "2번째 냉장고",
       title: "오징어 김밥",
-      like: "좋아요를 눌렀어요!",
-      reply: "댓글을 남겼어요!",
-      isRead: false,
+      type: "comment",
+      status: 1,
+      date: "2024-06-04",
     },
     {
-      id: 3,
-      user: "24번째 냉장고",
+      nickname: "24번째 냉장고",
       title: "핫초코 라면",
-      like: "좋아요를 눌렀어요",
-      reply: "댓글을 남겼어요",
-      isRead: false,
+      type: "comment",
+      status: 1,
+      date: "2024-06-04",
     },
     {
-      id: 4,
-      user: "206번째 냉장고",
+      nickname: "206번째 냉장고",
       title: "로제 파스타",
-      like: "좋아요를 눌렀어요",
-      reply: "댓글을 남겼어요",
-      isRead: true,
+      type: "like",
+      status: 0,
+      date: "2024-06-05",
     },
   ];
 
@@ -49,7 +45,7 @@ const NotificationPage = () => {
     <div>
       <Header hasBackBtn={true} title="알림" hasBell={true} handleBackBtnClick={handleClick} />
       {dummyData.map((notice) => (
-        <NotificationItem key={notice.id} notice={notice} />
+        <NotificationItem key={notice.title} notice={notice} />
       ))}
     </div>
   );
