@@ -28,17 +28,19 @@ const ButtonHeader: React.FC<ButtonHeaderProps> = ({
   handleButtonClick,
 }) => {
   return (
-    <div className="flex justify-center items-center h-[50px] relative border-b-[1px]">
-      {hasBackButton && (
-        <div className="absolute left-0">
-          <BackButton handleClick={handleBackBtnClick!} />
+    <div>
+      <div className="flex justify-center items-center h-[50px] relative border-b-[1px]">
+        {hasBackButton && (
+          <div className="absolute left-0">
+            <BackButton handleClick={handleBackBtnClick!} />
+          </div>
+        )}
+        <div className="flex justify-center items-center h-[50px]  ">
+          <span className="text-[1.2rem] font-bold">{title}</span>
         </div>
-      )}
-      <div className="flex justify-center items-center h-[50px]  ">
-        <span className="text-[1.2rem] font-bold">{title}</span>
-      </div>
-      <div className="flex justify-center items-center w-[65px] h-[50px] mr-3 absolute right-0">
-        <RoundedSmallButton buttonText={buttonText} handleClick={handleButtonClick} />
+        <div className="flex justify-center items-center w-[65px] h-[50px] mr-3 absolute right-0">
+          <RoundedSmallButton buttonText={buttonText} handleClick={handleButtonClick} />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 type IngredientType = {
-  id: number;
+  id?: number;
   name: string;
   quantity: number;
   unit: string;

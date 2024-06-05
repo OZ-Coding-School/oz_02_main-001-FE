@@ -30,8 +30,6 @@ const RecipeRegistrationPage: React.FC = () => {
     console.log("등록 완료");
   };
 
-  console.log(recipeData);
-
   return (
     <div>
       <ButtonHeader
@@ -41,7 +39,7 @@ const RecipeRegistrationPage: React.FC = () => {
         handleBackBtnClick={handleBackButtonClick}
         handleButtonClick={step === 4 ? handleSubmitButtonClick : handleNextButtonClick}
       />
-      <div className="flex flex-col p-3  gap-3">
+      <div className="flex flex-col p-3 gap-4 mb-[55px]">
         {step === 1 && <FirstStep recipeData={recipeData} setRecipeData={setRecipeData} />}
         {step === 2 && <SecondStep />}
         {step === 3 && <ThirdStep />}

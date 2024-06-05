@@ -7,7 +7,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ page }) => {
   return (
-    <div className="max-w-[500px] w-full fixed bottom-0 z-10 shadow-[0px_-1px_8px_rgba(38,38,38,0.116)]">
+    <div className="max-w-[500px] w-full fixed bottom-0 z-10 shadow-[0px_-1px_8px_rgba(38,38,38,0.116)] ">
       <div className="flex justify-evenly items-center bg-white h-[55px]">
         <FooterItem page={page} title="main" moveTo="/" />
         <FooterItem page={page} title="refrigerator" moveTo="/refrigerator" />

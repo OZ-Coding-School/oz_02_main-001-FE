@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 interface SelectBoxProps {
+  placeholder: string;
   options: string[];
 }
 
-const SelectBox: React.FC<SelectBoxProps> = ({ options }) => {
+const SelectBox: React.FC<SelectBoxProps> = ({ placeholder, options }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("카테고리");
+  const [selectedCategory, setSelectedCategory] = useState<string>(placeholder);
 
   const handleCategoryClick = () => {
     setIsClicked((prev) => !prev);
@@ -19,26 +20,26 @@ const SelectBox: React.FC<SelectBoxProps> = ({ options }) => {
   };
 
   return (
-    <div className="flex flex-col gap-1 w-[100px]">
-      <button
-        className="flex justify-start items-center w-full 
-        p-1  relative rounded-[5px] bg-[#000000]/5 focus:outline-none"
-        onClick={handleCategoryClick}
-      >
-        {selectedCategory}
-        <div
-          className="absolute right-1
-        "
+    <div className="flex flex-col gap-1 w-full h-[50px]">
+      <div>
+        <button
+          className="flex justify-start items-center w-full h-[50px]
+        px-2  relative rounded-[5px] border border-softBlue focus:outline-none"
+          onClick={handleCategoryClick}
         >
-          {isClicked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
-        </div>
-      </button>
+          {selectedCategory}
+          <div className="absolute right-1">
+            {isClicked ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
+          </div>
+        </button>
+      </div>
+
       {isClicked && (
-        <ul className="flex flex-col gap-1 border w-full p-1 rounded-[5px]">
-          {options.map((option) => (
-            <li>
+        <ul className="flex flex-col gap-1 border w-full p-1 rounded-[5px] ">
+          {options.map((option, index) => (
+            <li key={option + index}>
               <button
-                className=" flex justify-start w-full"
+                className=" flex justify-start items-center w-full h-[35px]"
                 onClick={() => handleOptionClick(option)}
               >
                 {option}

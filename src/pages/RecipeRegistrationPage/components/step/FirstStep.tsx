@@ -60,7 +60,9 @@ const FirstStep: React.FC<FirstStepProps> = ({ recipeData, setRecipeData }) => {
       </div>
       <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
       <Label name="카테고리" />
-      <SelectBox options={categories} />
+      <div className="w-[100px]">
+        <SelectBox options={categories} placeholder="카테고리" />
+      </div>
       {showModal && (
         <ProceedModal
           proceedQuestionText="이미지를 삭제 하시겠습니까?"
