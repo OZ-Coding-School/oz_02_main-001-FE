@@ -1,5 +1,6 @@
 import React from "react";
 import BadgeTitle from "../title/BadgeTitle";
+import StepBadge from "@components/badge/StepBadge";
 
 interface RecipeStepsProps {
   steps: StepType[];
@@ -11,9 +12,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
       <BadgeTitle type="step" title="조리 순서" />
       {steps.map((step, index) => (
         <div className="flex flex-col gap-2" key={index}>
-          <div className="flex items-center bg-lightBeige w-fit px-3 py-[0.1rem] rounded-[5px]">
-            <span className="text-oliveGray text-[0.8rem]">step {index + 1}</span>
-          </div>
+          <StepBadge step={index + 1} />
           <div className="flex  w-full gap-3">
             <div className={`${step.image ? "w-[75%]" : ""}`}>{step.step}</div>
             <div>

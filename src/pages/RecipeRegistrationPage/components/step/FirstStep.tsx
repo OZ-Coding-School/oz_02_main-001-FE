@@ -17,7 +17,10 @@ const FirstStep: React.FC<FirstStepProps> = ({ recipeData, setRecipeData }) => {
       <Label name="레시피 이름" />
       <Input placeholder="최대 30글자까지 입력할 수 있어요." maxLength={5} />
       <Label name="완성 사진" />
-      <ImageUpload recipeDataImage={recipeData.mainImage} />
+      <div className="size-[180px]">
+        <ImageUpload recipeDataImage={recipeData.mainImage} />
+      </div>
+
       <Label name="카테고리" />
       <div className="w-[100px]">
         <SelectBox options={categories} placeholder="카테고리" />
