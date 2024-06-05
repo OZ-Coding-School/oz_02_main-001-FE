@@ -17,9 +17,11 @@ const RefrigeratorPage = () => {
     },
   ];
   return (
-    <div>
+    <div className="flex flex-col flex-grow">
       <Header hasBell={true} />
-      <RefrigeratorItem refrigerator={dummyData[0]} />
+      <div id="content" className="flex-grow">
+        <RefrigeratorItem refrigerator={dummyData[0]} />
+      </div>
       <Footer page="refrigerator" />
     </div>
   );
