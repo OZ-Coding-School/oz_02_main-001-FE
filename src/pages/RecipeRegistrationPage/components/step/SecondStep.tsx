@@ -30,9 +30,7 @@ const SecondStep: React.FC = () => {
     setIsDeleteButtonClick(true);
   };
 
-  const handleMinusClick = (e) => {
-    console.log(e.target);
-  };
+  const handleMinusClick = () => {};
 
   const handleCompleteClick = () => {
     setIsDeleteButtonClick(false);
@@ -72,7 +70,7 @@ const SecondStep: React.FC = () => {
           {isDeleteButtonClick && (
             <div
               className="flex justify-center items-center w-[50px] h-[108px]"
-              onClick={(e) => handleMinusClick(e)}
+              onClick={handleMinusClick}
             >
               <FiMinusCircle className="size-[24px]" />
             </div>

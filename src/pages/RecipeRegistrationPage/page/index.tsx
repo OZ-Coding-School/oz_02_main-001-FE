@@ -39,7 +39,7 @@ const RecipeRegistrationPage: React.FC = () => {
         handleBackBtnClick={handleBackButtonClick}
         handleButtonClick={step === 4 ? handleSubmitButtonClick : handleNextButtonClick}
       />
-      <div className="flex flex-col p-3 gap-4 mb-[55px]">
+      <div className="flex flex-col min-h-[calc(100vh-105px)] p-3 gap-4 w-full pb-[65px]">
         {step === 1 && <FirstStep recipeData={recipeData} setRecipeData={setRecipeData} />}
         {step === 2 && <SecondStep />}
         {step === 3 && <ThirdStep />}
