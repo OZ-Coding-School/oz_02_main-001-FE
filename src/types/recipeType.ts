@@ -42,3 +42,12 @@ type RecipeDataType = {
   steps: StepType[];
   comments: CommentType[];
 };
+
+type RecipeRegistrationDataType = {
+  title: string;
+  mainImage: string;
+  category: string;
+  story: string;
+  ingredients: IngredientType[];
+  steps: StepType[];
+};

@@ -8,6 +8,15 @@ import SecondStep from "../components/step/SecondStep";
 
 const RecipeRegistrationPage: React.FC = () => {
   const [step, setStep] = useState(1);
+  const initialRecipeData: RecipeRegistrationDataType = {
+    title: "",
+    mainImage: "",
+    category: "일상요리",
+    story: "",
+    ingredients: [],
+    steps: [],
+  };
+  const [recipeData, setRecipeData] = useState<RecipeRegistrationDataType>(initialRecipeData);
 
   const handleBackButtonClick = () => {
     setStep((prev) => (prev === 1 ? prev : --prev));
@@ -21,6 +30,8 @@ const RecipeRegistrationPage: React.FC = () => {
     console.log("등록 완료");
   };
 
+  console.log(recipeData);
+
   return (
     <div>
       <ButtonHeader
@@ -31,7 +42,7 @@ const RecipeRegistrationPage: React.FC = () => {
         handleButtonClick={step === 4 ? handleSubmitButtonClick : handleNextButtonClick}
       />
       <div className="flex flex-col p-3  gap-3">
-        {step === 1 && <FirstStep />}
+        {step === 1 && <FirstStep recipeData={recipeData} setRecipeData={setRecipeData} />}
         {step === 2 && <SecondStep />}
         {step === 3 && <ThirdStep />}
         {step === 4 && <FourthStep />}
