@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { accountData } from "../page";
 import noProfile from "@assets/images/noProfile.png";
 import { MdOutlineDone } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import ProceedModal from "@components/modal/ProceedModal";
+import { accountData } from "../data/dummyData";
 
 interface ProfileSectionProps {
   name: string;

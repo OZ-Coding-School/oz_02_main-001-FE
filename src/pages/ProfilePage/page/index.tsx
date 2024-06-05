@@ -1,16 +1,16 @@
 import Header from "@components/header/Header";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import PostsList from "../../../pages/MyPage/components/PostsList";
-import ProfileSection from "../../../pages/MyPage/components/ProfileSection";
-import { accountData } from "../../../pages/MyPage/page";
-
-// interface ProfilePageProps {
-//   userId?: number;
-// }
+import { useNavigate, useParams } from "react-router-dom";
+import AccountHeader from "@components/header/AccountHeader";
+import Footer from "@components/footer/Footer";
+import { accountData } from "../data/dummyData";
+import ProfileSection from "../components/ProfileSection";
+import PostsList from "../components/PostsList";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
+  // api로 보낼때 쓰는 id
+  const { userId } = useParams();
 
   const [userNickname, setUserNickname] = useState<string>("");
 
@@ -25,21 +25,43 @@ const ProfilePage: React.FC = () => {
 
   return (
     <>
-      <Header hasBackBtn={true} handleBackBtnClick={handleBackBtnClick} />
-      <ProfileSection
-        // userId={userId}
-        postsCount={accountData.cnt}
-        name={userNickname}
-        setUserNickname={setUserNickname}
-        whoProfile="notUser"
-      />
-      <PostsList
-        whoProfile="user"
-        postsCount={accountData.cnt}
-        linkTo="/recipeRegistration"
-        buttonText="등록된 레시피가 없습니다."
-        postsRecipeList={accountData.recipes}
-      />
+      {userId === "0" ? (
+        <>
+          <AccountHeader />
+          <ProfileSection
+            postsCount={accountData.cnt}
+            name={userNickname}
+            setUserNickname={setUserNickname}
+            whoProfile="user"
+          />
+          <PostsList
+            whoProfile="user"
+            postsCount={accountData.cnt}
+            linkTo="/recipeRegistration"
+            buttonText="첫 레시피 등록하기"
+            postsRecipeList={accountData.recipes}
+          />
+          <Footer page="account" />
+        </>
+      ) : (
+        <>
+          <Header hasBackBtn={true} handleBackBtnClick={handleBackBtnClick} />
+          <ProfileSection
+            // userId={userId}
+            postsCount={accountData.cnt}
+            name={userNickname}
+            setUserNickname={setUserNickname}
+            whoProfile="notUser"
+          />
+          <PostsList
+            whoProfile="user"
+            postsCount={accountData.cnt}
+            linkTo="/recipeRegistration"
+            buttonText="등록된 레시피가 없습니다."
+            postsRecipeList={accountData.recipes}
+          />
+        </>
+      )}
     </>
   );
 };
