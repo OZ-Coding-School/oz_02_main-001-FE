@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { NotificationType } from "src/types/notificationItemType";
 
 interface NotificationItemProps {
@@ -6,6 +7,7 @@ interface NotificationItemProps {
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
+  const navigate = useNavigate();
   const today = new Date();
   const formattedDate = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, "0")}.${String(today.getDate()).padStart(2, "0")}`;
 
@@ -21,8 +23,12 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
     reply: "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?",
   };
 
+  const handleClick = () => {
+    navigate(`/recipe/${notice.recipeId}`);
+  };
+
   return (
-    <div className="relative">
+    <div className="relative" onClick={handleClick} style={{ cursor: `pointer` }}>
       {!notice.isRead && (
         <div className="absolute mt-2 right-[6px] h-[5px] w-[5px] bg-red-500 rounded-full"></div>
       )}
