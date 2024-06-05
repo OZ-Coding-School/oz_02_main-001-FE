@@ -1,8 +1,8 @@
 export type NotificationType = {
-  id?: number;
-  user: string;
+  recipeId?: number; //백엔드에 요청함
+  nickname: string;
   title: string;
-  like: string;
-  reply: string;
-  isRead: boolean;
+  type: string;
+  status: number;
+  date: string;
 };
