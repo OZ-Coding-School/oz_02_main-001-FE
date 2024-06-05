@@ -13,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({ page }) => {
         <FooterItem page={page} title="refrigerator" moveTo="/refrigerator" />
         <FooterItem page={page} title="recipeRegistration" moveTo="/recipeRegistration" />
         <FooterItem page={page} title="bookmark" moveTo="/bookmark" />
-        <FooterItem page={page} title="account" moveTo="/account" />
+        <FooterItem page={page} title="account" moveTo="/profile/0" />
       </div>
     </div>
   );
