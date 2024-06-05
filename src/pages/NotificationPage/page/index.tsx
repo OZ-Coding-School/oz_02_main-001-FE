@@ -13,14 +13,14 @@ const NotificationPage = () => {
   const dummyData: NotificationType[] = [
     {
       nickname: "2400번째 냉장고",
-      title: "토마토 달걀볶음",
+      title: "스페셜 토마토 간장 달걀볶음 마라탕",
       type: "like",
       status: 1,
       date: "2024-06-04",
     },
     {
-      nickname: "2번째 냉장고",
-      title: "오징어 김밥",
+      nickname: "300000번째 냉장고",
+      title: "북극해 크릴 통새우 마요 누드김밥",
       type: "comment",
       status: 1,
       date: "2024-06-04",
