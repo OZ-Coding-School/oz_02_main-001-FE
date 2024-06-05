@@ -12,7 +12,7 @@ const ProceedModal: React.FC<ModalProps> = ({
   handleRightClick,
 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
       <div
         className="bg-white p-8 shadow-lg rounded-[4px] w-72 border border-[#C2C2C2]"
         onClick={(e) => e.stopPropagation()}
