@@ -29,13 +29,13 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
       {notice.status === 1 && (
         <div className="absolute mt-1 right-[6px] h-[5px] w-[5px] bg-red-500 rounded-full"></div>
       )}
-      <div className="pl-4 pr-4">
-        <div className="pt-2">
+      <div className="pt-2 pl-4 pr-4">
+        <div className="mt-3 leading-tight">
           <span className="text-xs">
             <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
           </span>
         </div>
-        <div className="mt-1">
+        <div className="mt-2">
           <span className="text-gray-400 text-[12px]">
             {notice.type === "like"
               ? "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?"
