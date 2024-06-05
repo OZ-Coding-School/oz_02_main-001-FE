@@ -12,7 +12,7 @@ interface BigButtonProps {
 const BigButton: React.FC<BigButtonProps> = ({ handleClick, buttonText, disabled }) => {
   return (
     <button
-      className={`${buttonText === "첫 레시피 등록하기" || "등록된 레시피가 없습니다." ? "w-[60%]" : "w-full"}  h-[48px] rounded-[6px] text-[16px] text-center ${buttonText === "재료 더 보기" || "재료 접기" ? "text-midnightGray bg-iceBlue" : "text-redPink bg-softPink"} `}
+      className={`${buttonText === "첫 레시피 등록하기" || buttonText === "등록된 레시피가 없습니다." ? "w-[60%]" : "w-full"}  h-[48px] rounded-[6px] text-[16px] text-center ${buttonText === "재료 더 보기" || buttonText === "재료 접기" ? "text-midnightGray bg-iceBlue" : "text-redPink bg-softPink"} `}
       onClick={handleClick}
       disabled={disabled}
     >
