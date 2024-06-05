@@ -22,19 +22,19 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="relative">
       {!notice.isRead && (
         <div className="absolute mt-2 right-[6px] h-[5px] w-[5px] bg-red-500 rounded-full"></div>
       )}
       <div className="pt-3">
-        <span className="ml-4 text-sm">
-          <strong>{notice.user}</strong>님이 {notice.title} 레시피에 {action.message}
+        <span className="ml-2 text-sm">
+          <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {action.message}
         </span>
       </div>
-      <div className="ml-4 mt-2">
+      <div className="ml-2 mt-2">
         <span className="text-gray-400 text-sm">{actionMessageMap[action.type]}</span>
       </div>
-      <div className="ml-4 mt-4 mb-3">
+      <div className="ml-2 mt-3 mb-3">
         <span className="text-gray-400 text-xs">{formattedDate}</span>
       </div>
       <div className="border"></div>
