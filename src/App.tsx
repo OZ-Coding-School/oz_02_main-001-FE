@@ -13,7 +13,6 @@ import IngredientSelectionPage from "./pages/IngredientSelectionPage/page";
 import RecipeRegistrationPage from "./pages/RecipeRegistrationPage/page";
 import BookMarkPage from "./pages/BookMarkPage/page";
 import LikedPage from "./pages/LikedPage/page/index";
-import MyPage from "./pages/MyPage/page";
 import ProfilePage from "./pages/ProfilePage/page";
 import RecommendedRecipePage from "./pages/RecommendedRecipePage/page";
 import ErrorPage from "./pages/ErrorPage";
@@ -37,7 +36,6 @@ function App() {
           <Route path="/recipeRegistration" element={<RecipeRegistrationPage />} />
           <Route path="/bookmark" element={<BookMarkPage />} />
           <Route path="/liked" element={<LikedPage />} />
-          <Route path="/account" element={<MyPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="*" element={<ErrorPage />} />
