@@ -13,6 +13,7 @@ import CommentSection from "../components/comment/CommentSection";
 import mmainImage from "@assets/images/김치볶음밥.png";
 import cookImage from "@assets/images/cookImage.jpg";
 import basicProfileImage from "@assets/images/basicProfile.jpg";
+import { useParams } from "react-router-dom";
 
 const RecipeData: RecipeDataType = {
   canUpdate: 1,

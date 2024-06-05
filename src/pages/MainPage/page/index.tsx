@@ -2,33 +2,16 @@ import Footer from "@components/footer/Footer";
 import MainHeader from "@components/header/MainHeader";
 import Modal from "../components/Modal";
 import React, { useEffect, useState } from "react";
-import gimchi from "@assets/images/김치볶음밥.png";
-import recipeImg from "@assets/images/recipe.png";
-
-const mainPageData = {
-  best: [
-    {
-      userNickname: "101번째 냉장고",
-      title: "김치볶음밥",
-      image: gimchi,
-      like: 100,
-    },
-    {
-      userNickname: "2000번째 냉장고",
-      title: "둘이서 먹다 하나가 죽어도 모를 음식",
-      image: recipeImg,
-      scrap: 67,
-    },
-  ],
-  daily: [],
-};
+import BestRecipeList from "../components/BestRecipeList";
+import { mainPageData } from "../data/mainPageData";
+import CategorySectionList from "../components/CategorySectionList";
 
 const MainPage: React.FC = () => {
   const [isMainPageModalOpen, setIsMainPageModalOpen] = useState(false);
 
   useEffect(() => {
     // api에서 데이터 받아와야함
-    setIsMainPageModalOpen(true);
+    setIsMainPageModalOpen(false);
   }, []);
 
   const handleCloseModal = () => {
@@ -43,7 +26,39 @@ const MainPage: React.FC = () => {
   return (
     <div>
       <MainHeader />
-      <p>MainPage</p>
+      <div className="pt-5 pb-[70px] px-7 flex flex-col gap-y-[20px]">
+        <div>
+          <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
+          <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
+        </div>
+        <BestRecipeList mainPageData={mainPageData} />
+        <div className="flex flex-col gap-y-10">
+          <CategorySectionList
+            mainPageData={mainPageData}
+            categoryName="daily"
+            category="일상요리"
+            categoryDescription="everyday cooking recipes"
+          />
+          <CategorySectionList
+            mainPageData={mainPageData}
+            categoryName="healthy"
+            category="건강식"
+            categoryDescription="healthy cooking recipes"
+          />
+          <CategorySectionList
+            mainPageData={mainPageData}
+            categoryName="midnight"
+            category="야식"
+            categoryDescription="dessert cooking recipes"
+          />
+          <CategorySectionList
+            mainPageData={mainPageData}
+            categoryName="desert"
+            category="디저트"
+            categoryDescription="midnight food recipes"
+          />
+        </div>
+      </div>
       <Modal
         isOpen={isMainPageModalOpen}
         handleCloseModal={handleCloseModal}

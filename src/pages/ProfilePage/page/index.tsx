@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountHeader from "@components/header/AccountHeader";
 import Footer from "@components/footer/Footer";
-import { accountData } from "../data/dummyData";
+import { accountData, accountData2 } from "../data/dummyData";
 import ProfileSection from "../components/ProfileSection";
 import PostsList from "../components/PostsList";
 
@@ -11,7 +11,6 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   // api로 보낼때 쓰는 id
   const { userId } = useParams();
-
   const [userNickname, setUserNickname] = useState<string>("");
 
   useEffect(() => {
@@ -32,7 +31,7 @@ const ProfilePage: React.FC = () => {
             postsCount={accountData.cnt}
             name={userNickname}
             setUserNickname={setUserNickname}
-            whoProfile="user"
+            userId={userId}
           />
           <PostsList
             whoProfile="user"
@@ -47,18 +46,17 @@ const ProfilePage: React.FC = () => {
         <>
           <Header hasBackBtn={true} handleBackBtnClick={handleBackBtnClick} />
           <ProfileSection
-            // userId={userId}
-            postsCount={accountData.cnt}
+            postsCount={accountData2.cnt}
+            userId={userId}
             name={userNickname}
             setUserNickname={setUserNickname}
-            whoProfile="notUser"
           />
           <PostsList
             whoProfile="user"
-            postsCount={accountData.cnt}
+            postsCount={accountData2.cnt}
             linkTo="/recipeRegistration"
             buttonText="등록된 레시피가 없습니다."
-            postsRecipeList={accountData.recipes}
+            postsRecipeList={accountData2.recipes}
           />
         </>
       )}

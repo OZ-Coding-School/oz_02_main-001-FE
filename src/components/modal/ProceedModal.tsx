@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ModalProps {
   proceedQuestionText: string;
@@ -11,8 +11,20 @@ const ProceedModal: React.FC<ModalProps> = ({
   handleLeftClick,
   handleRightClick,
 }) => {
+  useEffect(() => {
+    // 모달이 열릴 때 body의 overflow를 hidden으로 설정
+    document.body.style.overflow = "hidden";
+    return () => {
+      // 모달이 닫힐 때 body의 overflow를 원래대로 되돌림
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-100"
+      onClick={(e) => e.stopPropagation()}
+    >
       <div
         className="bg-white p-8 shadow-lg rounded-[4px] w-72 border border-[#C2C2C2]"
         onClick={(e) => e.stopPropagation()}

@@ -7,17 +7,15 @@ import { accountData } from "../data/dummyData";
 
 interface ProfileSectionProps {
   name: string;
-  userId?: number;
   postsCount: number;
+  userId: string | undefined;
   setUserNickname: React.Dispatch<React.SetStateAction<string>>;
-  whoProfile: string;
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({
   name,
-  userId,
   setUserNickname,
-  whoProfile,
+  userId,
   postsCount,
 }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -80,7 +78,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
       <div className="flex ml-[6%] mr-[2%] items-center my-10">
         <div className="flex gap-[20px] ">
           <div>
-            {whoProfile === "user" ? (
+            {userId === "0" ? (
               <>
                 <img
                   src={image}
@@ -105,6 +103,13 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               </>
             )}
           </div>
+          {showModal && (
+            <ProceedModal
+              proceedQuestionText="이미지를 삭제 하시겠습니까?"
+              handleLeftClick={handleDeleteImage}
+              handleRightClick={handleCloseModal}
+            />
+          )}
           <div className="flex flex-col justify-center gap-y-1">
             <h2 className="text-[19px] font-semibold flex flex-row gap-[10px]">
               {isEdit ? (
@@ -127,7 +132,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
               ) : (
                 <>
                   {name}{" "}
-                  {whoProfile === "user" && (
+                  {userId === "0" && (
                     <AiOutlineEdit
                       color="#F78181"
                       className="cursor-pointer"
@@ -144,13 +149,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
           </div>
         </div>
       </div>
-      {showModal && (
-        <ProceedModal
-          proceedQuestionText="이미지를 삭제 하시겠습니까?"
-          handleLeftClick={handleDeleteImage}
-          handleRightClick={handleCloseModal}
-        />
-      )}
     </>
   );
 };
