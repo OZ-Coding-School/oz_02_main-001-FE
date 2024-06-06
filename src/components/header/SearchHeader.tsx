@@ -14,7 +14,7 @@ const SearchHeader: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center h-[50px] relative border-b-[1px]">
+    <div className="flex items-center h-[50px] sticky top-0 border-b-[1px] bg-white z-[10]">
       <BackButton handleClick={handleClick} />
       <div className="flex w-[450px] cursor-pointer relative">
         <input

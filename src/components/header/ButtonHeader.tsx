@@ -28,7 +28,7 @@ const ButtonHeader: React.FC<ButtonHeaderProps> = ({
   handleButtonClick,
 }) => {
   return (
-    <div className="flex justify-center items-center h-[50px] relative border-b-[1px]">
+    <div className="flex justify-center items-center h-[50px] sticky top-0 bg-white z-[10] border-b-[1px]">
       {hasBackButton && (
         <div className="absolute left-0">
           <BackButton handleClick={handleBackBtnClick!} />
