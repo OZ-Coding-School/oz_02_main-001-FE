@@ -43,7 +43,7 @@ const PostsList: React.FC<PostsListProps> = ({
         </>
       ) : (
         <>
-          <div className="grid grid-cols-3 gap-[1px] p-3 pb-[50px]">
+          <div className="grid grid-cols-3 gap-[1px] p-3">
             {postsRecipeList.map((recipeItem, index) => (
               <Link
                 to={`/recipe/:${recipeItem.id}`}
