@@ -16,14 +16,7 @@ const SecondStep: React.FC = () => {
   const [isDeleteButtonClick, setIsDeleteButtonClick] = useState<boolean>(false);
 
   const handleAddClick = () => {
-    setIngredients((prev) => [
-      ...prev,
-      {
-        name: "",
-        quantity: 0,
-        unit: "",
-      },
-    ]);
+    setIngredients((prev) => [...prev, initialIngredientData]);
   };
 
   const handleDeleteClick = () => {

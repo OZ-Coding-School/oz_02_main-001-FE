@@ -42,7 +42,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ recipeDataImage }) => {
     <>
       <div className="size-full cursor-pointer" onClick={handleMainImageClick}>
         {image ? (
-          <img src={image} className="rounded-[5px] size-full" />
+          <img src={image} className="rounded-[5px] size-full object-cover" />
         ) : (
           <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
             <FaRegImages className="size-[25%]" />
