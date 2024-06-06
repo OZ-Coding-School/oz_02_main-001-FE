@@ -31,7 +31,7 @@ const SecondStep: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center ">
         <Label name="요리 재료" />
         {ingredients.length !== 1 &&
           (isDeleteButtonClick ? (
@@ -44,32 +44,34 @@ const SecondStep: React.FC = () => {
             </div>
           ))}
       </div>
-      {ingredients.map((ingredient, index) => (
-        <div className="flex gap-1 ">
-          <div
-            key={index}
-            className={`flex flex-col gap-2 ${!isDeleteButtonClick ? "w-full" : "w-[420px]"}`}
-          >
-            <Input placeholder="재료명" maxLength={10} />
-            <div className="flex gap-2">
-              <div className="w-[50%]">
-                <Input placeholder="수량" maxLength={20} />
-              </div>
-              <div className="w-[50%]">
-                <SelectBox options={units} placeholder="단위" />
-              </div>
-            </div>
-          </div>
-          {isDeleteButtonClick && (
+      <div className="flex flex-col gap-6">
+        {ingredients.map((ingredient, index) => (
+          <div className="flex gap-1 ">
             <div
-              className="flex justify-center items-center w-[50px] h-[108px]"
-              onClick={handleMinusClick}
+              key={index}
+              className={`flex flex-col gap-2 ${!isDeleteButtonClick ? "w-full" : "w-[420px]"}`}
             >
-              <FiMinusCircle className="size-[24px]" />
+              <Input placeholder="재료명" maxLength={10} />
+              <div className="flex gap-2">
+                <div className="w-[50%]">
+                  <Input placeholder="수량" maxLength={20} />
+                </div>
+                <div className="w-[50%]">
+                  <SelectBox options={units} placeholder="단위" />
+                </div>
+              </div>
             </div>
-          )}
-        </div>
-      ))}
+            {isDeleteButtonClick && (
+              <div
+                className="flex justify-center items-center w-[50px] h-[108px]"
+                onClick={handleMinusClick}
+              >
+                <FiMinusCircle className="size-[24px]" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
 
       <div className="w-[100px]">
         <RectangularSmallButton buttonText="재료 추가" handleClick={handleAddClick} />

@@ -16,26 +16,29 @@ const ThirdStep: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <>
       <Label name="요리  순서" />
-      {steps.map((step, index) => (
-        <div className="grid gap-3 w-full">
-          <div className="flex justify-between">
-            <StepBadge step={index + 1} />
-            {steps.length > 1 && <FiMinusCircle className="size-[24px] text-[#000000]/40" />}
-          </div>
-          <div className="flex gap-2">
-            <div className="size-[100px]">
-              <ImageUpload recipeDataImage={step.image} />
+      <div className="flex flex-col gap-6">
+        {steps.map((step, index) => (
+          <div className="grid gap-3 w-full">
+            <div className="flex justify-between">
+              <StepBadge step={index + 1} />
+              {steps.length > 1 && <FiMinusCircle className="size-[24px] text-[#000000]/40" />}
             </div>
-            <textarea className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none" />
+            <div className="flex gap-2">
+              <div className="size-[100px]">
+                <ImageUpload recipeDataImage={step.image} />
+              </div>
+              <textarea className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none" />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
       <div className="w-[100px]">
         <RectangularSmallButton buttonText="Step 추가" handleClick={handleAddClick} />
       </div>
-    </div>
+    </>
   );
 };
 
