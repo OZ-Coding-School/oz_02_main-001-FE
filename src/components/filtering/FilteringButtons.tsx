@@ -9,7 +9,7 @@ const FilteringButtons: React.FC = () => {
   };
 
   return (
-    <div className="flex gap-2 px-3 pt-3">
+    <div className="flex w-[300px] gap-2 px-3 pt-3">
       <RectangularSmallButton
         buttonText="추천순"
         handleClick={() => handleClick("추천순")}

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
  */
 const AccountHeader: React.FC = () => {
   return (
-    <div className="flex justify-end items-center h-[50px] relative border-b-[1px] cursor-pointer">
+    <div className="flex justify-end items-center h-[50px] sticky top-0 z-[10] bg-white border-b-[1px] cursor-pointer">
       <Link to="/liked" className="flex justify-center items-center w-[40px] h-[50px]">
         <PiHeartStraightBold className="w-[24px] h-[24px]" />
       </Link>

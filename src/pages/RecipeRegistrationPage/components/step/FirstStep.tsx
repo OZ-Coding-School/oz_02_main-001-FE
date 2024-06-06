@@ -1,26 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Label from "../Label";
+import Input from "../input/Input";
+import SelectBox from "../selectbox/SelectBox";
+import ImageUpload from "../imageUpload/ImageUpload";
 
-const FirstStep: React.FC = () => {
+interface FirstStepProps {
+  recipeData: RecipeRegistrationDataType;
+  setRecipeData: React.Dispatch<React.SetStateAction<RecipeRegistrationDataType>>;
+}
+
+const FirstStep: React.FC<FirstStepProps> = ({ recipeData, setRecipeData }) => {
+  const categories = ["일상요리", "건강요리", "야식", "디저트"];
+
   return (
     <>
       <Label name="레시피 이름" />
-      <input
-        type="text"
-        className="border border-softBlue h-[50px] rounded-[5px] p-3 focus:outline-none"
-        placeholder="최대 30글자까지 입력할 수 있어요."
-      />
-
+      <Input placeholder="최대 30글자까지 입력할 수 있어요." maxLength={5} />
       <Label name="완성 사진" />
-      <input type="file" />
+      <div className="size-[180px]">
+        <ImageUpload recipeDataImage={recipeData.mainImage} />
+      </div>
 
       <Label name="카테고리" />
-      <select className="w-[100px]">
-        <option>일상요리</option>
-        <option>건강요리</option>
-        <option>야식</option>
-        <option>디저트</option>
-      </select>
+      <div className="w-[100px]">
+        <SelectBox options={categories} placeholder="카테고리" />
+      </div>
     </>
   );
 };

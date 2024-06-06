@@ -18,7 +18,7 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
     navigate(-1);
   };
   return (
-    <div className="flex justify-between items-center h-[50px] relative border-b-[1px]">
+    <div className="flex justify-between items-center h-[50px] sticky top-0 bg-white z-[10] border-b-[1px]">
       <BackButton handleClick={handleClick} />
       <div className="flex ">
         <div className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer">
