@@ -10,7 +10,7 @@ import { useRecipeStore } from "@store/useRecipeStore";
 const RecipeRegistrationPage: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   const [isValid, setIsValid] = useState<boolean>(false);
-  const { recipeData, setRecipeData } = useRecipeStore();
+  // const { recipeData, setRecipeData } = useRecipeStore();
 
   const handleBackButtonClick = () => {
     setStep((prev) => (prev === 1 ? prev : --prev));
