@@ -2,7 +2,7 @@ export type RefrigeratorType = {
   nickname: string;
   ingredients: [
     {
-      id?: number;
+      id: number;
       name: string;
     },
   ];
