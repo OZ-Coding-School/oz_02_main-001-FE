@@ -26,7 +26,7 @@ const MainPage: React.FC = () => {
   return (
     <div>
       <MainHeader />
-      <div className="pt-5 pb-[70px] px-7 flex flex-col gap-y-[20px]">
+      <div className="pt-5 px-7 flex flex-col gap-y-[20px]">
         <div>
           <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
           <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
