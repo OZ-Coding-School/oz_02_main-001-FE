@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { PiHamburger } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import { RefrigeratorType } from "src/types/refrigeratorType";
 
 interface RefrigeratorItemProps {
   refrigerator: RefrigeratorType;
+  ingredients: Array<{ id: number; name: string }>;
+  isDeletedMode: boolean;
+  handleDeleteClick: () => void;
+  deleteAllIngredients: () => void;
 }
 
-const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({ refrigerator }) => {
+const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
+  refrigerator,
+  ingredients,
+  isDeletedMode,
+  handleDeleteClick,
+  deleteAllIngredients,
+}) => {
   const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/ingredientList/`);
-  };
+  const hasIngredientsWithName = ingredients.some((ingredient) => ingredient.name);
 
   return (
     <div>
@@ -23,15 +30,32 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({ refrigerator }) => 
         <span className="text-gray-400">{refrigerator.nickname}님의 냉장고</span>
       </div>
       <div className="mt-4 absolute right-[22px]">
+        {hasIngredientsWithName && (
+          <button
+            onClick={handleDeleteClick}
+            className={`border border-solid ${isDeletedMode ? "bg-gray-200" : "bg-white"} rounded-[4px] pl-[14px] pr-[14px] pt-[2px] pb-[2px] mb-2 mr-4`}
+            style={{ minWidth: "90px" }}
+          >
+            <span className="text-sm font-medium" style={{ letterSpacing: "0.1em" }}>
+              {isDeletedMode ? "완료" : "재료 삭제"}
+            </span>
+          </button>
+        )}
         <button
-          onClick={handleClick}
-          className="border border-solid border-redPink rounded-[4px] pl-[14px] pr-[14px] pt-[2px] pb-[2px]"
+          onClick={() => {
+            if (isDeletedMode) {
+              deleteAllIngredients();
+            } else {
+              navigate(`/ingredientList/`);
+            }
+          }}
+          className={`border border-solid ${isDeletedMode ? "text-black" : "text-redPink"} rounded-[4px] pl-[14px] pr-[14px] pt-[2px] pb-[2px]`}
         >
           <span
-            className="text-redPink w-full text-sm font-medium"
+            className={`${isDeletedMode ? "text-black" : "text-redPink"} w-full text-sm font-medium`}
             style={{ letterSpacing: "0.1em" }}
           >
-            + 재료 추가
+            {isDeletedMode ? "모두 삭제" : "+ 재료 추가"}
           </span>
         </button>
       </div>
