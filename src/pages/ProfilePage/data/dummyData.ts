@@ -1,6 +1,7 @@
 import { AccountDataType } from "src/types/accountRecipeType";
 import noProfile from "@assets/images/noProfile.png";
 import recipeImg from "@assets/images/recipe.png";
+import kimchi from "@assets/images/김치볶음밥.png";
 
 export const accountData: AccountDataType = {
   image: noProfile,
@@ -24,5 +25,20 @@ export const accountData: AccountDataType = {
     { id: 15, recipeImage: recipeImg },
     { id: 16, recipeImage: recipeImg },
     { id: 17, recipeImage: recipeImg },
+  ],
+};
+
+export const accountData2: AccountDataType = {
+  image: noProfile,
+  nickname: "1012번째 냉장고",
+  cnt: 7,
+  recipes: [
+    { id: 1, recipeImage: kimchi },
+    { id: 2, recipeImage: kimchi },
+    { id: 3, recipeImage: kimchi },
+    { id: 4, recipeImage: kimchi },
+    { id: 5, recipeImage: kimchi },
+    { id: 6, recipeImage: kimchi },
+    { id: 7, recipeImage: kimchi },
   ],
 };

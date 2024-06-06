@@ -21,7 +21,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ hasBackBtn, title, hasBell, handleBackBtnClick }) => {
   return (
-    <div className="flex justify-center items-center h-[50px] relative border-b-[1px]">
+    <div className="flex justify-center items-center h-[50px] sticky top-0 z-[10] bg-white border-b-[1px]">
       {hasBackBtn && (
         <div className="absolute left-0">
           <BackButton handleClick={handleBackBtnClick!} />

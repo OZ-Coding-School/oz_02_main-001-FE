@@ -43,17 +43,18 @@ const PostsList: React.FC<PostsListProps> = ({
         </>
       ) : (
         <>
-          <div className="grid grid-cols-3 gap-[1px] p-3 pb-[50px]">
+          <div className="grid grid-cols-3 gap-[1px] p-3">
             {postsRecipeList.map((recipeItem, index) => (
               <Link
-                to={`/recipe/:${recipeItem.id}`}
+                to={`/recipe/${recipeItem.id}`}
                 key={index}
-                className="w-full h-[150.66px] rounded-[6px] border border-gray-200 cursor-pointer"
+                className="w-full cursor-pointer relative"
+                style={{ aspectRatio: "1 / 1" }}
               >
                 <img
                   src={recipeItem.recipeImage}
                   alt="레시피 완성 이미지"
-                  className=" rounded-[6px] w-full h-full"
+                  className="rounded-[6px] w-full h-full object-cover"
                 />
               </Link>
             ))}

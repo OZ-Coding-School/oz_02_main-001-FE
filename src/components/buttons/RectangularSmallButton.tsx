@@ -18,7 +18,7 @@ const RectangularSmallButton: React.FC<RectangularSmallButtonProps> = ({
 }) => {
   return (
     <button
-      className={`font-semibold text-sm border px-[10px] py-[6px] min-h-[32px] min-w-[79px] rounded-[6px] text-midnightGray  
+      className={`font-semibold text-sm border px-[10px] py-[6px] w-full min-h-[32px] min-w-[79px] rounded-[6px] text-midnightGray  
       ${isActive ? "bg-softBlue border-[#B6C3D0]" : "bg-[#FFFFFF] border-cloudGray"}
       ${buttonText === "완료" ? "bg-gray-100" : buttonText === "재료 추가" && "text-redPink border-redPink"}`}
       onClick={handleClick}
