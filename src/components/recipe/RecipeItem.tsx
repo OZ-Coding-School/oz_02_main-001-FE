@@ -2,25 +2,24 @@ import React from "react";
 import Like from "./Like";
 import Scrap from "./Scrap";
 import { RecipeType } from "src/types/recipeItemType";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface RecipeItemProps {
   recipe: RecipeType;
 }
 
 const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/recipe/${recipe.id}`);
-  };
-
   return (
-    <div
+    <Link
+      to={`/recipe/${recipe.id}`}
       className="border border-[#D7D7D7] rounded-md p-2 flex items-center gap-3"
-      onClick={handleClick}
     >
-      <div className="w-[110px] h-[110px]">
-        <img src={recipe.image} className="w-full h-full rounded-[5px]" />
+      <div className="w-[30%]">
+        <img
+          src={recipe.image}
+          className="w-full h-full rounded-[5px] object-cover"
+          style={{ aspectRatio: "1/1" }}
+        />
       </div>
       <div className="h-[110px] flex flex-col justify-between">
         <div className="flex flex-col items-left">
@@ -36,7 +35,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
