@@ -6,7 +6,7 @@ import BigButton from "@components/buttons/BigButton";
 import { useNavigate } from "react-router";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const RefrigeratorPage = () => {
+const RefrigeratorPage: React.FC = () => {
   const navigate = useNavigate();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [ingredients, setIngredients] = useState([
