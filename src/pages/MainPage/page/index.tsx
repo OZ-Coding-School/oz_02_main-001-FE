@@ -46,12 +46,12 @@ const MainPage: React.FC = () => {
           <CategorySectionList
             mainPageData={mainPageData}
             categoryName="healthy"
-            category="건강식"
+            category="건강요리"
             categoryDescription="healthy cooking recipes"
           />
           <CategorySectionList
             mainPageData={mainPageData}
-            categoryName="midnight"
+            categoryName="midnightSnack"
             category="야식"
             categoryDescription="dessert cooking recipes"
           />
