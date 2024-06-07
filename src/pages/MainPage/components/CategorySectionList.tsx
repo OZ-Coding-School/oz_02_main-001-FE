@@ -36,7 +36,7 @@ const CategorySectionList: React.FC<CategorySectionListProps> = ({
         </div>
         <p className="text-[14px] text-gray-400">{categoryDescription}</p>
         <Swiper
-          slidesPerView={2}
+          slidesPerView={1.6}
           spaceBetween={20}
           freeMode={true}
           modules={[FreeMode]}
