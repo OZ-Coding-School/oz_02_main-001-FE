@@ -2,17 +2,21 @@ import React from "react";
 import Like from "./Like";
 import Scrap from "./Scrap";
 import { RecipeType } from "src/types/recipeItemType";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface RecipeItemProps {
   recipe: RecipeType;
 }
 
 const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
+  const navigate = useNavigate();
+  const handleRecipeItemClick = (): void => {
+    navigate(`/recipe/${recipe.id}`);
+  };
   return (
-    <Link
-      to={`/recipe/${recipe.id}`}
+    <div
       className="border border-[#D7D7D7] rounded-md p-2 flex items-center gap-3"
+      onClick={handleRecipeItemClick}
     >
       <div className="w-[30%]">
         <img
@@ -35,7 +39,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
           </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
