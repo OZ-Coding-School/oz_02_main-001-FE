@@ -1,6 +1,6 @@
 import React from "react";
 
-const RecipeListPage = () => {
+const RecipeListPage: React.FC = () => {
   return <div>RecipeListPage</div>;
 };
 
