@@ -29,7 +29,7 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
         </div>
         <span className="text-gray-400">{refrigerator.nickname}님의 냉장고</span>
       </div>
-      <div className="mt-4 absolute right-[22px]">
+      <div className="mt-4 absolute right-[28px]">
         {hasIngredientsWithName && (
           <button
             onClick={handleDeleteClick}
