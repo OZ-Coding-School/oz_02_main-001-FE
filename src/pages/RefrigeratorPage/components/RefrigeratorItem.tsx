@@ -36,7 +36,6 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
             <RectangularSmallButton
               handleClick={handleDeleteClick}
               buttonText={isDeletedMode ? "완료" : "재료 삭제"}
-              isActive={!isDeletedMode}
             />
           </div>
         )}
@@ -50,7 +49,6 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
               }
             }}
             buttonText={isDeletedMode ? "모두 삭제" : "재료 추가"}
-            isActive={!isDeletedMode}
           />
         </div>
       </div>
