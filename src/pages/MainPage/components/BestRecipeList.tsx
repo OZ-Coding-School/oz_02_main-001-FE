@@ -9,7 +9,7 @@ interface BestRecipeListProps {
 const BestRecipeList: React.FC<BestRecipeListProps> = ({ mainPageData }) => {
   return (
     <>
-      <div className="flex flex-col gap-y-5">
+      <div className="flex flex-col gap-y-5 p-4">
         <BestRecipeItem categoryData={mainPageData.best[0]} />
         <BestRecipeItem categoryData={mainPageData.bestBookmarked[0]} isBestBookmarked={true} />
       </div>
