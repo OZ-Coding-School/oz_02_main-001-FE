@@ -9,12 +9,16 @@ interface CategorySectionItemProps {
 }
 
 const CategorySectionItem: React.FC<CategorySectionItemProps> = ({ data, index }) => {
+  const navigate = useNavigate();
+  const handleRecipeItemClick = (): void => {
+    navigate(`/recipe/${data.recipeId}`);
+  };
   return (
     <>
-      <Link
-        to={`/recipe/${data.recipeId}`}
+      <div
         key={index}
         className="flex flex-col w-full relative cursor-pointer"
+        onClick={handleRecipeItemClick}
       >
         <div className="w-full h-full mt-5 mb-3 border border-gray-200 rounded-[8px] overflow-hidden">
           <img
@@ -29,7 +33,7 @@ const CategorySectionItem: React.FC<CategorySectionItemProps> = ({ data, index }
           <span className="text-[12px] font-light">{data.userNickname}</span>
           <Like like={data.likesCount} likeStatus={data.likesStatus} />
         </div>
-      </Link>
+      </div>
     </>
   );
 };
