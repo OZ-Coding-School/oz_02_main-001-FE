@@ -6,7 +6,7 @@ interface ButtonHeaderProps {
   hasBackButton: boolean;
   title: string;
   buttonText: string;
-  disabled: boolean;
+  disabled?: boolean;
   handleBackBtnClick: () => void;
   handleButtonClick: () => void;
 }

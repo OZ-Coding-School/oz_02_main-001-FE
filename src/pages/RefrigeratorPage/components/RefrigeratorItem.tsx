@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { PiHamburger } from "react-icons/pi";
 import { useNavigate } from "react-router";
 import { RefrigeratorType } from "src/types/refrigeratorType";
 
 interface RefrigeratorItemProps {
   refrigerator: RefrigeratorType;
-  ingredients: Array<{ id: number; name: string }>;
+  ingredients: { id: number; name: string }[];
   isDeletedMode: boolean;
   handleDeleteClick: () => void;
   deleteAllIngredients: () => void;
