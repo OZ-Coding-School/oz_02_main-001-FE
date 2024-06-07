@@ -7,6 +7,7 @@ import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
 
 const IngredientSelectionPage: React.FC = () => {
+
   const navigate = useNavigate();
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const ingredients = [
@@ -86,6 +87,7 @@ const IngredientSelectionPage: React.FC = () => {
       </footer>
     </div>
   );
+
 };
 
 export default IngredientSelectionPage;
