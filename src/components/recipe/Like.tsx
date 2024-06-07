@@ -21,7 +21,7 @@ const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
 
   return (
     <div className="flex items-center">
-      <button className={`focus:outline-none transition-colors text-redPink `} onClick={handleLike}>
+      <button className={`focus:outline-none transition-colors text-redPink`} onClick={handleLike}>
         <svg
           className="w-6 h-6"
           fill={likeState.isLiked ? "currentColor" : "none"}
