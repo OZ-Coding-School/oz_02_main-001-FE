@@ -1,7 +1,7 @@
 import FilteringButtons from "@components/filtering/FilteringButtons";
 import Header from "@components/header/Header";
 import RecipeList from "@components/recipe/RecipeList";
-import React, { useEffect } from "react";
+import React from "react";
 import { data } from "../../SearchPage/page";
 import { useNavigate, useParams } from "react-router-dom";
 
