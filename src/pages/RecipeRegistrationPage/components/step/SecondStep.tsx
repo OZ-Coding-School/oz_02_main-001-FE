@@ -4,14 +4,9 @@ import SelectBox from "../selectbox/SelectBox";
 import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import Label from "../Label";
 import { FiMinusCircle } from "react-icons/fi";
-import IngredientBox from "../ingredientbox/IngredientBox";
 import { useRecipeStore } from "@store/useRecipeStore";
 
-interface SecondStepProps {
-  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
+const SecondStep: React.FC = () => {
   const units = ["개", "컵", "큰술", "작은술", "티스푼", "ml", "g", "꼬집"];
   const initialIngredientData: IngredientType = {
     name: "",
@@ -22,6 +17,7 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const [ingredients, setIngredients] = useState<IngredientType[]>(recipeData.ingredients);
   const [isDeleteButtonClick, setIsDeleteButtonClick] = useState<boolean>(false);
   const [ingredientInputIndex, setIngredientInputIndex] = useState<number | null>(null);
+  console.log(ingredientInputIndex);
 
   const handleAddClick = () => {
     setIngredients((prev) => [...prev, initialIngredientData]);

@@ -1,6 +1,6 @@
 import React from "react";
 
-const IngredientSelectionPage = () => {
+const IngredientSelectionPage: React.FC = () => {
   return <div></div>;
 };
 

@@ -15,6 +15,10 @@ const ThirdStep: React.FC = () => {
     setSteps((prev) => [...prev, initialStepData]);
   };
 
+  const handleChange = (): void => {
+    return;
+  };
+
   return (
     <>
       <Label name="요리  순서" />
@@ -27,7 +31,7 @@ const ThirdStep: React.FC = () => {
             </div>
             <div className="flex gap-2">
               <div className="size-[100px]">
-                <ImageUpload recipeDataImage={step.image} />
+                <ImageUpload value={step.image} handleChange={handleChange} />
               </div>
               <textarea className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none" />
             </div>
