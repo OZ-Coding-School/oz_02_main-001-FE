@@ -18,7 +18,7 @@ const BestRecipeItem: React.FC<BestRecipeItemProps> = ({ categoryData, isBestBoo
   return (
     <>
       <div className="flex flex-col gap-y-2">
-        <p className="text-[20px] font-semibold">{categoryData.userNickname}님의 레시피</p>
+        <p className="text-[20px] font-semibold">{categoryData.user.nickname}님의 레시피</p>
         <div className="flex flex-row gap-x-3 cursor-pointer" onClick={handleRecipeItemClick}>
           <img
             src={categoryData.mainImage}
@@ -28,9 +28,9 @@ const BestRecipeItem: React.FC<BestRecipeItemProps> = ({ categoryData, isBestBoo
           <div className="flex flex-col justify-between">
             <p>{categoryData.title}</p>
             {!isBestBookmarked ? (
-              <Like like={categoryData.likesCount} likeStatus={categoryData.likesStatus} />
+              <Like like={categoryData.likesCount} likeStatus={categoryData.likeStatus} />
             ) : (
-              <Scrap book={categoryData.bookmarksCount} bookStatus={categoryData.bookmarksStatus} />
+              <Scrap book={categoryData.bookmarksCount} bookStatus={categoryData.bookmarkStatus} />
             )}
           </div>
         </div>

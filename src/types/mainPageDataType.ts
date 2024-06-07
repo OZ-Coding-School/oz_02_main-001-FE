@@ -1,4 +1,5 @@
 export type MainPageDataType = {
+  detailStatus: number;
   best: MainPageCategoryDataType[];
   bestBookmarked: MainPageCategoryDataType[];
   daily: MainPageCategoryDataType[];
@@ -7,13 +8,15 @@ export type MainPageDataType = {
   midnightSnack: MainPageCategoryDataType[];
 };
 export type MainPageCategoryDataType = {
-  userId: number;
   recipeId: number;
-  userNickname: string;
+  user: {
+    nickname: string;
+    id: number;
+  };
   title: string;
   mainImage: string;
-  likesStatus: number;
+  likeStatus: number;
   likesCount: number;
-  bookmarksStatus: number;
+  bookmarkStatus: number;
   bookmarksCount: number;
 };
