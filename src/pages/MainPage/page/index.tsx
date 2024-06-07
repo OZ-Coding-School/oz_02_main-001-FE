@@ -11,16 +11,20 @@ const MainPage: React.FC = () => {
 
   useEffect(() => {
     // api에서 데이터 받아와야함
-    setIsMainPageModalOpen(false);
+    mainPageData.detailStatus === 1 && setIsMainPageModalOpen(true);
   }, []);
 
   const handleCloseModal = () => {
     setIsMainPageModalOpen(false);
   };
 
-  const handleSubmitModal = (name: string, gender: string, age: number, pushContent: boolean) => {
+  const handleSubmitModal = (gender: string, age: number, alertStatus: boolean) => {
     // api로 넘겨야함
-    console.log(name, gender, age, pushContent);
+    let genderNumber = 0;
+    if (gender === "여자") {
+      genderNumber = 1;
+    }
+    console.log(genderNumber, age, alertStatus);
     setIsMainPageModalOpen(false);
   };
 

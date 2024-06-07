@@ -3,14 +3,14 @@ import React, { useState } from "react";
 interface ModalProps {
   isOpen: boolean;
   handleCloseModal: () => void;
-  onSubmit: (name: string, gender: string, age: number, pushConsent: boolean) => void;
+  onSubmit: (gender: string, age: number, alertStatus: boolean) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
-  const [pushConsent, setPushConsent] = useState(false);
+  const [alertStatus, setAlertStatus] = useState(false);
   const [warning, setWarning] = useState("");
 
   if (!isOpen) return null;
@@ -21,17 +21,21 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
       setWarning("모두 다 입력해주세요...");
       return;
     }
-    const ageNumber = parseInt(age, 10); //문자열 정수(10진수)로 변환
+    const ageNumber = Number(age);
     if (isNaN(ageNumber)) {
       setWarning("나이는 숫자로 입력해주세요.");
       return;
     }
-    onSubmit(name, gender, ageNumber, pushConsent);
+    if (gender !== "남자" && gender !== "여자") {
+      setWarning("성별은 남자 또는 여자로 입력해주세요.");
+      return;
+    }
+    onSubmit(gender, ageNumber, alertStatus);
     handleCloseModal();
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-[100]">
       <div className="bg-white p-8 rounded-lg shadow-lg w-[280px] max-w-sm mx-auto">
         <h2 className="text-xl mb-4">정보 입력</h2>
         <div className="mb-4 text-sm">
@@ -39,6 +43,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
           <input
             type="text"
             value={name}
+            placeholder="예) 홍길동"
             onChange={(e) => setName(e.target.value)}
             className="border p-2 w-full"
           />
@@ -48,6 +53,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
           <input
             type="text"
             value={gender}
+            placeholder="예) 남자 or 여자"
             onChange={(e) => setGender(e.target.value)}
             className="border p-2 w-full"
           />
@@ -57,6 +63,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
           <input
             type="text"
             value={age}
+            placeholder="예) 20"
             onChange={(e) => setAge(e.target.value)}
             className="border p-2 w-full"
           />
@@ -65,8 +72,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
           <label className="flex items-center">
             <input
               type="checkbox"
-              checked={pushConsent}
-              onChange={(e) => setPushConsent(e.target.checked)}
+              checked={alertStatus}
+              onChange={(e) => setAlertStatus(e.target.checked)}
               className="mr-2"
             />
             <span>알림 push 동의하시겠습니까?(선택)</span>
