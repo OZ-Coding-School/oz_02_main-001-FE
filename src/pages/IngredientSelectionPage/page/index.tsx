@@ -5,13 +5,11 @@ import BigButton from "@components/buttons/BigButton";
 import IngredientSelectionItem from "../components/IngredientSelectionItem";
 import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
-import BackButton from "@components/header/BackButton";
 
 const IngredientSelectionPage: React.FC = () => {
   const navigate = useNavigate();
-  const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
-  const [ingredients, setIngredients] = useState([
+  const ingredients = [
     { id: 50, name: "케찹" },
     { id: 51, name: "스팸" },
     { id: 52, name: "계란" },
@@ -21,7 +19,11 @@ const IngredientSelectionPage: React.FC = () => {
     { id: 56, name: "단무지" },
     { id: 57, name: "땅콩" },
     { id: 58, name: "초콜렛" },
-  ]);
+  ];
+
+  const handleBackBtnClick = (): void => {
+    navigate(-1);
+  };
 
   const handleRecommendedlick = () => {
     navigate(`/recommendedList`);
@@ -45,14 +47,7 @@ const IngredientSelectionPage: React.FC = () => {
 
   return (
     <div className="h-[calc(100vh-55px)] flex flex-col">
-      <div className="flex justify-center items-center w-full">
-        <div className="flex justify-start w-1/2">
-          <BackButton />
-        </div>
-        <div className="w-1/2 pr-[170px]">
-          <Header title="재료 선택" />
-        </div>
-      </div>
+      <Header hasBackBtn={true} title="재료 선택" handleBackBtnClick={handleBackBtnClick} />
       <div className="border border-solid"></div>
       <div id="content" className="flex flex-col flex-grow overflow-hidden">
         <IngredientSelectionItem
@@ -60,7 +55,6 @@ const IngredientSelectionPage: React.FC = () => {
             nickname: "50번째 냉장고",
             ingredients,
           }}
-          ingredients={ingredients}
           selectAllIngredients={selectAllIngredients}
           deselectAllIngredients={deselectAllIngredients}
           selectedIngredients={selectedIngredients}

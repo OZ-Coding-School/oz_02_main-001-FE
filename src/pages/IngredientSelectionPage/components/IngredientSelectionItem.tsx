@@ -5,18 +5,18 @@ import { RefrigeratorType } from "src/types/refrigeratorType";
 
 interface IngredientSelectionItemProps {
   refrigerator: RefrigeratorType;
-  ingredients: { id: number; name: string }[];
   selectAllIngredients: () => void;
   deselectAllIngredients: () => void;
+  selectedIngredients: number[];
 }
 
 const IngredientSelectionItem: React.FC<IngredientSelectionItemProps> = ({
   refrigerator,
-  ingredients,
   selectAllIngredients,
   deselectAllIngredients,
+  selectedIngredients,
 }) => {
-  const hasIngredientsWithName = ingredients.some((ingredient) => ingredient.name);
+  const hasSelectedIngredients = selectedIngredients.length > 0;
 
   return (
     <div>
@@ -27,14 +27,13 @@ const IngredientSelectionItem: React.FC<IngredientSelectionItemProps> = ({
         <span className="text-gray-400">{refrigerator.nickname}님의 냉장고</span>
       </div>
       <div className="mt-4 flex space-x-2 absolute right-[28px]">
+        {hasSelectedIngredients && (
+          <div className="transform scale-y-90">
+            <RectangularSmallButton handleClick={deselectAllIngredients} buttonText={"모두 취소"} />
+          </div>
+        )}
         <div className="transform scale-y-90">
-          <RectangularSmallButton handleClick={deselectAllIngredients} buttonText={"모두 취소"} />
-        </div>
-        <div className="transform scale-y-90">
-          <RectangularSmallButton
-            handleClick={() => selectAllIngredients()}
-            buttonText={"모두 선택"}
-          />
+          <RectangularSmallButton handleClick={selectAllIngredients} buttonText={"모두 선택"} />
         </div>
       </div>
       <div className="mt-[60px] border w-full px-2 h-[3px] bg-gray-100"></div>
