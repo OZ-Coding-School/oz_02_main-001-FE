@@ -1,6 +1,6 @@
 import Like from "@components/recipe/Like";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MainPageCategoryDataType } from "src/types/mainPageDataType";
 
 interface CategorySectionItemProps {
