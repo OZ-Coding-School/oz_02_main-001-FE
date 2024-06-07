@@ -1,6 +1,6 @@
 import Footer from "@components/footer/Footer";
 import Header from "@components/header/Header";
-import React, { useState } from "react";
+import { useState } from "react";
 import RefrigeratorItem from "../components/RefrigeratorItem";
 import BigButton from "@components/buttons/BigButton";
 import { useNavigate } from "react-router";
@@ -96,7 +96,7 @@ const RefrigeratorPage: React.FC = () => {
           handleDeleteClick={toggleDeleteMode}
           deleteAllIngredients={clearAllIngredients}
         />
-        <div className="flex-grow overflow-auto">
+        <div className="flex-grow overflow-auto scrollbar-hide">
           <div className="grid grid-cols-2 gap-4 p-4 pl-[22px] pr-[22px]">
             {ingredients.map((ingredient) => (
               <div
