@@ -5,7 +5,7 @@ import RecipeTitleSection from "../components/title/RecipeTitleSection";
 import PreparedIngredients from "../components/ingredient/PreparedIngredients";
 import RecipeSteps from "../components/step/RecipeSteps";
 import RecipeStory from "../components/stroy/RecipeStory";
-import DividingLine from "../components/DividingLine";
+import DividingLine from "../../../components/dividingLine/DividingLine";
 import Like from "@components/recipe/Like";
 import CommentIcon from "../components/comment/CommentIcon";
 import CommentSection from "../components/comment/CommentSection";
