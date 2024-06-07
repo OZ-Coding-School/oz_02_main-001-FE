@@ -101,7 +101,7 @@ const RefrigeratorPage = () => {
             {ingredients.map((ingredient) => (
               <div
                 key={ingredient.id}
-                className="font-semibold p-[24px] h-10 bg-gray-100 rounded-xl flex justify-center items-center relative"
+                className="font-semibold p-[32px] h-10 bg-iceBlue rounded-xl flex justify-center items-center relative"
               >
                 <span style={{ letterSpacing: "0.1em" }}>{ingredient.name}</span>
                 {isDeleteMode && (
@@ -114,11 +114,13 @@ const RefrigeratorPage = () => {
             ))}
           </div>
         </div>
-        <div className="py-[24px] pl-[22px] pr-[22px] font-semibold">
+        <div className="py-[18px] pl-[22px] pr-[22px] font-semibold">
           <BigButton buttonText={"레시피 찾아보기"} handleClick={handleFindRecipeClick} />
         </div>
       </div>
-      <Footer page="refrigerator" />
+      <footer className="mb-[-53px]">
+        <Footer page="refrigerator" />
+      </footer>
     </div>
   );
 };
