@@ -30,8 +30,8 @@ const CategorySectionItem: React.FC<CategorySectionItemProps> = ({ data, index }
         </div>
         <span className="text-[16px]">{data.title}</span>
         <div className="flex flex-row justify-between items-center">
-          <span className="text-[12px] font-light">{data.userNickname}</span>
-          <Like like={data.likesCount} likeStatus={data.likesStatus} />
+          <span className="text-[12px] font-light">{data.user.nickname}</span>
+          <Like like={data.likesCount} likeStatus={data.likeStatus} />
         </div>
       </div>
     </>
