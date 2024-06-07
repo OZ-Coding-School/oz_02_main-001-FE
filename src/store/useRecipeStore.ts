@@ -14,7 +14,7 @@ export const useRecipeStore = create<RecipeStore>((set) => ({
     ingredients: [
       {
         name: "",
-        quantity: null,
+        quantity: -1,
         unit: "단위",
       },
     ],

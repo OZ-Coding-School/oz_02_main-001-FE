@@ -5,7 +5,6 @@ import FirstStep from "../components/step/FirstStep";
 import ThirdStep from "../components/step/ThirdStep";
 import FourthStep from "../components/step/FourthStep";
 import SecondStep from "../components/step/SecondStep";
-import { useRecipeStore } from "@store/useRecipeStore";
 
 const RecipeRegistrationPage: React.FC = () => {
   const [step, setStep] = useState<number>(1);
@@ -36,7 +35,7 @@ const RecipeRegistrationPage: React.FC = () => {
       />
       <div className="flex flex-col px-3 pt-3 pb-[50px] gap-4 w-full min-h-[calc(100vh-105px)]">
         {step === 1 && <FirstStep setIsValid={setIsValid} />}
-        {step === 2 && <SecondStep setIsValid={setIsValid} />}
+        {step === 2 && <SecondStep />}
         {step === 3 && <ThirdStep />}
         {step === 4 && <FourthStep />}
       </div>

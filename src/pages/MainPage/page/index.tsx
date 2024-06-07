@@ -20,18 +20,22 @@ const MainPage: React.FC = () => {
 
   const handleSubmitModal = (name: string, gender: string, age: number, pushContent: boolean) => {
     // api로 넘겨야함
+    console.log(name, gender, age, pushContent);
     setIsMainPageModalOpen(false);
   };
 
   return (
     <div>
       <MainHeader />
-      <div className="pt-5 px-7 flex flex-col gap-y-[20px]">
+      <div className="pt-5 pb-3 px-7 flex flex-col gap-y-[20px]">
         <div>
-          <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
-          <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
+          <div>
+            <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
+            <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
+          </div>
+          <BestRecipeList mainPageData={mainPageData} />
         </div>
-        <BestRecipeList mainPageData={mainPageData} />
+
         <div className="flex flex-col gap-y-10">
           <CategorySectionList
             mainPageData={mainPageData}
@@ -42,12 +46,12 @@ const MainPage: React.FC = () => {
           <CategorySectionList
             mainPageData={mainPageData}
             categoryName="healthy"
-            category="건강식"
+            category="건강요리"
             categoryDescription="healthy cooking recipes"
           />
           <CategorySectionList
             mainPageData={mainPageData}
-            categoryName="midnight"
+            categoryName="midnightSnack"
             category="야식"
             categoryDescription="dessert cooking recipes"
           />

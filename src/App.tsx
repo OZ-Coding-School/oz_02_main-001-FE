@@ -17,10 +17,12 @@ import ProfilePage from "./pages/ProfilePage/page";
 import RecommendedRecipePage from "./pages/RecommendedRecipePage/page";
 import ErrorPage from "./pages/ErrorPage";
 import SettingPage from "./pages/SettingPage/page";
+import ScrollTo from "./utils/ScrollTo";
 
 function App() {
   return (
     <Router>
+      <ScrollTo />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />

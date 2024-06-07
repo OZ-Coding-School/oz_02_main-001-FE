@@ -22,9 +22,7 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
   return (
     <div className="flex items-center">
       <button
-        className={`rounded-full focus:outline-none transition-colors ${
-          scrapCount.booked ? "bg-white text-leafGreen" : "bg-white text-leafGreen"
-        }`}
+        className={`rounded-full focus:outline-none transition-colors text-leafGreen`}
         onClick={handleScrap}
       >
         <svg
