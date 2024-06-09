@@ -75,7 +75,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
 
   return (
     <>
-      <div className="flex ml-[6%] mr-[2%] items-center my-10">
+      <div className="flex ml-[6%] mr-[2%] items-center mt-10 mb-16">
         <div className="flex gap-[20px] ">
           <div>
             {userId === "0" ? (
