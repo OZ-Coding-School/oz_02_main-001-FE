@@ -76,18 +76,18 @@ const IngredientsListPage: React.FC = () => {
     : sortedIngredients;
 
   return (
-    <div className="flex flex-col justify-between h-screen">
-      <div className="overflow-auto pb-20">
-        <ButtonHeader
-          hasBackButton={true}
-          handleBackBtnClick={handleBackBtnClick}
-          handleButtonClick={handleBtnClick}
-          title="재료 목록"
-          buttonText="완료"
-        />
-        <div onClick={handleSearchClick}>
-          <Search onSearchKeywordChange={handleSearchKeywordChange} />
-        </div>
+    <div className="flex flex-col h-screen">
+      <ButtonHeader
+        hasBackButton={true}
+        handleBackBtnClick={handleBackBtnClick}
+        handleButtonClick={handleBtnClick}
+        title="재료 목록"
+        buttonText="완료"
+      />
+      <div className="sticky top-0 z-10" onClick={handleSearchClick}>
+        <Search onSearchKeywordChange={handleSearchKeywordChange} />
+      </div>
+      <div className="overflow-auto flex-grow">
         {isSearchClicked && (
           <div className="pt-2">
             {filteredIngredients.map((ingredient) => (
@@ -101,7 +101,7 @@ const IngredientsListPage: React.FC = () => {
           </div>
         )}
       </div>
-      <footer className="fixed bottom-0 w-full">
+      <footer className="sticky bottom-0 w-full">
         <Footer page="refrigerator" />
       </footer>
     </div>
