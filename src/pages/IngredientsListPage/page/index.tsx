@@ -8,7 +8,7 @@ import { IngredientDataType } from "src/types/ingredientType";
 
 const IngredientsListPage: React.FC = () => {
   const navigate = useNavigate();
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [isSearchClicked, setIsSearchClicked] = useState(true);
   const [buttonStates, setButtonStates] = useState<{ [key: number]: boolean }>({});
   const [selectedIngredients, setSelectedIngredients] = useState<{ [key: number]: boolean }>({});
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -17,7 +17,12 @@ const IngredientsListPage: React.FC = () => {
     navigate(-1);
   };
   const handleBtnClick = (): void => {
-    return;
+    const selectedIngredientList = Object.keys(selectedIngredients)
+      .map((id) => {
+        return ingredients.find((ingredient) => ingredient.id === parseInt(id));
+      })
+      .filter(Boolean);
+    navigate("/refrigerator", { state: { selectedIngredients: selectedIngredientList } });
   };
   const handleSearchClick = () => {
     setIsSearchClicked(true);
