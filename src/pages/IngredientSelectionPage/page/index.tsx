@@ -7,7 +7,6 @@ import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
 
 const IngredientSelectionPage: React.FC = () => {
-
   const navigate = useNavigate();
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const ingredients = [
@@ -18,8 +17,6 @@ const IngredientSelectionPage: React.FC = () => {
     { id: 54, name: "소금" },
     { id: 55, name: "설탕" },
     { id: 56, name: "단무지" },
-    { id: 57, name: "땅콩" },
-    { id: 58, name: "초콜렛" },
   ];
 
   const handleBackBtnClick = (): void => {
@@ -87,7 +84,6 @@ const IngredientSelectionPage: React.FC = () => {
       </footer>
     </div>
   );
-
 };
 
 export default IngredientSelectionPage;
