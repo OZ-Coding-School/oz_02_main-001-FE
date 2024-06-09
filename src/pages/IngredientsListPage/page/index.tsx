@@ -16,6 +16,7 @@ const IngredientsListPage: React.FC = () => {
   const handleBackBtnClick = (): void => {
     navigate(-1);
   };
+
   const handleBtnClick = (): void => {
     const selectedIngredientList = Object.keys(selectedIngredients)
       .map((id) => {
@@ -24,6 +25,7 @@ const IngredientsListPage: React.FC = () => {
       .filter(Boolean);
     navigate("/refrigerator", { state: { selectedIngredients: selectedIngredientList } });
   };
+
   const handleSearchClick = () => {
     setIsSearchClicked(true);
   };
@@ -66,21 +68,6 @@ const IngredientsListPage: React.FC = () => {
     { id: 14, name: "고구마", image: null },
     { id: 15, name: "설탕", image: null },
     { id: 16, name: "고등어", image: null },
-    { id: 17, name: "라면", image: null },
-    { id: 18, name: "마늘", image: null },
-    { id: 19, name: "버터", image: null },
-    { id: 20, name: "마요네즈", image: null },
-    { id: 50, name: "케찹", image: null },
-    { id: 51, name: "고기", image: null },
-    { id: 52, name: "계란", image: null },
-    { id: 53, name: "찹쌀", image: null },
-    { id: 54, name: "소금", image: null },
-    { id: 55, name: "피망", image: null },
-    { id: 56, name: "단무지", image: null },
-    { id: 57, name: "땅콩", image: null },
-    { id: 58, name: "초콜렛", image: null },
-    { id: 59, name: "고추", image: null },
-    { id: 60, name: "고사리", image: null },
   ];
 
   const sortedIngredients = ingredients.sort((a, b) => a.name.localeCompare(b.name, "ko"));
