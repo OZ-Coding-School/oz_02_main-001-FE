@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "@components/footer/Footer";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import BigButton from "@components/buttons/BigButton";
 import IngredientSelectionItem from "../components/IngredientSelectionItem";
 import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
+import { IngredientDataType } from "src/types/ingredientType";
 
 const IngredientSelectionPage: React.FC = () => {
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const prevSelectedIngredients: IngredientDataType[] = location.state?.selectedIngredients || [];
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
-  const ingredients = [
-    { id: 50, name: "케찹" },
-    { id: 51, name: "스팸" },
-    { id: 52, name: "계란" },
-    { id: 53, name: "찹쌀" },
-    { id: 54, name: "소금" },
-    { id: 55, name: "설탕" },
-    { id: 56, name: "단무지" },
-    { id: 57, name: "땅콩" },
-    { id: 58, name: "초콜렛" },
-  ];
+  const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
+
+  useEffect(() => {
+    setIngredients(prevSelectedIngredients);
+  }, [prevSelectedIngredients]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -60,6 +56,7 @@ const IngredientSelectionPage: React.FC = () => {
           deselectAllIngredients={deselectAllIngredients}
           selectedIngredients={selectedIngredients}
         />
+
         <div className="flex-grow overflow-auto">
           <div className="grid grid-cols-2 gap-4 p-4 pl-[22px] pr-[22px]">
             {ingredients.map((ingredient) => (
@@ -87,7 +84,6 @@ const IngredientSelectionPage: React.FC = () => {
       </footer>
     </div>
   );
-
 };
 
 export default IngredientSelectionPage;
