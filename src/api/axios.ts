@@ -8,54 +8,31 @@ const customAxios = (() =>
     },
   }))();
 
-// GET 요청 함수
-export const getData = async <T>(endpoint: string): Promise<T> => {
+export const fetchData = async <T>(
+  method: "GET" | "POST" | "PUT" | "DELETE",
+  endpoint: string,
+  data?: T,
+): Promise<T> => {
   try {
-    const response: AxiosResponse<T> = await customAxios.get(endpoint);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || error.message);
+    let response: AxiosResponse<T>;
+    switch (method) {
+      case "GET":
+        response = await customAxios.get(endpoint);
+        break;
+      case "POST":
+        response = await customAxios.post<T>(endpoint, data);
+        break;
+      case "PUT":
+        response = await customAxios.put<T>(endpoint, data);
+        break;
+      case "DELETE":
+        response = await customAxios.delete<T>(endpoint);
+        break;
+      default:
+        throw new Error("Invalid HTTP method");
     }
-    throw new Error("An unknown error occurred");
-  }
-};
-
-// POST
-export const postData = async <T>(endpoint: string, data: T): Promise<T> => {
-  try {
-    const response: AxiosResponse<T> = await customAxios.post(endpoint, data);
     return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || error.message);
-    }
-    throw new Error("An unknown error occurred");
-  }
-};
-
-// PUT
-export const putData = async <T>(endpoint: string, data: T): Promise<T> => {
-  try {
-    const response: AxiosResponse<T> = await customAxios.put(endpoint, data);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || error.message);
-    }
-    throw new Error("An unknown error occurred");
-  }
-};
-
-// DELETE
-export const deleteData = async <T>(endpoint: string): Promise<T> => {
-  try {
-    const response: AxiosResponse<T> = await customAxios.delete(endpoint);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data?.message || error.message);
-    }
-    throw new Error("An unknown error occurred");
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || error.message || "An unknown error occurred");
   }
 };
