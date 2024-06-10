@@ -27,19 +27,21 @@ const ProfilePage: React.FC = () => {
       {userId === "0" ? (
         <>
           <AccountHeader />
-          <ProfileSection
-            postsCount={accountData.cnt}
-            name={userNickname}
-            setUserNickname={setUserNickname}
-            userId={userId}
-          />
-          <PostsList
-            whoProfile="user"
-            postsCount={accountData.cnt}
-            linkTo="/recipeRegistration"
-            buttonText="첫 레시피 등록하기"
-            postsRecipeList={accountData.recipes}
-          />
+          <div className="min-h-[calc(100vh-105px)]">
+            <ProfileSection
+              postsCount={accountData.cnt}
+              name={userNickname}
+              setUserNickname={setUserNickname}
+              userId={userId}
+            />
+            <PostsList
+              whoProfile="user"
+              postsCount={accountData.cnt}
+              linkTo="/recipeRegistration"
+              buttonText="첫 레시피 등록하기"
+              postsRecipeList={accountData.recipes}
+            />
+          </div>
           <Footer page="account" />
         </>
       ) : (

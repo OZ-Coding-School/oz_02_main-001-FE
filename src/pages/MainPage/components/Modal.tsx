@@ -81,9 +81,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, handleCloseModal, onSubmit }) => 
         </div>
         {warning && <p className="text-red-500 text-sm">{warning}</p>}
         <div className="flex justify-end mt-5">
-          <button onClick={handleCloseModal} className="mr-4 py-2 px-3 bg-gray-200 rounded">
-            취소
-          </button>
           <button onClick={handleSubmit} className="py-2 px-3 bg-redPink text-white rounded">
             제출
           </button>
