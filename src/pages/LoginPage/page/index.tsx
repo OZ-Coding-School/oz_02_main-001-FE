@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import bi from "@assets/icons/bi.png";
 import kakaoLogo from "@assets/icons/kakao.png";
 import googleLogo from "@assets/icons/google.png";
 import LoginButtons from "../components/LoginButtons";
-import { useNavigate } from "react-router";
+
+import { apiRoutes } from "../../../api/apiRoutes";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchData } from "../../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+  useEffect(() => {
+    mutationLogin.mutate();
+  }, []);
 
-  const handleLoginClick = () => {
-    navigate("/");
+  const fetchLogin = async (): Promise<void> => {
+    return await fetchData("GET", apiRoutes.userLogin);
   };
 
-  const handleSignupClick = () => {
-    navigate("/signup");
+  const mutationLogin = useMutation<void, void>({
+    mutationFn: fetchLogin,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["login"],
+      });
+      navigate("/");
+    },
+  });
+
+  const handleKakaoLoginClick = () => {
+    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+  };
+
+  const handleGoogleLoginClick = (): void => {
+    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=0`;
   };
 
   return (
@@ -26,19 +48,13 @@ const LoginPage: React.FC = () => {
           imageUrl={kakaoLogo}
           bgColor="bg-[#FEE500]"
           buttonText="카카오 로그인"
-          handleClick={handleLoginClick}
+          handleClick={handleKakaoLoginClick}
         />
         <LoginButtons
           imageUrl={googleLogo}
           bgColor="bg-gray-100"
           buttonText="구글 로그인"
-          handleClick={handleLoginClick}
-        />
-        <LoginButtons
-          bgColor="bg-redPink"
-          textColor="white"
-          buttonText="회원 가입"
-          handleClick={handleSignupClick}
+          handleClick={handleGoogleLoginClick}
         />
       </div>
     </div>

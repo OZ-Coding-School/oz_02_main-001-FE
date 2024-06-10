@@ -1,8 +1,8 @@
-const apiRoutes = {
+export const apiRoutes = {
   googleLogin: "/users/auth/login?social=google",
   kakaoLogin: "/users/auth/login?social=kakao",
   userLogin: "/users/auth/login",
-  userLogout: "/users/auth/logut",
+  userLogout: "/users/auth/logout",
   updateUserName: "/users/nickname",
   updateUserImg: "/users/image",
   deleteUser: "/users",
