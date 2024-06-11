@@ -13,7 +13,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   useEffect(() => {
     // 로그아웃 기능 구현 전까지 일단 자동로그인 주석처리
-    // mutationLogin.mutate();
+    mutationLogin;
   }, []);
 
   const fetchLogin = async (): Promise<void> => {
