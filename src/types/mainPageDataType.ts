@@ -1,12 +1,17 @@
 type MainPageDataType = {
-  detailStatus: number;
-  best: MainPageCategoryDataType[];
-  bestBookmarked: MainPageCategoryDataType[];
-  daily: MainPageCategoryDataType[];
-  healthy: MainPageCategoryDataType[];
-  desert: MainPageCategoryDataType[];
-  midnightSnack: MainPageCategoryDataType[];
+  status: number;
+  message: string;
+  data: {
+    detailStatus: number;
+    best: MainPageCategoryDataType[];
+    bestBookmarked: MainPageCategoryDataType[];
+    daily: MainPageCategoryDataType[];
+    healthy: MainPageCategoryDataType[];
+    desert: MainPageCategoryDataType[];
+    midnightSnack: MainPageCategoryDataType[];
+  };
 };
+
 type MainPageCategoryDataType = {
   recipeId: number;
   user: {
