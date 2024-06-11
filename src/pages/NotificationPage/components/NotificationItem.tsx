@@ -44,7 +44,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
           </span>
         </div>
         <div className="mt-2 mb-3">
-          <span className="text-gray-400 text-[10px]">{notice.date}</span>
+          <span className="text-gray-400 text-[10px]">{notice.createdAt}</span>
         </div>
       </div>
       <div className="border"></div>
