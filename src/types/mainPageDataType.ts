@@ -20,3 +20,9 @@ export type MainPageCategoryDataType = {
   bookmarkStatus: number;
   bookmarksCount: number;
 };
+
+export type UserDetailType = {
+  age: number;
+  gender: boolean;
+  alert: boolean;
+};
