@@ -3,7 +3,6 @@ import bi from "@assets/icons/bi.png";
 import kakaoLogo from "@assets/icons/kakao.png";
 import googleLogo from "@assets/icons/google.png";
 import LoginButtons from "../components/LoginButtons";
-
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
@@ -13,7 +12,8 @@ const LoginPage: React.FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   useEffect(() => {
-    mutationLogin.mutate();
+    // 로그아웃 기능 구현 전까지 일단 자동로그인 주석처리
+    // mutationLogin.mutate();
   }, []);
 
   const fetchLogin = async (): Promise<void> => {
@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
   };
 
   const handleGoogleLoginClick = (): void => {
-    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=0`;
+    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=1`;
   };
 
   return (
