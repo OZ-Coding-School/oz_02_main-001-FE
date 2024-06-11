@@ -23,8 +23,11 @@ const MainPage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data?.detailStatus === 1) {
+    if (data?.data.detailStatus === 1) {
       setIsMainPageModalOpen(true);
+    }
+    if (error) {
+      console.log(error);
     }
   }, [data]);
 
@@ -44,7 +47,6 @@ const MainPage: React.FC = () => {
       });
       setIsMainPageModalOpen(false);
     },
-    onError: () => console.log(error),
   });
 
   const handleSubmitModal = (gender: string, age: number, alertStatus: boolean) => {
