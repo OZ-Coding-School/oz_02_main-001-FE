@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import Footer from "@components/footer/Footer";
 import MainHeader from "@components/header/MainHeader";
 import Modal from "../components/Modal";
@@ -10,7 +9,7 @@ import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import { MainPageDataType, UserDetailType } from "../../../types/mainPageDataType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import "react-loading-skeleton/dist/skeleton.css";
+import SkeletonLoader from "../skeleton/SkeletonLoader";
 
 const MainPage: React.FC = () => {
   const [isMainPageModalOpen, setIsMainPageModalOpen] = useState(false);
@@ -67,11 +66,7 @@ const MainPage: React.FC = () => {
       <div className="min-h-[calc(100vh-105px)]">
         <div className="py-5 px-7 flex flex-col gap-y-[20px]">
           {isLoading ? (
-            <div>
-              <Skeleton height={30} width={200} />
-              <Skeleton height={20} width={150} />
-              <Skeleton count={6} height={200} className="my-4" />
-            </div>
+            <SkeletonLoader />
           ) : (
             <>
               <div>
