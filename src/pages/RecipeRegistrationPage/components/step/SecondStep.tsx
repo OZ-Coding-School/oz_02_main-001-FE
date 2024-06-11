@@ -36,7 +36,6 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const handleAddClick = () => {
     const addIngredients = [...ingredients, initialIngredientData];
     setIngredients(addIngredients);
-    setRecipeData({ ...recipeData, recipeIngredients: addIngredients });
   };
 
   const handleDeleteClick = () => {
@@ -54,7 +53,6 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
       return index !== i;
     });
     setIngredients(newIngredients);
-    setRecipeData({ ...recipeData, recipeIngredients: newIngredients });
   };
 
   const handleChange = (index: number, field: string, value: string | number) => {
@@ -69,6 +67,10 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
     setIngredients(newIngredients);
     setRecipeData({ ...recipeData, recipeIngredients: newIngredients });
   };
+
+  useEffect(() => {
+    setRecipeData({ ...recipeData, recipeIngredients: ingredients });
+  }, [ingredients]);
 
   useEffect(() => {
     if (ingredients.length === 1) {

@@ -7,7 +7,6 @@ interface ImageUploadProps {
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({ handleChange }) => {
-  // handleChange를 props로 전달받음
   const [showModal, setShowModal] = useState<boolean>(false);
   const [image, setImage] = useState<string>("");
 
@@ -32,7 +31,6 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ handleChange }) => {
   };
 
   const handleDeleteImage = (): void => {
-    // api 데이터 업데이트 코드 추가 예정
     setImage("");
     handleChange("mainImage", "");
     setShowModal(false);

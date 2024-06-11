@@ -39,7 +39,7 @@ const RecipeRegistrationPage: React.FC = () => {
       <div className="flex flex-col px-3 pt-3 pb-[50px] gap-4 w-full min-h-[calc(100vh-105px)]">
         {step === 1 && <FirstStep setIsValid={setIsValid} />}
         {step === 2 && <SecondStep setIsValid={setIsValid} />}
-        {step === 3 && <ThirdStep />}
+        {step === 3 && <ThirdStep setIsValid={setIsValid} />}
         {step === 4 && <FourthStep />}
       </div>
       <Footer page="recipeRegistration" />
