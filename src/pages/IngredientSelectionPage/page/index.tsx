@@ -5,7 +5,6 @@ import BigButton from "@components/buttons/BigButton";
 import IngredientSelectionItem from "../components/IngredientSelectionItem";
 import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
-import { IngredientDataType } from "src/types/ingredientType";
 
 const IngredientSelectionPage: React.FC = () => {
   const navigate = useNavigate();

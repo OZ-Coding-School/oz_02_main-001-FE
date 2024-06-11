@@ -1,6 +1,5 @@
 import gimchi from "@assets/images/김치볶음밥.png";
 import recipeImg from "@assets/images/recipe.png";
-import { MainPageDataType } from "src/types/mainPageDataType";
 
 export const mainPageData: MainPageDataType = {
   detailStatus: 1,

@@ -1,7 +1,6 @@
 import FilteringButtons from "@components/filtering/FilteringButtons";
 import SearchHeader from "@components/header/SearchHeader";
 import RecipeList from "@components/recipe/RecipeList";
-import { RecipeType } from "src/types/recipeItemType";
 import React from "react";
 import recipeImg from "@assets/images/recipe.png";
 
