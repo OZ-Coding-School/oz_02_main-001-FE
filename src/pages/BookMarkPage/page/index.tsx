@@ -15,7 +15,7 @@ const BookMarkPage: React.FC = () => {
   return (
     <>
       <Header hasBackBtn={true} title="스크랩한 페이지" handleBackBtnClick={handleBackBtnClick} />
-      <div>
+      <div className="min-h-[calc(100vh-105px)]">
         <RecipeList recipeData={data} />
       </div>
       <Footer page="bookmark" />

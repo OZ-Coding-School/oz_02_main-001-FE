@@ -18,6 +18,9 @@ export default {
         oliveGray: "#A2A38B",
         cloudGray: "#CDD7E1",
       },
+      boxShadow: {
+        layout: "0 4px 10px rgba(0, 0, 0, 0.301)",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

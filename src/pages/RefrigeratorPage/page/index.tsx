@@ -1,71 +1,25 @@
 import Footer from "@components/footer/Footer";
 import Header from "@components/header/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RefrigeratorItem from "../components/RefrigeratorItem";
 import BigButton from "@components/buttons/BigButton";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { TiDeleteOutline } from "react-icons/ti";
+import { IngredientDataType } from "src/types/ingredientType";
 
-const RefrigeratorPage = () => {
+const RefrigeratorPage: React.FC = () => {
+  const location = useLocation();
+  const selectedIngredients: IngredientDataType[] = location.state?.selectedIngredients || [];
   const navigate = useNavigate();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
-  const [ingredients, setIngredients] = useState([
-    {
-      id: 50,
-      name: "케찹",
-    },
-    {
-      id: 51,
-      name: "스팸",
-    },
-    {
-      id: 52,
-      name: "계란",
-    },
-    {
-      id: 53,
-      name: "찹쌀",
-    },
-    {
-      id: 54,
-      name: "소금",
-    },
-    {
-      id: 55,
-      name: "설탕",
-    },
-    {
-      id: 56,
-      name: "단무지",
-    },
-    {
-      id: 57,
-      name: "땅콩",
-    },
-    {
-      id: 58,
-      name: "초콜렛",
-    },
-    {
-      id: 59,
-      name: "김",
-    },
-    {
-      id: 60,
-      name: "옥수수",
-    },
-    {
-      id: 61,
-      name: "망고",
-    },
-    {
-      id: 62,
-      name: "보리",
-    },
-  ]);
+  const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
+
+  useEffect(() => {
+    setIngredients(selectedIngredients);
+  }, [selectedIngredients]);
 
   const handleFindRecipeClick = () => {
-    navigate(`/ingredientSelection`);
+    navigate("/ingredientSelection", { state: { selectedIngredients: ingredients } });
   };
 
   const toggleDeleteMode = () => {
