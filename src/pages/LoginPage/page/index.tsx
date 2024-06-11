@@ -3,7 +3,6 @@ import bi from "@assets/icons/bi.png";
 import kakaoLogo from "@assets/icons/kakao.png";
 import googleLogo from "@assets/icons/google.png";
 import LoginButtons from "../components/LoginButtons";
-
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
@@ -13,7 +12,8 @@ const LoginPage: React.FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   useEffect(() => {
-    mutationLogin.mutate();
+    // 로그아웃 기능 구현 전까지 일단 자동로그인 주석처리
+    mutationLogin;
   }, []);
 
   const fetchLogin = async (): Promise<void> => {
@@ -31,11 +31,21 @@ const LoginPage: React.FC = () => {
   });
 
   const handleKakaoLoginClick = () => {
-    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes("localhost:5173")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+    } else if (currentUrl.includes("ndd-project.vercel.app")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}`;
+    }
   };
 
   const handleGoogleLoginClick = (): void => {
-    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=0`;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes("localhost:5173")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=1`;
+    } else if (currentUrl.includes("ndd-project.vercel.app")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}`;
+    }
   };
 
   return (

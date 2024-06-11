@@ -3,6 +3,7 @@ export const apiRoutes = {
   kakaoLogin: "/users/auth/login?social=kakao",
   userLogin: "/users/auth/login",
   userLogout: "/users/auth/logout",
+  userDetail: "/users/detail",
   updateUserName: "/users/nickname",
   updateUserImg: "/users/image",
   deleteUser: "/users",
