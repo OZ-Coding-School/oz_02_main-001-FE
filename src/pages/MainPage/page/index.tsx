@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "@components/footer/Footer";
 import MainHeader from "@components/header/MainHeader";
 import Modal from "../components/Modal";
@@ -11,7 +11,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import SkeletonLoader from "../skeleton/SkeletonLoader";
 
 const MainPage: React.FC = () => {
-  const [isMainPageModalOpen, setIsMainPageModalOpen] = useState(false);
+  const [isMainPageModalOpen, setIsMainPageModalOpen] = useState(true);
   const [userDetail, setUserDetail] = useState<UserDetailType>();
   const queryClient = useQueryClient();
 
@@ -20,11 +20,9 @@ const MainPage: React.FC = () => {
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
 
-  useEffect(() => {
-    if (data?.detailStatus === 1) {
-      setIsMainPageModalOpen(true);
-    }
-  }, [data]);
+  if (data?.data.detailStatus === 1) {
+    setIsMainPageModalOpen(false);
+  }
 
   const handleCloseModal = () => {
     setIsMainPageModalOpen(false);
