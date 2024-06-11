@@ -3,7 +3,6 @@ import bi from "@assets/icons/bi.png";
 import kakaoLogo from "@assets/icons/kakao.png";
 import googleLogo from "@assets/icons/google.png";
 import LoginButtons from "../components/LoginButtons";
-
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
@@ -12,23 +11,24 @@ import { useNavigate } from "react-router-dom";
 const LoginPage: React.FC = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  useEffect(() => {
-    mutationLogin.mutate();
-  }, []);
 
-  const fetchLogin = async (): Promise<void> => {
-    return await fetchData("GET", apiRoutes.userLogin);
-  };
+  // useEffect(() => {
+  //   mutationLogin.mutate();
+  // }, []);
 
-  const mutationLogin = useMutation<void, void>({
-    mutationFn: fetchLogin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["login"],
-      });
-      navigate("/");
-    },
-  });
+  // const fetchLogin = async (): Promise<void> => {
+  //   return await fetchData("GET", apiRoutes.userLogin);
+  // };
+
+  // const mutationLogin = useMutation<void, void>({
+  //   mutationFn: fetchLogin,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ["login"],
+  //     });
+  //     navigate("/");
+  //   },
+  // });
 
   const handleKakaoLoginClick = () => {
     window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;

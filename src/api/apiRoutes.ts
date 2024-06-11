@@ -12,7 +12,7 @@ export const apiRoutes = {
   recommendRecipe: "/recipes/recommend",
   showIngredients: "/ingredients",
   recipes: "/recipes",
-  recipeCatory: "/recipes/category",
+  recipeCategory: "/recipes/category",
   recipeSearch: "/recipes/search",
   comments: "/comments",
   likes: "/likes",
