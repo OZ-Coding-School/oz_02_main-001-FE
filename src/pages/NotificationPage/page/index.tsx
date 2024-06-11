@@ -6,24 +6,37 @@ import { NotificationType } from "src/types/notificationItemType";
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
+<<<<<<< HEAD
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+=======
+>>>>>>> dev
 
 const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate(-1);
   };
 
+<<<<<<< HEAD
   const { data, isLoading, error } = useQuery<NotificationType[]>({
     queryKey: ["notifications"],
     queryFn: () => fetchData("GET", `${apiRoutes.alerts}/7`),
     onError: () => console.log(error),
   });
+=======
+  const { data } = useQuery<NotificationType[]>({
+    queryKey: ["notifications"],
+    queryFn: () => fetchData("GET", `${apiRoutes.alerts}/7`),
+  });
+  console.log(data);
+>>>>>>> dev
 
   return (
     <div>
       <Header hasBackBtn={true} title="알림" hasBell={true} handleBackBtnClick={handleClick} />
+<<<<<<< HEAD
       <div>
         {isLoading ? (
           <div>
@@ -34,6 +47,9 @@ const NotificationPage: React.FC = () => {
           data?.map((notice) => <NotificationItem key={notice.title} notice={notice} />)
         )}
       </div>
+=======
+      {data?.map((notice) => <NotificationItem key={notice.title} notice={notice} />)}
+>>>>>>> dev
     </div>
   );
 };
