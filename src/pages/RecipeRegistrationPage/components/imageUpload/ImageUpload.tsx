@@ -3,14 +3,13 @@ import ProceedModal from "@components/modal/ProceedModal";
 import { FaRegImages } from "react-icons/fa6";
 
 interface ImageUploadProps {
-  value: string;
   handleChange: (field: string, value: string) => void;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ value, handleChange }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ handleChange }) => {
   // handleChange를 props로 전달받음
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [image, setImage] = useState<string>(value);
+  const [image, setImage] = useState<string>("");
 
   const handleMainImageClick = () => {
     if (!image) {

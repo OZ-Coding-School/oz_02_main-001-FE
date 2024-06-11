@@ -11,7 +11,7 @@ export const apiRoutes = {
   refrigerator: "/fridges",
   upDateIngredients: "/fridges/ingredients",
   recommendRecipe: "/recipes/recommend",
-  showIngredients: "/ingredients",
+  ingredients: "/ingredients",
   recipes: "/recipes",
   recipeCategory: "/recipes/category",
   recipeSearch: "/recipes/search",

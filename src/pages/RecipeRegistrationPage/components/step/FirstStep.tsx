@@ -4,24 +4,28 @@ import Input from "../input/TitleInput";
 import SelectBox from "../selectbox/SelectBox";
 import ImageUpload from "../imageUpload/ImageUpload";
 import { useRecipeStore } from "@store/useRecipeStore";
+import { selectOption } from "src/types/selectBoxType";
 
 interface FirstStepProps {
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FirstStep: React.FC<FirstStepProps> = ({ setIsValid }) => {
-  const categories = ["일상요리", "건강요리", "야식", "디저트"];
+  const categories: selectOption[] = [
+    { id: 1, name: "일상요리" },
+    { id: 2, name: "건강요리" },
+    { id: 3, name: "디저트" },
+    { id: 4, name: "야식" },
+  ];
   const { recipeData, setRecipeData } = useRecipeStore();
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: string, value: string | number) => {
     setRecipeData({ ...recipeData, [field]: value });
   };
 
   useEffect(() => {
     const formValidate = () => {
-      recipeData.category !== "카테고리" && recipeData.mainImage !== "" && recipeData.title !== ""
-        ? setIsValid(true)
-        : setIsValid(false);
+      recipeData.category !== -1 && recipeData.title !== "" ? setIsValid(true) : setIsValid(false);
     };
     formValidate();
   }, [recipeData]);
@@ -37,7 +41,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ setIsValid }) => {
       />
       <Label name="완성 사진" />
       <div className="size-[180px]">
-        <ImageUpload value={recipeData.mainImage} handleChange={handleChange} />
+        <ImageUpload handleChange={handleChange} />
       </div>
       <Label name="카테고리" />
       <div className="w-[100px]">
