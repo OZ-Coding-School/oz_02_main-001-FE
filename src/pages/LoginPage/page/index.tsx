@@ -31,11 +31,21 @@ const LoginPage: React.FC = () => {
   });
 
   const handleKakaoLoginClick = () => {
-    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes("localhost:5173")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+    } else if (currentUrl.includes("ndd-project.vercel.app")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.kakaoLogin}`;
+    }
   };
 
   const handleGoogleLoginClick = (): void => {
-    window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=1`;
+    const currentUrl = window.location.href;
+    if (currentUrl.includes("localhost:5173")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}&dev=1`;
+    } else if (currentUrl.includes("ndd-project.vercel.app")) {
+      window.location.href = `http://ndd.kro.kr/api/v1${apiRoutes.googleLogin}`;
+    }
   };
 
   return (
