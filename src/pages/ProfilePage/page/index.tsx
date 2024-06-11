@@ -6,6 +6,10 @@ import Footer from "@components/footer/Footer";
 import { accountData, accountData2 } from "../data/dummyData";
 import ProfileSection from "../components/ProfileSection";
 import PostsList from "../components/PostsList";
+import { useQuery } from "@tanstack/react-query";
+import { AccountDataType } from "../../../types/accountRecipeType";
+import { fetchData } from "../../../api/axios";
+import { apiRoutes } from "../../../api/apiRoutes";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -13,10 +17,15 @@ const ProfilePage: React.FC = () => {
   const { userId } = useParams();
   const [userNickname, setUserNickname] = useState<string>("");
 
+  const { data, error, isLoading } = useQuery<AccountDataType>({
+    queryKey: ["account"],
+    queryFn: () => fetchData<AccountDataType>("GET", `${apiRoutes.userMypage}/${userId}`),
+  });
+
   useEffect(() => {
-    // api get으로 데이터 받아올 예정
+    console.log(data);
     setUserNickname(accountData.nickname);
-  }, []);
+  }, [data]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
