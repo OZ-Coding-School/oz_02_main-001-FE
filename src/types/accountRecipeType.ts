@@ -1,11 +1,17 @@
-type RecipesType = {
-  id: number;
-  recipeImage: string;
+type AccountFetchDataType = {
+  status: number;
+  message: string;
+  data: AccountDataType;
 };
 
 type AccountDataType = {
   image: string;
   nickname: string;
-  cnt: number;
+  postCnt: number;
   recipes: RecipesType[];
+};
+
+type RecipesType = {
+  id: number;
+  recipeImage: string;
 };
