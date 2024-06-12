@@ -1,6 +1,5 @@
 import React from "react";
 import BestRecipeItem from "./BestRecipeItem";
-import { MainPageDataType } from "src/types/mainPageDataType";
 
 interface BestRecipeListProps {
   mainPageData: MainPageDataType;

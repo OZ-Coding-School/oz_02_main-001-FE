@@ -1,7 +1,6 @@
 import Header from "@components/header/Header";
 import { useNavigate } from "react-router-dom";
 import NotificationItem from "../components/NotificationItem";
-import { NotificationType } from "src/types/notificationItemType";
 
 const NotificationPage = () => {
   const navigate = useNavigate();

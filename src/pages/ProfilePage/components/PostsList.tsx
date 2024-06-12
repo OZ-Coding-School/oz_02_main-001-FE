@@ -1,7 +1,6 @@
 import BigButton from "@components/buttons/BigButton";
 import React from "react";
 import { Link } from "react-router-dom";
-import { RecipesType } from "src/types/accountRecipeType";
 
 interface PostsListProps {
   whoProfile: string;

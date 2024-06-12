@@ -1,4 +1,4 @@
-export type RefrigeratorType = {
+type RefrigeratorType = {
   nickname: string;
   ingredients: {
     id: number;

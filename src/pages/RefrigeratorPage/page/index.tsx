@@ -5,7 +5,6 @@ import RefrigeratorItem from "../components/RefrigeratorItem";
 import BigButton from "@components/buttons/BigButton";
 import { useLocation, useNavigate } from "react-router";
 import { TiDeleteOutline } from "react-icons/ti";
-import { IngredientDataType } from "src/types/ingredientType";
 
 const RefrigeratorPage: React.FC = () => {
   const location = useLocation();
