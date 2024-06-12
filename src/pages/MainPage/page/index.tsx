@@ -7,7 +7,6 @@ import { mainPageData } from "../data/mainPageData";
 import CategorySectionList from "../components/CategorySectionList";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
-import { MainPageDataType, UserDetailType } from "../../../types/mainPageDataType";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import SkeletonLoader from "../skeleton/SkeletonLoader";
 
@@ -22,7 +21,7 @@ const MainPage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data?.detailStatus === 1) {
+    if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);
     }
   }, [data]);

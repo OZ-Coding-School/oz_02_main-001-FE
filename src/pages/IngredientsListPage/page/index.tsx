@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@components/footer/Footer";
 import Search from "../components/Search";
-import IngredientsListItem from "../components/IngredientsListItem"; // 추가된 부분
-import { IngredientDataType } from "src/types/ingredientType";
+import IngredientsListItem from "../components/IngredientsListItem";
 
 const IngredientsListPage: React.FC = () => {
   const navigate = useNavigate();

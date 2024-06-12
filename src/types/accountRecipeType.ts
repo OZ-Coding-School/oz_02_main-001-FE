@@ -1,9 +1,9 @@
-export type RecipesType = {
+type RecipesType = {
   id: number;
   recipeImage: string;
 };
 
-export type AccountDataType = {
+type AccountDataType = {
   image: string;
   nickname: string;
   cnt: number;
