@@ -5,7 +5,7 @@ import { RiShare2Line } from "react-icons/ri";
 import MoreButton from "@components/buttons/MoreButton";
 
 interface RecipeHeaderProps {
-  canUpdate: number;
+  canUpdate: number | undefined;
 }
 
 /**

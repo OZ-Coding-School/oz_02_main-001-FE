@@ -1,4 +1,3 @@
-import { AccountDataType } from "src/types/accountRecipeType";
 import noProfile from "@assets/images/noProfile.png";
 import recipeImg from "@assets/images/recipe.png";
 import kimchi from "@assets/images/김치볶음밥.png";

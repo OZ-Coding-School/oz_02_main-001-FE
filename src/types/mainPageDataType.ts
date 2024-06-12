@@ -1,17 +1,20 @@
-export type MainPageDataType = {
+type MainPageDataType = {
   status: number;
   message: string;
-  data: {
-    detailStatus: number;
-    best: MainPageCategoryDataType[];
-    bestBookmarked: MainPageCategoryDataType[];
-    daily: MainPageCategoryDataType[];
-    healthy: MainPageCategoryDataType[];
-    desert: MainPageCategoryDataType[];
-    midnightSnack: MainPageCategoryDataType[];
-  };
+  data: MainDataDataType;
 };
-export type MainPageCategoryDataType = {
+
+type MainDataDataType = {
+  detailStatus: number;
+  best: BestRecipeType[];
+  bestBookmarked: BestBookmarkedRecipeType[];
+  daily: MainPageCategoryDataType[];
+  healthy: MainPageCategoryDataType[];
+  desert: MainPageCategoryDataType[];
+  midnightSnack: MainPageCategoryDataType[];
+};
+
+type MainPageCategoryDataType = {
   recipeId: number;
   user: {
     nickname: string;
@@ -25,7 +28,31 @@ export type MainPageCategoryDataType = {
   bookmarksCount: number;
 };
 
-export type UserDetailType = {
+type BestRecipeType = {
+  likeStatus: number;
+  likesCount: number;
+  mainImage: string;
+  recipeId: number;
+  title: string;
+  user: {
+    nickname: string;
+    id: number;
+  };
+};
+
+type BestBookmarkedRecipeType = {
+  bookmarkStatus: number;
+  bookmarksCount: number;
+  mainImage: string;
+  recipeId: number;
+  title: string;
+  user: {
+    nickname: string;
+    id: number;
+  };
+};
+
+type UserDetailType = {
   age: number;
   gender: boolean;
   alert: boolean;

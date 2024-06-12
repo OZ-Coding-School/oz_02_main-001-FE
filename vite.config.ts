@@ -24,7 +24,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://49.50.167.18",
+        target: "https://nddapp.duckdns.org",
         changeOrigin: true,
       },
     },

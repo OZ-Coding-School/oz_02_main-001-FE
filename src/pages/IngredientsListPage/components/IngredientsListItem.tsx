@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IngredientDataType } from "src/types/ingredientType";
 import RoundedSmallButton from "@components/buttons/RoundedSmallButton";
 
 interface IngredientsListItemProps {

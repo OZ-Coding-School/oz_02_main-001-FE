@@ -4,5 +4,5 @@ export type NotificationType = {
   title: string;
   type: string;
   status: number;
-  date: string;
+  createdAt: string;
 };

@@ -1,6 +1,5 @@
 import React from "react";
 import RecipeItem from "@components/recipe/RecipeItem";
-import { RecipeType } from "src/types/recipeItemType";
 
 interface RecipeListProps {
   recipeData: RecipeType[];
