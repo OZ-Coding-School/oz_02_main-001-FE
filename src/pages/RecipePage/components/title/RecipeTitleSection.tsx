@@ -1,5 +1,4 @@
 import Scrap from "@components/recipe/Scrap";
-import testUrl from "@assets/images/김치볶음밥.png";
 
 import React from "react";
 
@@ -9,6 +8,7 @@ interface RecipeTitleSectionProps {
   bookmark: number;
   bookmarkStatus: number;
   userNickname: string;
+  userProfileImage: string;
 }
 
 const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
@@ -17,6 +17,7 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
   bookmark,
   bookmarkStatus,
   userNickname,
+  userProfileImage,
 }) => {
   return (
     <div
@@ -33,7 +34,11 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <img src={testUrl} className="w-[60px] h-[60px] rounded-full" />
+        <img
+          src={userProfileImage}
+          alt="프로필 이미지"
+          className="w-[60px] h-[60px] rounded-full"
+        />
         <span className="text-[1.1rem]">{userNickname}</span>
       </div>
     </div>
