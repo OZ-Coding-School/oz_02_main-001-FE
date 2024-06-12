@@ -33,11 +33,7 @@ const NotificationPage: React.FC<NotificationTypeProps> = () => {
     <div>
       <Header hasBackBtn={true} title="알림" hasBell={true} handleBackBtnClick={handleClick} />
       {isLoading ? (
-        data?.map((notice) => (
-          <div key={notice.title}>
-            <SkeletonNoticeLoader />
-          </div>
-        ))
+        [...Array(4)].map((_, index) => <SkeletonNoticeLoader key={index} />)
       ) : (
         <div>{data?.map((notice) => <NotificationItem key={notice.title} notice={notice} />)}</div>
       )}

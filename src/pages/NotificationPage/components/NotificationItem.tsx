@@ -29,21 +29,15 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
         <div className="absolute mt-1 right-[6px] h-[5px] w-[5px] bg-red-500 rounded-full"></div>
       )}
       <div className="pt-2 pl-4 pr-4">
-        <div className="mt-3 leading-tight">
-          <span className="text-[18px]">
-            <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
-          </span>
+        <div className="mt-3 leading-tight text-[18px]">
+          <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
         </div>
-        <div className="mt-2">
-          <span className="text-gray-400 text-[14px]">
-            {notice.type === "like"
-              ? "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?"
-              : "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?"}
-          </span>
+        <div className="mt-2 text-gray-400 text-[14px]">
+          {notice.type === "like"
+            ? "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?"
+            : "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?"}
         </div>
-        <div className="mt-2 mb-3">
-          <span className="text-gray-400 text-[12px]">{notice.createdAt}</span>
-        </div>
+        <div className="mt-2 mb-3 text-gray-400 text-[12px]">{notice.createdAt}</div>
       </div>
       <div className="border"></div>
     </div>
