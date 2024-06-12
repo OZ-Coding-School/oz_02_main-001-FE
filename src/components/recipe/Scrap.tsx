@@ -20,21 +20,6 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
     booked: bookStatus === 1,
   });
 
-  const { data } = useQuery<BookType>({
-    queryKey: ["bookmarks"],
-    queryFn: () => fetchData("GET", apiRoutes.bookmarks),
-  });
-  console.log(data);
-
-  useEffect(() => {
-    if (data) {
-      setScrapCount({
-        book: data.book,
-        booked: data.bookStatus === 1,
-      });
-    }
-  }, [data]);
-
   const handleScrap = (event: React.MouseEvent) => {
     event.stopPropagation();
     setScrapCount((prevState) => ({
