@@ -16,7 +16,7 @@ const BookMarkPage: React.FC = () => {
   };
 
   const fetchBook = async (): Promise<RecipeCategoryType> => {
-    return await fetchData("GET", `${apiRoutes.recipeCatory}/book`);
+    return await fetchData("GET", `${apiRoutes.recipeCategory}/book`);
   };
 
   const { data, isLoading, error } = useQuery<RecipeCategoryType>({

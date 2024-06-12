@@ -15,7 +15,7 @@ const LikedPage: React.FC = () => {
   };
 
   const fetchLiked = async (): Promise<RecipeCategoryType> => {
-    return await fetchData("GET", `${apiRoutes.recipeCatory}/like`);
+    return await fetchData("GET", `${apiRoutes.recipeCategory}/like`);
   };
 
   const { data, isLoading, error } = useQuery<RecipeCategoryType>({
