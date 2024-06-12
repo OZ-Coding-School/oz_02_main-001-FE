@@ -29,7 +29,6 @@ const BestBookmarkedRecipeItem: React.FC<BestBookmarkedRecipeItemProps> = ({
             <Scrap
               book={bestBookmarkedData.bookmarksCount}
               status={bestBookmarkedData.bookmarkStatus}
-              user={bestBookmarkedData.user.id}
               recipe={bestBookmarkedData.recipeId}
             />
           </div>

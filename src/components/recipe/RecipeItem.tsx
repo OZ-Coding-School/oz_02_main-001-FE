@@ -31,10 +31,10 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
         </div>
         <div className="flex gap-2 w-full ">
           <span>
-            <Like like={recipe.like} likeStatus={recipe.likeStatus} />
+            <Like recipe={recipe.id} like={recipe.like} status={recipe.likeStatus} />
           </span>
           <span>
-            <Scrap book={recipe.book} bookStatus={recipe.bookStatus} />
+            <Scrap recipe={recipe.id} book={recipe.book} status={recipe.bookStatus} />
           </span>
         </div>
       </div>

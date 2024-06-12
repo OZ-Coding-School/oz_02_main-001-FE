@@ -1,6 +1,7 @@
 import Scrap from "@components/recipe/Scrap";
 
 import React from "react";
+import { useParams } from "react-router-dom";
 
 interface RecipeTitleSectionProps {
   title: string;
@@ -19,6 +20,7 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
   userNickname,
   userProfileImage,
 }) => {
+  const { recipeId } = useParams();
   return (
     <div
       className="grid gap-6 p-6 bg-white
@@ -30,7 +32,7 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
           <span className="text-[0.8rem] text-[#000000]/50">{date}</span>
         </div>
         <div className="pt-[0.3rem]">
-          <Scrap book={bookmark} bookStatus={bookmarkStatus} />
+          <Scrap recipe={parseInt(recipeId!)} book={bookmark} status={bookmarkStatus} />
         </div>
       </div>
       <div className="flex items-center gap-4">

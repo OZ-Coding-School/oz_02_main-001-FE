@@ -1,6 +1,5 @@
 import RecipeHeader from "@components/header/RecipeHeader";
 import React from "react";
-import testUrl from "@assets/images/recipe.png";
 import RecipeTitleSection from "../components/title/RecipeTitleSection";
 import PreparedIngredients from "../components/ingredient/PreparedIngredients";
 import RecipeSteps from "../components/step/RecipeSteps";
@@ -54,8 +53,8 @@ const RecipePage: React.FC = () => {
             <RecipeTitleSection
               title={recipeData.data.title}
               date={recipeData.data.user.date}
-              bookmark={recipeData.data.bookmark}
-              bookmarkStatus={recipeData.data.bookmarkStatus}
+              bookmark={recipeData.data.book}
+              bookmarkStatus={recipeData.data.bookStatus}
               userNickname={recipeData.data.user.nickname}
               userProfileImage={recipeData.data.user.profileImage}
             />
@@ -67,7 +66,11 @@ const RecipePage: React.FC = () => {
             </div>
             <DividingLine />
             <div className="flex gap-4 p-3">
-              <Like like={recipeData.data.like} likeStatus={recipeData.data.likeStatus} />
+              <Like
+                recipe={parseInt(recipeId!)}
+                like={recipeData.data.like}
+                status={recipeData.data.likeStatus}
+              />
               <CommentIcon commentNumber={recipeData.data.comments.length} />
             </div>
             <CommentSection comments={recipeData.data.comments} />
