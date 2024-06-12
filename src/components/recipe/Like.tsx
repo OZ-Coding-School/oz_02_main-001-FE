@@ -1,35 +1,48 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { apiRoutes } from "../../api/apiRoutes";
 import { fetchData } from "../../api/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface LikeType {
-  id: number;
+interface LikeProps {
+  user: number;
+  recipe: number;
+  status: number;
   like: number;
   likeStatus: number;
 }
 
-const Like: React.FC<LikeType> = ({ id, like, likeStatus }) => {
-  const queryClient = useQueryClient();
+const Like: React.FC<LikeProps> = ({ user, recipe, status, like, likeStatus }) => {
   const [likeState, setLikeState] = useState<{ like: number; isLiked: boolean }>({
     like: like,
     isLiked: likeStatus === 1,
   });
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const queryClient = useQueryClient();
 
   const handleLike = (event: React.MouseEvent) => {
     event.stopPropagation();
+    mutationLike.mutate();
     setLikeState((prevState) => ({
       like: prevState.isLiked ? prevState.like - 1 : prevState.like + 1,
       isLiked: !prevState.isLiked,
     }));
   };
 
-  useEffect(() => {
-    if (isLoading.data.likeStatus === -1) {
-      setIsLoading(false);
-    }
-  }, [likeState.isLiked]);
+  const fetchLike = async (): Promise<LikeType> => {
+    return await fetchData<LikeType>("POST", apiRoutes.likes, {
+      user: user,
+      recipe: recipe,
+      status: status,
+    });
+  };
+
+  const mutationLike = useMutation<LikeType>({
+    mutationFn: fetchLike,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["likes"],
+      });
+    },
+  });
 
   return (
     <div className="flex items-center">
