@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
+import { selectUnits } from "./../../../../utils/selectUnits";
+import { selectOption } from "src/types/selectBoxType";
 
 interface SelectBoxProps {
   index?: number;
   field: string;
-  options: string[];
-  value: string;
-  handleCategoryChange?: (field: string, value: string) => void;
-  handleUnitChange?: (index: number, field: string, value: string) => void;
+  options: selectOption[];
+  value: number;
+  handleCategoryChange?: (field: string, value: number) => void;
+  handleUnitChange?: (index: number, field: string, value: number) => void;
 }
 
 const SelectBox: React.FC<SelectBoxProps> = ({
@@ -19,19 +21,19 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   handleUnitChange,
 }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>(value);
+  const [selectedCategory, setSelectedCategory] = useState<string>(selectUnits(field, value));
 
   const handleCategoryClick = () => {
     setIsClicked((prev) => !prev);
   };
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = (option: selectOption) => {
     if (field === "category") {
-      handleCategoryChange && handleCategoryChange(field, option);
+      handleCategoryChange && handleCategoryChange(field, option.id);
     } else {
-      handleUnitChange && handleUnitChange(index!, field, option);
+      handleUnitChange && handleUnitChange(index!, field, option.id);
     }
-    setSelectedCategory(option);
+    setSelectedCategory(option.name);
     setIsClicked(false);
   };
 
@@ -52,13 +54,13 @@ const SelectBox: React.FC<SelectBoxProps> = ({
 
       {isClicked && (
         <ul className="flex flex-col gap-1 border w-full min-h-[80px] p-1 rounded-[5px] overflow-auto relative z-[5] bg-white border-softBlue">
-          {options.map((option, index) => (
-            <li key={option + index}>
+          {options.map((option) => (
+            <li key={option.id}>
               <button
                 className=" flex justify-start items-center w-full h-[35px]"
                 onClick={() => handleOptionClick(option)}
               >
-                {option}
+                {option.name}
               </button>
             </li>
           ))}

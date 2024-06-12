@@ -8,22 +8,16 @@ interface RecipeStore {
 export const useRecipeStore = create<RecipeStore>((set) => ({
   recipeData: {
     title: "",
-    mainImage: "",
-    category: "카테고리",
+    category: -1,
     story: "",
-    ingredients: [
+    recipeIngredients: [
       {
         name: "",
         quantity: -1,
-        unit: "단위",
+        unit: -1,
       },
     ],
-    steps: [
-      {
-        step: "",
-        image: "",
-      },
-    ],
+    steps: [""],
   },
   setRecipeData: (newRecipeData) => set({ recipeData: newRecipeData }),
 }));
