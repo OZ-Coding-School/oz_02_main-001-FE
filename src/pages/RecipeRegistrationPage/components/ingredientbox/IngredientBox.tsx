@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { apiRoutes } from "./../../../../api/apiRoutes";
 import { fetchData } from "./../../../../api/axios";
-import { IngredientDataType } from "src/types/ingredientType";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 type data = {
   data: IngredientDataType[];
@@ -60,7 +61,10 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
           {isError ? (
             <div className="py-2.5 px-3">재료명을 입력해주세요</div>
           ) : isLoading ? (
-            <div className="py-2.5 px-3">로딩중</div>
+            <div className="flex flex-col gap-3 py-2.5 px-3">
+              <Skeleton height={30} width={"50%"} />
+              <Skeleton height={30} width={"50%"} />
+            </div>
           ) : (
             <>
               {data && data.data.length === 0 ? (
