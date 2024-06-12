@@ -17,7 +17,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
   const changeImage = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.updateImage, stepImage[order]),
     onSuccess: (data) => console.log(data),
-    // onError: (error) => console.log(error),
+    onError: (error) => console.log(error),
   });
 
   const updateImage = (newImageUrl: string) => {
@@ -46,7 +46,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
 
   const handleStepImageClick = () => {
     if (!stepImage[order].image) {
-      document.getElementById("fileInput")?.click();
+      document.getElementById(`fileInput${order}`)?.click();
     } else {
       setShowModal(true);
     }
@@ -72,9 +72,9 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
     setShowModal(false);
   };
 
-  // useEffect(() => {
-  //   changeImage.mutate();
-  // }, [stepImage]);
+  useEffect(() => {
+    changeImage.mutate();
+  }, [stepImage]);
 
   useEffect(() => {
     const addImage = () => {
@@ -104,7 +104,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
           </div>
         )}
       </div>
-      <input type="file" id="fileInput" className="hidden" onChange={handleFileChange} />
+      <input type="file" id={`fileInput${order}`} className="hidden" onChange={handleFileChange} />
       {showModal && (
         <ProceedModal
           proceedQuestionText="이미지를 삭제 하시겠습니까?"

@@ -32,10 +32,9 @@ const initialRecipeData: RecipeDataType = {
   },
   ingredients: [
     {
-      id: -1,
       name: "",
       quantity: 0,
-      unit: "",
+      unit: -1,
     },
   ],
   steps: [
@@ -64,7 +63,7 @@ const RecipePage: React.FC = () => {
     isLoading,
     error,
   } = useQuery<RecipeDataType>({
-    queryKey: ["recipeData?"],
+    queryKey: ["recipeData"],
     queryFn: () => fetchData("GET", `${apiRoutes.recipes}/${recipeId}`),
   });
   console.log(recipeData);

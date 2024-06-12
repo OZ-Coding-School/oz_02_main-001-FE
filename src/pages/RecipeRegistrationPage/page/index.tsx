@@ -16,7 +16,6 @@ const RecipeRegistrationPage: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   const [isValid, setIsValid] = useState<boolean>(false);
   const { recipeData } = useRecipeStore();
-  console.log(isValid);
   const submit = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.recipes, recipeData),
     onSuccess: (data) => {
