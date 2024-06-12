@@ -9,7 +9,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
 interface CategorySectionListProps {
-  mainPageData: MainPageDataType;
+  mainPageData: MainDataDataType;
   categoryName: string;
   category: string;
   categoryDescription: string;
