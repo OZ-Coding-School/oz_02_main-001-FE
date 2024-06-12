@@ -12,21 +12,44 @@ type data = {
 };
 
 interface IngredientBoxProp {
+  index: number;
   value: string;
+  ingredients: RecipeIngredient[];
+  setIngredients: React.Dispatch<React.SetStateAction<RecipeIngredient[]>>;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const IngredientBox: React.FC<IngredientBoxProp> = ({ value, setShowModal }) => {
+const IngredientBox: React.FC<IngredientBoxProp> = ({
+  index,
+  value,
+  ingredients,
+  setIngredients,
+  setShowModal,
+}) => {
   const { data, isError, error, isLoading } = useQuery<data>({
-    queryKey: ["searchIngredient"],
+    queryKey: ["searchIngredient", value],
     queryFn: () => fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`),
   });
 
   if (isError) {
     console.log(error);
+  } else {
+    console.log("data", data);
   }
 
   const handleSubmit = () => {
+    setShowModal(false);
+  };
+
+  const handleIngredientClick = (value: string) => {
+    const updateData = ingredients.map((ingredient, i) => {
+      if (index === i) {
+        return { ...ingredient, name: value };
+      } else {
+        return ingredient;
+      }
+    });
+    setIngredients(updateData);
     setShowModal(false);
   };
 
@@ -34,14 +57,26 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({ value, setShowModal }) => 
     <div className="absolute top-14 bg-white z-[10] w-full border border-softBlue rounded-[5px] pt-1">
       <div className="flex flex-col h-[260px] justify-between">
         <div className="overflow-auto">
-          {data && data.data.length === 0 ? (
-            <div className="py-2.5 px-3">검색된 재료가 없습니다</div>
+          {isError ? (
+            <div className="py-2.5 px-3">재료명을 입력해주세요</div>
+          ) : isLoading ? (
+            <div className="py-2.5 px-3">로딩중</div>
           ) : (
-            data?.data.map((ingredient) => (
-              <div className="py-2.5 px-3" key={ingredient.id}>
-                {ingredient.name}
-              </div>
-            ))
+            <>
+              {data && data.data.length === 0 ? (
+                <div className="py-2.5 px-3">검색된 재료가 없습니다</div>
+              ) : (
+                data?.data.map((ingredient) => (
+                  <div
+                    className="py-2.5 px-3"
+                    key={ingredient.id}
+                    onClick={() => handleIngredientClick(ingredient.name)}
+                  >
+                    {ingredient.name}
+                  </div>
+                ))
+              )}
+            </>
           )}
         </div>
         <div className="px-2 py-3">

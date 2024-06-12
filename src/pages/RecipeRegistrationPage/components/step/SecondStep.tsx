@@ -63,31 +63,26 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
         return ingredient;
       }
     });
-
+    if (field === "name") {
+      setShowModal(true);
+    }
     setIngredients(newIngredients);
     setRecipeData({ ...recipeData, recipeIngredients: newIngredients });
   };
 
   useEffect(() => {
+    if (ingredients.length === 1) {
+      setIsDeleteButtonClick(false);
+    }
     setRecipeData({ ...recipeData, recipeIngredients: ingredients });
   }, [ingredients]);
 
   useEffect(() => {
-    if (ingredients.length === 1) {
-      setIsDeleteButtonClick(false);
-    }
-  }, [ingredients]);
-
-  useEffect(() => {
     const formValidate = () => {
-      recipeData.recipeIngredients.forEach((ingredient) => {
-        if (ingredient.name !== "" && ingredient.quantity > 0 && ingredient.unit !== -1) {
-          setIsValid(true);
-        } else {
-          setIsValid(false);
-          return;
-        }
+      const isValid = recipeData.recipeIngredients.every((ingredient) => {
+        return ingredient.name !== "" && ingredient.quantity > 0 && ingredient.unit !== -1;
       });
+      setIsValid(isValid);
     };
     formValidate();
   }, [recipeData]);
@@ -116,7 +111,6 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
               <div
                 onClick={() => {
                   setIngredientInputIndex(index);
-                  setShowModal(true);
                 }}
               >
                 <IngredientInput
@@ -129,7 +123,13 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
                 />
               </div>
               {ingredientInputIndex === index && showModal && (
-                <IngredientBox value={ingredient.name} setShowModal={setShowModal} />
+                <IngredientBox
+                  index={index}
+                  value={ingredient.name}
+                  ingredients={ingredients}
+                  setShowModal={setShowModal}
+                  setIngredients={setIngredients}
+                />
               )}
               <div className="flex gap-2">
                 <div className="w-[50%]">
