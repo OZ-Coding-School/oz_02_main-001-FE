@@ -3,18 +3,13 @@ import React, { useEffect, useState } from "react";
 import { apiRoutes } from "../../api/apiRoutes";
 import { fetchData } from "../../api/axios";
 
-interface LikeProps {
-  like: number;
-  likeStatus: number;
-}
-
 interface LikeType {
   id: number;
   like: number;
   likeStatus: number;
 }
 
-const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
+const Like: React.FC<LikeType> = ({ id, like, likeStatus }) => {
   const queryClient = useQueryClient();
   const [likeState, setLikeState] = useState<{ like: number; isLiked: boolean }>({
     like: like,
@@ -31,14 +26,10 @@ const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
   };
 
   useEffect(() => {
-    if (!isLoading) {
-      // console.log(likeState);
+    if (isLoading.data.likeStatus === -1) {
+      setIsLoading(false);
     }
   }, [likeState.isLiked]);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   return (
     <div className="flex items-center">
