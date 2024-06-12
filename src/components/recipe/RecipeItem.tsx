@@ -1,7 +1,6 @@
 import React from "react";
 import Like from "./Like";
 import Scrap from "./Scrap";
-import { RecipeType } from "src/types/recipeItemType";
 import { useNavigate } from "react-router-dom";
 
 interface RecipeItemProps {

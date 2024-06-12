@@ -1,7 +1,6 @@
 import React from "react";
 import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import { PiHamburger } from "react-icons/pi";
-import { RefrigeratorType } from "src/types/refrigeratorType";
 
 interface IngredientSelectionItemProps {
   refrigerator: RefrigeratorType;

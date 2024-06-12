@@ -1,6 +1,5 @@
 import React from "react";
 import Like from "@components/recipe/Like";
-import { MainPageCategoryDataType } from "src/types/mainPageDataType";
 import Scrap from "@components/recipe/Scrap";
 import { useNavigate } from "react-router-dom";
 

@@ -1,7 +1,6 @@
 import RoundedSmallButton from "@components/buttons/RoundedSmallButton";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { MainPageDataType } from "src/types/mainPageDataType";
 import CategorySectionItem from "./CategorySectionItem";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
