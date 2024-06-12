@@ -45,7 +45,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
           {isLoading ? (
             <SkeletonSentence />
           ) : (
-            <span className="text-[20px]">
+            <span className="text-[18px]">
               <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
             </span>
           )}
