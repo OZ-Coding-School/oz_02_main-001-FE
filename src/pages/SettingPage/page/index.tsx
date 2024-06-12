@@ -30,11 +30,8 @@ const SettingPage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      data?.data.status === 1 ? setIsToggled(true) : setIsToggled(false);
-      setIsQueryEnabled(false);
-    }
+    data?.data.status === 1 ? setIsToggled(true) : setIsToggled(false);
+    setIsQueryEnabled(false);
   }, [data]);
 
   const putAlertStatus = async (): Promise<AlertType> => {
