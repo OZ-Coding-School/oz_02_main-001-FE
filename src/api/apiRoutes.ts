@@ -20,7 +20,6 @@ export const apiRoutes = {
   bookmarks: "/bookmarks",
   userMypage: "/users/mypage",
   alertsStatus: "/alerts/status",
-  alertEnable: "/alerts/enable",
-  updateAlertsEnable: "/users/alerts/enable",
+  alertEnable: "users/alerts/enable",
   alerts: "/alerts",
 };
