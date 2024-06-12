@@ -5,5 +5,5 @@ type AlertType = {
 type GetAlertStatusType = {
   status: number;
   message: string;
-  data: [status: number];
+  data: { status: number };
 };
