@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { apiRoutes } from "../../api/apiRoutes";
+import { fetchData } from "../../api/axios";
 
 interface LikeProps {
   like: number;
   likeStatus: number;
 }
 
+interface LikeType {
+  id: number;
+  like: number;
+  likeStatus: number;
+}
+
 const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
+  const queryClient = useQueryClient();
   const [likeState, setLikeState] = useState<{ like: number; isLiked: boolean }>({
     like: like,
     isLiked: likeStatus === 1,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleLike = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -18,6 +29,16 @@ const Like: React.FC<LikeProps> = ({ like, likeStatus }) => {
       isLiked: !prevState.isLiked,
     }));
   };
+
+  useEffect(() => {
+    if (!isLoading) {
+      // console.log(likeState);
+    }
+  }, [likeState.isLiked]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   return (
     <div className="flex items-center">

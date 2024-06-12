@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { apiRoutes } from "../../api/apiRoutes";
+import { fetchData } from "../../api/axios";
 
 interface ScrapProps {
+  book: number;
+  bookStatus: number;
+}
+
+interface BookType {
+  id: number;
   book: number;
   bookStatus: number;
 }
@@ -10,6 +19,21 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
     book,
     booked: bookStatus === 1,
   });
+
+  const { data } = useQuery<BookType>({
+    queryKey: ["bookmarks"],
+    queryFn: () => fetchData("GET", apiRoutes.bookmarks),
+  });
+  console.log(data);
+
+  useEffect(() => {
+    if (data) {
+      setScrapCount({
+        book: data.book,
+        booked: data.bookStatus === 1,
+      });
+    }
+  }, [data]);
 
   const handleScrap = (event: React.MouseEvent) => {
     event.stopPropagation();
