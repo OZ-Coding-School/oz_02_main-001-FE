@@ -3,7 +3,6 @@ import Footer from "@components/footer/Footer";
 import MainHeader from "@components/header/MainHeader";
 import Modal from "../components/Modal";
 import BestRecipeList from "../components/BestRecipeList";
-import { mainPageData } from "../data/mainPageData";
 import CategorySectionList from "../components/CategorySectionList";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
@@ -68,40 +67,44 @@ const MainPage: React.FC = () => {
             <SkeletonLoader />
           ) : (
             <>
-              <div>
-                <div>
-                  <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
-                  <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
-                </div>
-                <BestRecipeList mainPageData={mainPageData} />
-              </div>
+              {data?.data && (
+                <>
+                  <div>
+                    <div>
+                      <p className="text-[20px] font-semibold">🏆 금주의 레시피 🏆 </p>
+                      <p className="text-[14px] text-gray-400">냉뚝이 어워즈 인기 레시피 !</p>
+                    </div>
+                    <BestRecipeList mainPageData={data?.data} />
+                  </div>
 
-              <div className="flex flex-col gap-y-10">
-                <CategorySectionList
-                  mainPageData={mainPageData}
-                  categoryName="daily"
-                  category="일상요리"
-                  categoryDescription="everyday cooking recipes"
-                />
-                <CategorySectionList
-                  mainPageData={mainPageData}
-                  categoryName="healthy"
-                  category="건강요리"
-                  categoryDescription="healthy cooking recipes"
-                />
-                <CategorySectionList
-                  mainPageData={mainPageData}
-                  categoryName="midnightSnack"
-                  category="야식"
-                  categoryDescription="dessert cooking recipes"
-                />
-                <CategorySectionList
-                  mainPageData={mainPageData}
-                  categoryName="desert"
-                  category="디저트"
-                  categoryDescription="midnight food recipes"
-                />
-              </div>
+                  <div className="flex flex-col gap-y-10">
+                    <CategorySectionList
+                      mainPageData={data.data}
+                      categoryName="daily"
+                      category="일상요리"
+                      categoryDescription="everyday cooking recipes"
+                    />
+                    <CategorySectionList
+                      mainPageData={data.data}
+                      categoryName="healthy"
+                      category="건강요리"
+                      categoryDescription="healthy cooking recipes"
+                    />
+                    <CategorySectionList
+                      mainPageData={data.data}
+                      categoryName="midnightSnack"
+                      category="야식"
+                      categoryDescription="dessert cooking recipes"
+                    />
+                    <CategorySectionList
+                      mainPageData={data.data}
+                      categoryName="desert"
+                      category="디저트"
+                      categoryDescription="midnight food recipes"
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
