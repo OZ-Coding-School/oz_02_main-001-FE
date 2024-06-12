@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Label from "../Label";
 import StepBadge from "@components/badge/StepBadge";
-import ImageUpload from "../imageUpload/ImageUpload";
 import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import { FiMinusCircle } from "react-icons/fi";
 import { useRecipeStore } from "@store/useRecipeStore";
+import StepImageUpload from "../imageUpload/StepImageUpload";
+import { useImageStore } from "@store/useImageStore";
 
 interface ThirdStepProps {
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,9 +14,17 @@ interface ThirdStepProps {
 const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
   const { recipeData, setRecipeData } = useRecipeStore();
   const [steps, setSteps] = useState<string[]>(recipeData.steps);
+  const { stepImage, setStepImage } = useImageStore();
+  const initialValue = {
+    action: "write",
+    type: "step",
+    order: steps.length,
+    image: "",
+  };
 
   const handleAddClick = () => {
     setSteps((prev) => [...prev, ""]);
+    setStepImage([...stepImage, initialValue]);
   };
 
   const handleChange = (index: number, value: string) => {
@@ -25,7 +34,12 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
 
   const handleRemoveClick = (index: number) => {
     const newSteps = steps.filter((_, i) => i !== index);
+    const deleteImage = stepImage.filter((_, i) => i !== index);
+    const newImage = deleteImage.map((image, index) => {
+      return { ...image, order: index };
+    });
     setSteps(newSteps);
+    setStepImage(newImage);
   };
 
   useEffect(() => {
@@ -63,7 +77,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
             </div>
             <div className="flex gap-2">
               <div className="size-[100px]">
-                <ImageUpload handleChange={(image) => handleChange(index, image)} />
+                <StepImageUpload order={index} />
               </div>
               <textarea
                 className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none"

@@ -17,10 +17,14 @@ interface IngredientBoxProp {
 }
 
 const IngredientBox: React.FC<IngredientBoxProp> = ({ value, setShowModal }) => {
-  const { data, error, isLoading } = useQuery<data>({
+  const { data, isError, error, isLoading } = useQuery<data>({
     queryKey: ["searchIngredient"],
     queryFn: () => fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`),
   });
+
+  if (isError) {
+    console.log(error);
+  }
 
   const handleSubmit = () => {
     setShowModal(false);

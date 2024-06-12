@@ -1,6 +1,6 @@
 type imageUpload = {
   action?: string;
-  recipe?: string;
+  recipe?: number;
   type: string;
   order: number;
   image: string;

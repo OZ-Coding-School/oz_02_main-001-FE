@@ -12,6 +12,7 @@ export const apiRoutes = {
   upDateIngredients: "/fridges/ingredients",
   recommendRecipe: "/recipes/recommend",
   ingredients: "/ingredients",
+  updateImage: "/recipes/temp",
   recipes: "/recipes",
   recipeCategory: "/recipes/category",
   recipeSearch: "/recipes/search",
