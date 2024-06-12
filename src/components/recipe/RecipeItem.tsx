@@ -19,7 +19,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
     >
       <div className="w-[30%]">
         <img
-          src={recipe.image}
+          src={recipe.mainImage}
           className="w-full h-full rounded-[5px] object-cover"
           style={{ aspectRatio: "1/1" }}
         />
