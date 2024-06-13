@@ -1,5 +1,6 @@
 export type NotificationType = {
-  recipeId?: number; //백엔드에 요청함
+  id: number;
+  recipeId: number;
   nickname: string;
   title: string;
   type: string;

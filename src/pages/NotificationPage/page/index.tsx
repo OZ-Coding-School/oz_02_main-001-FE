@@ -2,18 +2,14 @@ import Header from "@components/header/Header";
 import { useNavigate } from "react-router-dom";
 import NotificationItem from "../components/NotificationItem";
 import { NotificationType } from "src/types/notificationItemType";
-
 import { apiRoutes } from "../../../api/apiRoutes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import SkeletonNoticeLoader from "../skeleton/SkeletonNoticeLoader";
 
-interface NotificationTypeProps {
-  notice: NotificationType;
-}
-
-const NotificationPage: React.FC<NotificationTypeProps> = () => {
+const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const handleClick = () => {
     navigate(-1);
@@ -21,9 +17,25 @@ const NotificationPage: React.FC<NotificationTypeProps> = () => {
 
   const { data, isLoading, isError, error } = useQuery<NotificationType[]>({
     queryKey: ["notifications"],
-    queryFn: () => fetchData("GET", `${apiRoutes.alerts}/7`),
+    queryFn: () => fetchData("GET", `${apiRoutes.alerts}`),
   });
+
   console.log(data);
+
+  const fetchAlert = async (id: number): Promise<NotificationType> => {
+    return await fetchData("POST", `${apiRoutes.alerts}/${id}`);
+  };
+
+  const mutationAlert = useMutation({
+    mutationFn: fetchAlert,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+    },
+  });
+
+  const handleReadAlert = (id: number) => {
+    mutationAlert.mutate(id);
+  };
 
   if (isError) {
     console.log(error);
@@ -35,7 +47,17 @@ const NotificationPage: React.FC<NotificationTypeProps> = () => {
       {isLoading ? (
         [...Array(4)].map((_, index) => <SkeletonNoticeLoader key={index} />)
       ) : (
-        <div>{data?.map((notice) => <NotificationItem key={notice.title} notice={notice} />)}</div>
+        <div>
+          {Array.isArray(data) &&
+            data.length > 0 &&
+            data.map((notice) => (
+              <NotificationItem
+                key={notice.id}
+                notice={notice}
+                onClick={() => handleReadAlert(notice.id)}
+              />
+            ))}
+        </div>
       )}
     </div>
   );

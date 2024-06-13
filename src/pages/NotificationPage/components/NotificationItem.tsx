@@ -4,6 +4,7 @@ import { NotificationType } from "src/types/notificationItemType";
 
 interface NotificationItemProps {
   notice: NotificationType;
+  onClick: () => void;
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
@@ -11,6 +12,8 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice }) => {
 
   const navigate = useNavigate();
   console.log(isRead);
+
+  console.log(notice);
 
   const actionMessage = notice.type === "like" ? "좋아요를 눌렀습니다." : "댓글을 남겼습니다.";
 
