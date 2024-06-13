@@ -102,7 +102,7 @@ const MainPage: React.FC = () => {
                     />
                     <CategorySectionList
                       mainPageData={data.data}
-                      categoryName="midnightSnack"
+                      categoryName="midnight"
                       category="야식"
                       categoryDescription="dessert cooking recipes"
                     />
