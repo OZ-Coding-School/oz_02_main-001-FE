@@ -7,6 +7,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import SkeletonNoticeLoader from "../skeleton/SkeletonNoticeLoader";
 
+type dataType = {
+  data: NotificationType[];
+  status: number;
+  message: string;
+};
+
 const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -15,21 +21,20 @@ const NotificationPage: React.FC = () => {
     navigate(-1);
   };
 
-  const { data, isLoading, isError, error } = useQuery<NotificationType[]>({
+  const { data, isLoading, isError, error } = useQuery<dataType>({
     queryKey: ["notifications"],
     queryFn: () => fetchData("GET", `${apiRoutes.alerts}`),
   });
 
   console.log(data);
 
-  const fetchAlert = async (id: number): Promise<NotificationType> => {
-    return await fetchData("POST", `${apiRoutes.alerts}/${id}`);
-  };
-
   const mutationAlert = useMutation({
-    mutationFn: fetchAlert,
-    onSuccess: () => {
+    mutationFn: (id: number) => {
+      return fetchData("POST", apiRoutes.alerts, { alerts: [id] });
+    },
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      navigate(`/recipe/${recipeId}`);
     },
   });
 
@@ -48,9 +53,8 @@ const NotificationPage: React.FC = () => {
         [...Array(4)].map((_, index) => <SkeletonNoticeLoader key={index} />)
       ) : (
         <div>
-          {Array.isArray(data) &&
-            data.length > 0 &&
-            data.map((notice) => (
+          {data &&
+            data.data.map((notice) => (
               <NotificationItem
                 key={notice.id}
                 notice={notice}

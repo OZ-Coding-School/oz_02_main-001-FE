@@ -4,6 +4,6 @@ export type NotificationType = {
   nickname: string;
   title: string;
   type: string;
-  status: number;
+  status: boolean;
   createdAt: string;
 };
