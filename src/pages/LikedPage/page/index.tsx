@@ -15,7 +15,7 @@ const LikedPage: React.FC = () => {
   };
 
   const fetchLiked = async (): Promise<RecipeCategoryType> => {
-    return await fetchData("GET", `${apiRoutes.recipeCatory}/like`);
+    return await fetchData("GET", `${apiRoutes.recipeCategory}/like`);
   };
 
   const { data, isLoading, error } = useQuery<RecipeCategoryType>({
@@ -29,7 +29,11 @@ const LikedPage: React.FC = () => {
   return (
     <>
       <Header hasBackBtn={true} title="좋아요한 레시피" handleBackBtnClick={handleBackBtnClick} />
-      {isLoading ? <SkeletonRecipeList /> : data?.data && <RecipeList recipeData={data?.data} />}
+      {isLoading ? (
+        <SkeletonRecipeList />
+      ) : (
+        data?.data && <RecipeList queryKey="liked" recipeData={data?.data} />
+      )}
     </>
   );
 };

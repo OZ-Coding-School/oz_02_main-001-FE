@@ -4,10 +4,11 @@ import Scrap from "./Scrap";
 import { useNavigate } from "react-router-dom";
 
 interface RecipeItemProps {
+  queryKey: string;
   recipe: RecipeType;
 }
 
-const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
+const RecipeItem: React.FC<RecipeItemProps> = ({ queryKey, recipe }) => {
   const navigate = useNavigate();
   const handleRecipeItemClick = (): void => {
     navigate(`/recipe/${recipe.id}`);
@@ -32,18 +33,18 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
         <div className="flex gap-2 w-full ">
           <span>
             <Like
+              queryKey={queryKey}
+              recipe={recipe.id}
               like={recipe.like}
               status={recipe.likeStatus}
-              user={Number(recipe.user)}
-              recipe={recipe.id}
             />
           </span>
           <span>
             <Scrap
+              queryKey={queryKey}
+              recipe={recipe.id}
               book={recipe.book}
               status={recipe.bookStatus}
-              user={Number(recipe.user)}
-              recipe={recipe.id}
             />
           </span>
         </div>
