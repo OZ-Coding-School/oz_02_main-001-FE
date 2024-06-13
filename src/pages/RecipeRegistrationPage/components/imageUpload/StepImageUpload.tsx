@@ -15,7 +15,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
   const { stepImage, setStepImage } = useImageStore();
 
   const changeImage = useMutation({
-    mutationFn: () => fetchData("POST", apiRoutes.updateImage, stepImage[order]),
+    mutationFn: () => fetchData("POST", apiRoutes.updateImage, stepImage[order + 1]),
     onSuccess: (data) => console.log(data),
     onError: (error) => console.log(error),
   });

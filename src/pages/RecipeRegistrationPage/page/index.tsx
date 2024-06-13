@@ -10,18 +10,54 @@ import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { apiRoutes } from "./../../../api/apiRoutes";
+import { useImageStore } from "@store/useImageStore";
+
+type dataType = {
+  data: {
+    id: number;
+  };
+  message: string;
+  status: number;
+};
 
 const RecipeRegistrationPage: React.FC = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState<number>(1);
   const [isValid, setIsValid] = useState<boolean>(false);
-  const { recipeData } = useRecipeStore();
+  const { recipeData, setRecipeData } = useRecipeStore();
+  const { setMainImage, setStepImage } = useImageStore();
 
-  const submit = useMutation({
+  const submit = useMutation<dataType>({
     mutationFn: () => fetchData("POST", apiRoutes.recipes, recipeData),
     onSuccess: (data) => {
-      // navigate(`/recipe/${data.data.id}`);
-      console.log("요청 성공");
+      navigate(`/recipe/${data.data.id}`);
+      setRecipeData({
+        title: "",
+        category: -1,
+        story: "",
+        recipeIngredients: [
+          {
+            name: "",
+            quantity: -1,
+            unit: -1,
+          },
+        ],
+        steps: [""],
+      });
+      setMainImage({
+        action: "write",
+        type: "main",
+        order: 1,
+        image: "",
+      });
+      setStepImage([
+        {
+          action: "write",
+          type: "step",
+          order: 0,
+          image: "",
+        },
+      ]);
     },
     onError: (error) => {
       console.log(error);

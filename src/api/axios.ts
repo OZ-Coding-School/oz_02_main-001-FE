@@ -12,9 +12,9 @@ export const fetchData = async <T>(
   method: "GET" | "POST" | "PUT" | "DELETE",
   endpoint: string,
   data?: T,
-): Promise<T> => {
+) => {
   try {
-    let response: AxiosResponse<T>;
+    let response;
     switch (method) {
       case "GET":
         response = await customAxios.get(endpoint);

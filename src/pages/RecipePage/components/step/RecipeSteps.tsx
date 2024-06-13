@@ -13,7 +13,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
       {steps.map((step, index) => (
         <div className="flex flex-col gap-2" key={index}>
           <StepBadge step={index + 1} />
-          <div className="flex w-full gap-3">
+          <div className="flex w-full min-h-[110px] gap-3">
             <div className={`${step.image ? "w-[75%]" : ""}`}>{step.step}</div>
             <div>
               {step.image && (

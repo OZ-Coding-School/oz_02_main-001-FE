@@ -33,6 +33,7 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const [ingredientInputIndex, setIngredientInputIndex] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  console.log(ingredients);
   const handleAddClick = () => {
     const addIngredients = [...ingredients, initialIngredientData];
     setIngredients(addIngredients);
@@ -58,6 +59,8 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const handleChange = (index: number, field: string, value: string | number) => {
     const newIngredients = ingredients.map((ingredient, i) => {
       if (index === i) {
+        if (field === "quantity" && typeof value === "string")
+          return { ...ingredient, [field]: parseInt(value) };
         return { ...ingredient, [field]: value };
       } else {
         return ingredient;

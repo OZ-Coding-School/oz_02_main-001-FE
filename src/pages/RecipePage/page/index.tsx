@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
 import { useParams } from "react-router-dom";
+import { useImageStore } from "@store/useImageStore";
 
 type data = {
   data: RecipeDataType;
@@ -21,6 +22,7 @@ type data = {
 
 const RecipePage: React.FC = () => {
   const { recipeId } = useParams();
+
   const {
     data: recipeData,
     isLoading,
@@ -44,7 +46,7 @@ const RecipePage: React.FC = () => {
       ) : (
         recipeData && (
           <>
-            <RecipeHeader canUpdate={recipeData.data.canUpdate} />
+            <RecipeHeader userId={recipeData.data.user.id} canUpdate={recipeData.data.canUpdate} />
             <img
               src={recipeData.data.mainImage}
               alt="레시피 대표 이미지"

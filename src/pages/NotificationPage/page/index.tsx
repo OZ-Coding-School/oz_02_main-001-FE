@@ -2,17 +2,12 @@ import Header from "@components/header/Header";
 import { useNavigate } from "react-router-dom";
 import NotificationItem from "../components/NotificationItem";
 import { NotificationType } from "src/types/notificationItemType";
-
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import SkeletonNoticeLoader from "../skeleton/SkeletonNoticeLoader";
 
-interface NotificationTypeProps {
-  notice: NotificationType;
-}
-
-const NotificationPage: React.FC<NotificationTypeProps> = () => {
+const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {

@@ -31,7 +31,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
             <span className="cursor-pointer" onClick={() => handleShowProfile(comment.userId)}>
               {comment.userNickname}
             </span>
-            <span className="text-[#000000]/50 text-[0.8rem]">{comment.updatedAt}</span>
+            <span className="text-[#000000]/50 text-[0.8rem]">{`${comment.updatedAt.slice(0, 10)} ${comment.updatedAt.slice(11, 16)}`}</span>
           </div>
           <div>{comment.comment}</div>
         </div>
