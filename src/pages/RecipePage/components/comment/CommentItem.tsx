@@ -20,7 +20,11 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [commentData, setCommentData] = useState<string>(comment.comment);
 
-  const { mutate, isPending, isError } = useMutation({
+  const {
+    mutate: editMutate,
+    isPending,
+    isError,
+  } = useMutation({
     mutationFn: () => {
       const UpdateData = {
         id: comment.id,
@@ -32,7 +36,21 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["recipeData"] });
     },
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const { mutate: DeleteMutate } = useMutation({
+    mutationFn: () => {
+      return fetchData("DELETE", `${apiRoutes.comments}/${comment.id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["recipeData"] });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 
   const handleShowProfile = (userId: number): void => {
@@ -54,11 +72,14 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
   };
 
   const handleUpdateClick = () => {
-    mutate();
+    editMutate();
     setIsUpdate(false);
   };
 
-  const handleDeleteModal = () => {};
+  const handleDeleteModal = () => {
+    DeleteMutate();
+    setIsUpdate(false);
+  };
 
   useEffect(() => {
     if (textareaRef.current) {
