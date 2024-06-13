@@ -24,7 +24,7 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
         <div className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer">
           <RiShare2Line className="w-[24px] h-[24px]" />
         </div>
-        {canUpdate && (
+        {canUpdate !== 0 && (
           <div className="flex items-center">
             <MoreButton />
           </div>

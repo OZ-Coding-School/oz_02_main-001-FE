@@ -32,8 +32,8 @@ type RecipeDataType = {
   mainImage: string;
   category: string;
   story: string;
-  bookmark: number;
-  bookmarkStatus: number;
+  book: number;
+  bookStatus: number;
   like: number;
   likeStatus: number;
   user: UserType;

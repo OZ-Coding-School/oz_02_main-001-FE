@@ -16,6 +16,7 @@ const RecipeRegistrationPage: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   const [isValid, setIsValid] = useState<boolean>(false);
   const { recipeData } = useRecipeStore();
+
   const submit = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.recipes, recipeData),
     onSuccess: (data) => {
@@ -27,8 +28,6 @@ const RecipeRegistrationPage: React.FC = () => {
     },
   });
 
-  console.log(recipeData);
-
   const handleBack = () => {
     setStep((prev) => (prev === 1 ? prev : --prev));
   };
@@ -38,6 +37,8 @@ const RecipeRegistrationPage: React.FC = () => {
   };
 
   const handleSubmit = () => {
+    console.log(recipeData);
+
     submit.mutate();
   };
 

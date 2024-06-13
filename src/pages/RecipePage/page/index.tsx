@@ -1,6 +1,5 @@
 import RecipeHeader from "@components/header/RecipeHeader";
 import React from "react";
-import testUrl from "@assets/images/김치볶음밥.png";
 import RecipeTitleSection from "../components/title/RecipeTitleSection";
 import PreparedIngredients from "../components/ingredient/PreparedIngredients";
 import RecipeSteps from "../components/step/RecipeSteps";
@@ -14,83 +13,71 @@ import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
 import { useParams } from "react-router-dom";
 
-const initialRecipeData: RecipeDataType = {
-  canUpdate: 1,
-  title: "",
-  mainImage: "",
-  category: "",
-  story: "",
-  bookmark: 0,
-  bookmarkStatus: -1,
-  like: 0,
-  likeStatus: -1,
-  user: {
-    id: -1,
-    profileImage: "",
-    nickname: "",
-    date: "",
-  },
-  ingredients: [
-    {
-      name: "",
-      quantity: 0,
-      unit: -1,
-    },
-  ],
-  steps: [
-    {
-      step: "",
-      image: "",
-    },
-  ],
-  comments: [
-    {
-      id: -1,
-      userId: -1,
-      userNickname: "",
-      canUpdate: 0,
-      profileImage: "",
-      updatedAt: "",
-      comment: "",
-    },
-  ],
+type data = {
+  data: RecipeDataType;
+  message: string;
+  status: number;
 };
 
 const RecipePage: React.FC = () => {
   const { recipeId } = useParams();
   const {
-    data: recipeData = initialRecipeData,
+    data: recipeData,
     isLoading,
+    isError,
     error,
-  } = useQuery<RecipeDataType>({
+  } = useQuery<data>({
     queryKey: ["recipeData"],
     queryFn: () => fetchData("GET", `${apiRoutes.recipes}/${recipeId}`),
   });
-  console.log(recipeData);
+
+  if (isError) {
+    console.log(error);
+  } else {
+    console.log(recipeData);
+  }
 
   return (
     <div>
-      <RecipeHeader canUpdate={recipeData?.canUpdate} />
-      <img src={testUrl} className="w-[100%] h-auto" />
-      <RecipeTitleSection
-        title={recipeData?.title}
-        date={recipeData?.user.date}
-        bookmark={recipeData?.bookmark}
-        bookmarkStatus={recipeData?.bookmarkStatus}
-        userNickname={recipeData?.user.nickname}
-      />
-      <DividingLine />
-      <div className="flex flex-col gap-5 p-6">
-        <PreparedIngredients ingredients={recipeData?.ingredients} />
-        <RecipeSteps steps={recipeData?.steps} />
-        <RecipeStory story={recipeData?.story} />
-      </div>
-      <DividingLine />
-      <div className="flex gap-4 p-3">
-        <Like like={recipeData?.like} likeStatus={recipeData?.likeStatus} />
-        <CommentIcon commentNumber={recipeData?.comments.length} />
-      </div>
-      <CommentSection comments={recipeData?.comments} />
+      {isLoading ? (
+        <div>로딩중</div>
+      ) : (
+        recipeData && (
+          <>
+            <RecipeHeader canUpdate={recipeData.data.canUpdate} />
+            <img
+              src={recipeData.data.mainImage}
+              alt="레시피 대표 이미지"
+              className="w-[100%] h-auto"
+            />
+            <RecipeTitleSection
+              title={recipeData.data.title}
+              date={recipeData.data.user.date}
+              bookmark={recipeData.data.book}
+              bookmarkStatus={recipeData.data.bookStatus}
+              userNickname={recipeData.data.user.nickname}
+              userProfileImage={recipeData.data.user.profileImage}
+            />
+            <DividingLine />
+            <div className="flex flex-col gap-5 p-6">
+              <PreparedIngredients ingredients={recipeData.data.ingredients} />
+              <RecipeSteps steps={recipeData.data.steps} />
+              <RecipeStory story={recipeData.data.story} />
+            </div>
+            <DividingLine />
+            <div className="flex gap-4 p-3">
+              <Like
+                queryKey="recipeData"
+                recipe={parseInt(recipeId!)}
+                like={recipeData.data.like}
+                status={recipeData.data.likeStatus}
+              />
+              <CommentIcon commentNumber={recipeData.data.comments.length} />
+            </div>
+            <CommentSection comments={recipeData.data.comments} />
+          </>
+        )
+      )}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import Scrap from "@components/recipe/Scrap";
-import testUrl from "@assets/images/김치볶음밥.png";
 
 import React from "react";
+import { useParams } from "react-router-dom";
 
 interface RecipeTitleSectionProps {
   title: string;
@@ -9,6 +9,7 @@ interface RecipeTitleSectionProps {
   bookmark: number;
   bookmarkStatus: number;
   userNickname: string;
+  userProfileImage: string;
 }
 
 const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
@@ -17,7 +18,9 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
   bookmark,
   bookmarkStatus,
   userNickname,
+  userProfileImage,
 }) => {
+  const { recipeId } = useParams();
   return (
     <div
       className="grid gap-6 p-6 bg-white
@@ -29,11 +32,20 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
           <span className="text-[0.8rem] text-[#000000]/50">{date}</span>
         </div>
         <div className="pt-[0.3rem]">
-          <Scrap book={bookmark} bookStatus={bookmarkStatus} />
+          <Scrap
+            queryKey="recipeData"
+            recipe={parseInt(recipeId!)}
+            book={bookmark}
+            status={bookmarkStatus}
+          />
         </div>
       </div>
       <div className="flex items-center gap-4">
-        <img src={testUrl} className="w-[60px] h-[60px] rounded-full" />
+        <img
+          src={userProfileImage}
+          alt="프로필 이미지"
+          className="w-[60px] h-[60px] rounded-full"
+        />
         <span className="text-[1.1rem]">{userNickname}</span>
       </div>
     </div>

@@ -11,7 +11,7 @@ export const useImageStore = create<ImageStore>((set) => ({
   mainImage: {
     action: "write",
     type: "main",
-    order: 0,
+    order: 1,
     image: "",
   },
   setMainImage: (newData) => set({ mainImage: newData }),

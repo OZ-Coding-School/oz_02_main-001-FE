@@ -20,8 +20,8 @@ const RecommendedRecipeItem: React.FC<RecommendedRecipeItemProps> = ({
         <div className="flex w-full justify-between items-start gap-2">
           <span className="font-[500] text-[1.1rem]">{recipe.title}</span>
           <div className="flex gap-2">
-            <Like like={recipe.likes} likeStatus={recipe.likeStatus} />
-            <Scrap book={recipe.bookmark} bookStatus={recipe.bookmarkStatus} />
+            <Like recipe={recipe.recipeId} like={recipe.likes} status={recipe.likeStatus} />
+            <Scrap recipe={recipe.recipeId} book={recipe.bookmark} status={recipe.bookmarkStatus} />
           </div>
         </div>
         <div className="text-gray-600">{recipe.nickname}</div>
