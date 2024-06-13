@@ -1,11 +1,16 @@
 import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import React, { useState } from "react";
 
-const FilteringButtons: React.FC = () => {
+interface FilteringButtonsProps {
+  onSortChange: (sortType: string) => void;
+}
+
+const FilteringButtons: React.FC<FilteringButtonsProps> = ({ onSortChange }) => {
   const [activeButton, setActiveButton] = useState<string>("추천순");
 
   const handleClick = (buttonText: string) => {
     setActiveButton(buttonText);
+    onSortChange(buttonText);
   };
 
   return (
