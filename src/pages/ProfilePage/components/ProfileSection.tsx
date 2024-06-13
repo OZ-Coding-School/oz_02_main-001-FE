@@ -21,6 +21,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   profileImage,
 }) => {
   const [userName, setUserName] = useState<string>(name);
+  const prevName = name;
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [image, setImage] = useState<string>(profileImage);
@@ -78,7 +79,10 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
       alert("닉네임은 3글자 이상이어야 합니다.");
       return;
     }
-    mutationUpdateName.mutate(userName);
+    if (prevName !== userName) {
+      mutationUpdateName.mutate(userName);
+    }
+    setIsEdit(false);
   };
 
   const mutationUpdateName = useMutation({
