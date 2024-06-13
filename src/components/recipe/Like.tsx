@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { apiRoutes } from "../../api/apiRoutes";
 import { fetchData } from "../../api/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface LikeProps {
+  queryKey: string;
   recipe: number;
   status: number;
   like: number;
 }
 
-const Like: React.FC<LikeProps> = ({ recipe, status, like }) => {
+const Like: React.FC<LikeProps> = ({ queryKey, recipe, status, like }) => {
   const queryClient = useQueryClient();
 
   const handleLike = (event: React.MouseEvent) => {
@@ -26,7 +27,7 @@ const Like: React.FC<LikeProps> = ({ recipe, status, like }) => {
   const mutationLike = useMutation<LikeType>({
     mutationFn: fetchLike,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recipeData"] });
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
     },
   });
 

@@ -67,6 +67,7 @@ const RecipePage: React.FC = () => {
             <DividingLine />
             <div className="flex gap-4 p-3">
               <Like
+                queryKey="recipeData"
                 recipe={parseInt(recipeId!)}
                 like={recipeData.data.like}
                 status={recipeData.data.likeStatus}

@@ -19,6 +19,16 @@ const MainPage: React.FC = () => {
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
 
+  // const updateQueryKey = (value: keyDataType) => {
+  //   const newData = keyData.forEach((data) => {
+  //     if (data.page !== value.page && data.queryKey !== value.queryKey) {
+  //       return [{ ...keyData, value }];
+  //     } else {
+  //       reutrn
+  //     }
+  //   });
+  // };
+
   useEffect(() => {
     if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);

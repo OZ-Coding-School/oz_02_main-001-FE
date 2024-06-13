@@ -26,6 +26,7 @@ const BestRecipeItem: React.FC<BestRecipeItemProps> = ({ bestRecipeData }) => {
             <p>{bestRecipeData.title}</p>
 
             <Like
+              queryKey="main"
               like={bestRecipeData.likesCount}
               status={bestRecipeData.likeStatus}
               recipe={bestRecipeData.recipeId}

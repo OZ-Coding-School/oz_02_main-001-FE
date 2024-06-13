@@ -27,6 +27,7 @@ const BestBookmarkedRecipeItem: React.FC<BestBookmarkedRecipeItemProps> = ({
           <div className="flex flex-col justify-between">
             <p>{bestBookmarkedData.title}</p>
             <Scrap
+              queryKey="main"
               book={bestBookmarkedData.bookmarksCount}
               status={bestBookmarkedData.bookmarkStatus}
               recipe={bestBookmarkedData.recipeId}

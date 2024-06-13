@@ -32,7 +32,12 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
           <span className="text-[0.8rem] text-[#000000]/50">{date}</span>
         </div>
         <div className="pt-[0.3rem]">
-          <Scrap recipe={parseInt(recipeId!)} book={bookmark} status={bookmarkStatus} />
+          <Scrap
+            queryKey="recipeData"
+            recipe={parseInt(recipeId!)}
+            book={bookmark}
+            status={bookmarkStatus}
+          />
         </div>
       </div>
       <div className="flex items-center gap-4">
