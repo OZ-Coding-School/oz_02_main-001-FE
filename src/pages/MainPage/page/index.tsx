@@ -19,6 +19,7 @@ const MainPage: React.FC = () => {
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
 
+  console.log(data);
   useEffect(() => {
     if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);

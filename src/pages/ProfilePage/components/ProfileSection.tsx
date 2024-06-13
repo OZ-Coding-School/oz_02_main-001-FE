@@ -3,13 +3,13 @@ import noProfile from "@assets/images/noProfile.png";
 import { MdOutlineDone } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import ProceedModal from "@components/modal/ProceedModal";
-import { accountData } from "../data/dummyData";
 
 interface ProfileSectionProps {
   name: string;
   postsCount: number;
   userId: string | undefined;
   setUserNickname: React.Dispatch<React.SetStateAction<string>>;
+  profileImage: string;
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({
@@ -17,10 +17,11 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   setUserNickname,
   userId,
   postsCount,
+  profileImage,
 }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [image, setImage] = useState<string>(accountData.image);
+  const [image, setImage] = useState<string>(profileImage);
 
   const handleEditNicknameClick = () => {
     setIsEdit(!isEdit);

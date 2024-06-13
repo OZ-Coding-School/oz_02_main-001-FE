@@ -19,12 +19,12 @@ const BestRecipeItem: React.FC<BestRecipeItemProps> = ({ bestRecipeData }) => {
         <div className="flex flex-row gap-x-3 cursor-pointer" onClick={handleRecipeItemClick}>
           <img
             src={bestRecipeData.mainImage}
+            alt="레시피 이미지"
             className="w-[55%] border border-gray-200 rounded-[8px] object-cover"
             style={{ aspectRatio: "1 / 1" }}
           />
           <div className="flex flex-col justify-between">
             <p>{bestRecipeData.title}</p>
-
             <Like like={bestRecipeData.likesCount} likeStatus={bestRecipeData.likeStatus} />
           </div>
         </div>
