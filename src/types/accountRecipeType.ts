@@ -7,7 +7,7 @@ type AccountFetchDataType = {
 type AccountDataType = {
   image: string;
   nickname: string;
-  postCnt: number;
+  totalRecipesCount: number;
   recipes: RecipesType[];
 };
 
