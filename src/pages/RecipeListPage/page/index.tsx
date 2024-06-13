@@ -2,15 +2,28 @@ import FilteringButtons from "@components/filtering/FilteringButtons";
 import Header from "@components/header/Header";
 import RecipeList from "@components/recipe/RecipeList";
 import React from "react";
-import { data } from "../../SearchPage/page";
 import { useNavigate, useParams } from "react-router-dom";
+import { fetchData } from "../../../api/axios";
+import { useQuery } from "@tanstack/react-query";
+import { apiRoutes } from "../../../api/apiRoutes";
+import SkeletonRecipeListLoader from "../skeleton/SkeletonRecipeListLoader";
 
-const RecipeListPage: React.FC = () => {
+interface RecipeTypeProps {
+  recipeData: RecipeType[];
+}
+
+const RecipeListPage: React.FC<RecipeTypeProps> = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
   const handleBackBtnClick = () => {
     navigate(-1);
   };
+
+  const { data, isLoading } = useQuery<RecipeType[]>({
+    queryKey: ["recipeCategory"],
+    queryFn: () => fetchData("GET", apiRoutes.recipeCategory),
+  });
+  console.log(data);
 
   let title = "";
   if (categoryId === "daily") {
@@ -27,7 +40,11 @@ const RecipeListPage: React.FC = () => {
     <div>
       <Header hasBackBtn={true} title={title} handleBackBtnClick={handleBackBtnClick} />
       <FilteringButtons />
-      <RecipeList recipeData={data} />
+      {isLoading ? (
+        [...Array(4)].map((_, index) => <SkeletonRecipeListLoader key={index} />)
+      ) : (
+        <RecipeList recipeData={data || []} />
+      )}
     </div>
   );
 };
