@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ hasBackBtn, title, hasBell, handleBackB
       )}
       {hasBell && (
         <div className="absolute right-0">
-          <Bell hasNotification={true} />
+          <Bell />
         </div>
       )}
     </div>
