@@ -1,5 +1,5 @@
 import Header from "@components/header/Header";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountHeader from "@components/header/AccountHeader";
 import Footer from "@components/footer/Footer";
@@ -9,27 +9,26 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import SkeletonProfileLoader from "../skeleton/SkeletonProfileLoader";
+import noProfile from "@assets/images/noProfile.png";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   // api로 보낼때 쓰는 id
   const { userId } = useParams();
-  const [userName, setUserName] = useState<string>("");
   const [scrollCount, setScrollCount] = useState<number>(0);
+
+  const fetchAccountData = async (): Promise<AccountFetchDataType> => {
+    return await fetchData("GET", `${apiRoutes.userMypage}/${userId}/${scrollCount}`);
+  };
 
   const { data, error, isLoading } = useQuery<AccountFetchDataType>({
     queryKey: ["account"],
-    queryFn: () =>
-      fetchData<AccountFetchDataType>("GET", `${apiRoutes.userMypage}/${userId}/${scrollCount}`),
+    queryFn: fetchAccountData,
   });
   if (error) {
     console.log(error);
   }
   console.log(data);
-
-  useEffect(() => {
-    data?.data && setUserName(data.data.nickname);
-  }, [data]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -48,10 +47,9 @@ const ProfilePage: React.FC = () => {
                 {data?.data && (
                   <>
                     <ProfileSection
-                      profileImage={data.data.image}
+                      profileImage={data.data.image === "" ? noProfile : data.data.image}
                       postsCount={data.data.postCnt}
-                      name={userName}
-                      setUserNickname={setUserName}
+                      name={data.data.nickname}
                       userId={userId}
                     />
                     <PostsList
@@ -81,8 +79,7 @@ const ProfilePage: React.FC = () => {
                     profileImage={data.data.image}
                     postsCount={data.data.postCnt}
                     userId={userId}
-                    name={userName}
-                    setUserNickname={setUserName}
+                    name={data.data.nickname}
                   />
                   <PostsList
                     whoProfile="user"
