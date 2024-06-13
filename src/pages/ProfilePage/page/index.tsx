@@ -1,5 +1,5 @@
 import Header from "@components/header/Header";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountHeader from "@components/header/AccountHeader";
 import Footer from "@components/footer/Footer";
@@ -13,15 +13,15 @@ import noProfile from "@assets/images/noProfile.png";
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
-  // api로 보낼때 쓰는 id
   const { userId } = useParams();
   const [scrollCount, setScrollCount] = useState<number>(0);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const fetchAccountData = async (): Promise<AccountFetchDataType> => {
     return await fetchData("GET", `${apiRoutes.userMypage}/${userId}/${scrollCount}`);
   };
 
-  const { data, error, isLoading } = useQuery<AccountFetchDataType>({
+  const { data, error, isLoading, refetch } = useQuery<AccountFetchDataType>({
     queryKey: ["account"],
     queryFn: fetchAccountData,
   });
@@ -29,6 +29,27 @@ const ProfilePage: React.FC = () => {
     console.log(error);
   }
   console.log(data);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (
+        window.innerHeight + document.documentElement.scrollTop !==
+          document.documentElement.offsetHeight ||
+        isFetching
+      )
+        return;
+      setIsFetching(true);
+    }
+    window.addEventListener("scroll", handleScroll);
+    refetch();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isFetching]);
+
+  useEffect(() => {
+    if (!isFetching) return;
+    setScrollCount((prev) => prev + 1);
+    setIsFetching(false);
+  }, [isFetching]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
