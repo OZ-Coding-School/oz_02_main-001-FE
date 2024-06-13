@@ -1,5 +1,5 @@
 import Header from "@components/header/Header";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountHeader from "@components/header/AccountHeader";
 import Footer from "@components/footer/Footer";
@@ -15,41 +15,18 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const [scrollCount, setScrollCount] = useState<number>(0);
-  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const fetchAccountData = async (): Promise<AccountFetchDataType> => {
     return await fetchData("GET", `${apiRoutes.userMypage}/${userId}/${scrollCount}`);
   };
 
-  const { data, error, isLoading, refetch } = useQuery<AccountFetchDataType>({
+  const { data, error, isLoading } = useQuery<AccountFetchDataType>({
     queryKey: ["account"],
     queryFn: fetchAccountData,
   });
   if (error) {
     console.log(error);
   }
-  console.log(data);
-
-  useEffect(() => {
-    function handleScroll() {
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-          document.documentElement.offsetHeight ||
-        isFetching
-      )
-        return;
-      setIsFetching(true);
-    }
-    window.addEventListener("scroll", handleScroll);
-    refetch();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isFetching]);
-
-  useEffect(() => {
-    if (!isFetching) return;
-    setScrollCount((prev) => prev + 1);
-    setIsFetching(false);
-  }, [isFetching]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -69,13 +46,13 @@ const ProfilePage: React.FC = () => {
                   <>
                     <ProfileSection
                       profileImage={data.data.image === "" ? noProfile : data.data.image}
-                      postsCount={data.data.postCnt}
+                      postsCount={data.data.totalRecipesCount}
                       name={data.data.nickname}
                       userId={userId}
                     />
                     <PostsList
                       whoProfile="user"
-                      postsCount={data?.data.postCnt}
+                      postsCount={data?.data.totalRecipesCount}
                       linkTo="/recipeRegistration"
                       buttonText="첫 레시피 등록하기"
                       postsRecipeList={data.data.recipes}
@@ -98,13 +75,13 @@ const ProfilePage: React.FC = () => {
                 <>
                   <ProfileSection
                     profileImage={data.data.image}
-                    postsCount={data.data.postCnt}
+                    postsCount={data.data.totalRecipesCount}
                     userId={userId}
                     name={data.data.nickname}
                   />
                   <PostsList
                     whoProfile="user"
-                    postsCount={data.data.postCnt}
+                    postsCount={data.data.totalRecipesCount}
                     linkTo="/recipeRegistration"
                     buttonText="등록된 레시피가 없습니다."
                     postsRecipeList={data.data.recipes}
