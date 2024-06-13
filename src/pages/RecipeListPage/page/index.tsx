@@ -8,11 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRoutes } from "../../../api/apiRoutes";
 import SkeletonRecipeListLoader from "../skeleton/SkeletonRecipeListLoader";
 
-interface RecipeTypeProps {
-  recipeData: RecipeType[];
-}
-
-const RecipeListPage: React.FC<RecipeTypeProps> = () => {
+const RecipeListPage: React.FC = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
   const handleBackBtnClick = () => {

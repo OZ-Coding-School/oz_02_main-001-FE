@@ -8,11 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import SkeletonNoticeLoader from "../skeleton/SkeletonNoticeLoader";
 
-interface NotificationTypeProps {
-  notice: NotificationType;
-}
-
-const NotificationPage: React.FC<NotificationTypeProps> = () => {
+const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
