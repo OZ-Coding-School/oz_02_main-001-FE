@@ -1,6 +1,6 @@
 import BigButton from "@components/buttons/BigButton";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface PostsListProps {
   whoProfile: string;
@@ -17,6 +17,12 @@ const PostsList: React.FC<PostsListProps> = ({
   buttonText,
   postsRecipeList,
 }) => {
+  const navigate = useNavigate();
+
+  const handleRecipeItemClick = (recipeItemId: number): void => {
+    console.log(recipeItemId);
+    navigate(`/recipe/${recipeItemId}`);
+  };
   return (
     <>
       {postsCount === 0 ? (
@@ -44,10 +50,10 @@ const PostsList: React.FC<PostsListProps> = ({
         <>
           <div className="grid grid-cols-3 gap-[1px] p-3">
             {postsRecipeList.map((recipeItem, index) => (
-              <Link
-                to={`/recipe/${recipeItem.id}`}
+              <div
+                onClick={() => handleRecipeItemClick(recipeItem.id)}
                 key={index}
-                className="w-full cursor-pointer relative"
+                className="w-full cursor-pointer relative border rounded-[6px] border-gray-200"
                 style={{ aspectRatio: "1 / 1" }}
               >
                 <img
@@ -55,7 +61,7 @@ const PostsList: React.FC<PostsListProps> = ({
                   alt="레시피 완성 이미지"
                   className="rounded-[6px] w-full h-full object-cover"
                 />
-              </Link>
+              </div>
             ))}
           </div>
         </>

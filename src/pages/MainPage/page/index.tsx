@@ -18,20 +18,14 @@ const MainPage: React.FC = () => {
     queryKey: ["main"],
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
-
-  // const updateQueryKey = (value: keyDataType) => {
-  //   const newData = keyData.forEach((data) => {
-  //     if (data.page !== value.page && data.queryKey !== value.queryKey) {
-  //       return [{ ...keyData, value }];
-  //     } else {
-  //       reutrn
-  //     }
-  //   });
-  // };
+  console.log(data);
 
   useEffect(() => {
     if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);
+    }
+    if (error) {
+      console.log(error);
     }
   }, [data]);
 
@@ -51,7 +45,6 @@ const MainPage: React.FC = () => {
       });
       setIsMainPageModalOpen(false);
     },
-    onError: () => console.log(error),
   });
 
   const handleSubmitModal = (gender: string, age: number, alertStatus: boolean) => {
@@ -102,7 +95,7 @@ const MainPage: React.FC = () => {
                     />
                     <CategorySectionList
                       mainPageData={data.data}
-                      categoryName="midnightSnack"
+                      categoryName="midnight"
                       category="야식"
                       categoryDescription="dessert cooking recipes"
                     />
