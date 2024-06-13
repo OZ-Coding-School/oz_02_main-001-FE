@@ -3,38 +3,47 @@ import noProfile from "@assets/images/noProfile.png";
 import { MdOutlineDone } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import ProceedModal from "@components/modal/ProceedModal";
-import { accountData } from "../data/dummyData";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchData } from "../../../api/axios";
+import { apiRoutes } from "../../../api/apiRoutes";
 
 interface ProfileSectionProps {
   name: string;
   postsCount: number;
   userId: string | undefined;
-  setUserNickname: React.Dispatch<React.SetStateAction<string>>;
+  profileImage: string;
 }
 
 const ProfileSection: React.FC<ProfileSectionProps> = ({
   name,
-  setUserNickname,
   userId,
   postsCount,
+  profileImage,
 }) => {
+  const [userName, setUserName] = useState<string>(name);
+  const prevName = name;
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [image, setImage] = useState<string>(accountData.image);
+  const [image, setImage] = useState<string>(profileImage);
+  const queryClient = useQueryClient();
 
   const handleEditNicknameClick = () => {
     setIsEdit(!isEdit);
   };
 
-  const handleSave = (): void => {
-    if (name.length < 2) {
-      alert("닉네임은 2글자 이상이어야 합니다.");
-      return;
-    }
-    // api 연동 - 이름 중복 검사도 백엔드에서 진행할 예정
-    setUserNickname(name);
-    setIsEdit(!isEdit);
-  };
+  const mutationUpdateProfileImage = useMutation({
+    mutationFn: (newImage: string) => {
+      return fetchData("POST", apiRoutes.updateUserImg, { image: newImage });
+    },
+    onError: () => {
+      alert("프로필 사진 저장 중 오류가 발생했습니다.");
+    },
+    onSuccess: () => {
+      alert("프로필 이미지가 성공적으로 업데이트되었습니다.");
+      queryClient.invalidateQueries();
+      setShowModal(false);
+    },
+  });
 
   const handleProfileClick = () => {
     if (image === noProfile) {
@@ -45,11 +54,12 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // api 데이터 업데이트 코드 추가 예정
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setImage(e.target?.result as string);
+        const newImage = e.target?.result as string;
+        setImage(newImage);
+        mutationUpdateProfileImage.mutate(newImage);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -58,13 +68,39 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     const value = event.target.value;
-    // 숫자, 영문, 한글 외의 문자는 제거
-    const validValue = value.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]/g, "");
-    setUserNickname(validValue);
+    const regexValue = value.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\s]/g, "");
+    const spaceLimitedValue = regexValue.replace(/\s{2,}/g, " ");
+    const validValue = spaceLimitedValue.split(/\s+/).slice(0, 3).join(" ");
+    setUserName(validValue);
   };
 
+  const handleSave = (): void => {
+    if (userName.length < 3) {
+      alert("닉네임은 3글자 이상이어야 합니다.");
+      return;
+    }
+    if (prevName !== userName) {
+      mutationUpdateName.mutate(userName);
+    }
+    setIsEdit(false);
+  };
+
+  const mutationUpdateName = useMutation({
+    mutationFn: (newName: string) => {
+      return fetchData("PUT", apiRoutes.updateUserName, { nickname: newName });
+    },
+    onError: () => {
+      alert("중복된 닉네임 입니다.");
+    },
+    onSuccess: () => {
+      alert("닉네임이 성공적으로 업데이트되었습니다.");
+      queryClient.invalidateQueries();
+      setIsEdit(false);
+    },
+  });
+
   const handleDeleteImage = (): void => {
-    // api 데이터 업데이트 코드 추가 예정
+    mutationUpdateProfileImage.mutate("");
     setImage(noProfile);
     setShowModal(false);
   };
@@ -117,7 +153,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
                   <input
                     type="text"
                     className="border border-gray-400 rounded-[6px] px-[10px] py-[1px] w-[180px]"
-                    value={name}
+                    value={userName}
                     placeholder="닉네임을 입력하세요."
                     onChange={handleInputChange}
                     maxLength={10}

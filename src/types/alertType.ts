@@ -7,3 +7,8 @@ type GetAlertStatusType = {
   message: string;
   data: { status: number };
 };
+
+type FetchAlertsStatusType = {
+  status: number;
+  message: string;
+};
