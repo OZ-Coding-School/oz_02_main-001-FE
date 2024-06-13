@@ -2,25 +2,33 @@ import React from "react";
 import { PiBellBold, PiBellFill } from "react-icons/pi";
 import { GoDotFill } from "react-icons/go";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchData } from "../../api/axios";
+import { apiRoutes } from "../../api/apiRoutes";
 
-interface BellProps {
-  hasNotification: boolean;
-}
+type FetchAlertsStatusType = {
+  status: number;
+  message: string;
+};
 
-/**
- * Bell 컴포넌트 입니다.
- * 알림이 있는지 여부를 판단하여 컴포넌트가 바뀝니다.(hasNotification)
- * 알림 페이지라면 컴포넌트 아이콘이 바뀝니다. (isNoticePage)
- * @param hasNotification 현재 알람이 있는지 여부
- * @returns
- */
-
-const Bell: React.FC<BellProps> = ({ hasNotification }) => {
+const Bell: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/notice");
   };
+
+  const fetchAlertsStatus = async (): Promise<FetchAlertsStatusType> => {
+    return await fetchData<FetchAlertsStatusType>("GET", apiRoutes.alertsStatus);
+  };
+
+  const { data, error } = useQuery({
+    queryKey: ["alertStatus"],
+    queryFn: fetchAlertsStatus,
+  });
+  if (error) {
+    console.log(error);
+  }
 
   const isNoticePage = pathname === "/notice";
 
@@ -30,7 +38,7 @@ const Bell: React.FC<BellProps> = ({ hasNotification }) => {
       onClick={handleClick}
     >
       {isNoticePage ? (
-        hasNotification ? (
+        data ? (
           <PiBellFill className="w-[24px] h-[24px] text-redPink" />
         ) : (
           <PiBellBold className="w-[24px] h-[24px]" />
@@ -38,7 +46,7 @@ const Bell: React.FC<BellProps> = ({ hasNotification }) => {
       ) : (
         <>
           <PiBellBold className="w-[24px] h-[24px]" />
-          {hasNotification && <GoDotFill className="absolute top-1 right-2 text-redPink w-6 h-6" />}
+          {data && <GoDotFill className="absolute top-1 right-2 text-redPink w-6 h-6" />}
         </>
       )}
     </div>
