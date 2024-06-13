@@ -6,12 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "../../api/axios";
 import { apiRoutes } from "../../api/apiRoutes";
 
-type FetchAlertsStatusType = {
-  status: number;
-  message: string;
-};
+interface BellPropsType {
+  onClick?: () => void;
+}
 
-const Bell: React.FC = () => {
+const Bell: React.FC<BellPropsType> = ({ onClick }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -35,7 +34,7 @@ const Bell: React.FC = () => {
   return (
     <div
       className="flex justify-center items-center w-[50px] h-[50px] relative cursor-pointer"
-      onClick={handleClick}
+      onClick={isNoticePage ? onClick : handleClick}
     >
       {isNoticePage ? (
         data ? (
