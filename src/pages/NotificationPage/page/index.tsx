@@ -16,7 +16,7 @@ const NotificationPage: React.FC = () => {
 
   const { data, isLoading, isError, error } = useQuery<NotificationType[]>({
     queryKey: ["notifications"],
-    queryFn: () => fetchData("GET", `${apiRoutes.alerts}/7`),
+    queryFn: () => fetchData("GET", `${apiRoutes.alerts}`),
   });
   console.log(data);
 

@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 
 interface MoreButtonProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleEditModal: () => void;
   handleDeleteModal: () => void;
 }
@@ -12,9 +14,13 @@ interface MoreButtonProps {
  * 레시피 페이지와 댓글에서 사용되기 때문에 buttons로 분류하였습니다.
  * @returns
  */
-const MoreButton: React.FC<MoreButtonProps> = ({ handleEditModal, handleDeleteModal }) => {
+const MoreButton: React.FC<MoreButtonProps> = ({
+  isModalOpen,
+  setIsModalOpen,
+  handleEditModal,
+  handleDeleteModal,
+}) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalName, setModalName] = useState<string>("");
   const moreButtonRef = useRef<HTMLDivElement>(null);
 
