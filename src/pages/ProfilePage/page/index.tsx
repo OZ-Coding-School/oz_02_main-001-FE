@@ -52,7 +52,6 @@ const ProfilePage: React.FC = () => {
       }
     };
   }, [fetchNextPage, hasNextPage]);
-  console.log("thisPage: ", data);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
