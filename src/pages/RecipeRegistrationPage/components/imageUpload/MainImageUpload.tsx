@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProceedModal from "@components/modal/ProceedModal";
 import { FaRegImages } from "react-icons/fa6";
 import { useMutation } from "@tanstack/react-query";
@@ -9,12 +9,11 @@ import { fetchData } from "./../../../../api/axios";
 const MainImageUpload: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { mainImage, setMainImage } = useImageStore();
-  console.log(mainImage);
 
   const changeImage = useMutation({
-    mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage.image),
+    mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage),
     onSuccess: (data) => console.log(data),
-    // onError: (error) => console.log(error),
+    onError: (error) => console.log(error),
   });
 
   const handleMainImageClick = () => {
@@ -45,9 +44,9 @@ const MainImageUpload: React.FC = () => {
     setShowModal(false);
   };
 
-  // useEffect(() => {
-  //   changeImage.mutate();
-  // }, [mainImage]);
+  useEffect(() => {
+    changeImage.mutate();
+  }, [mainImage]);
 
   return (
     <>

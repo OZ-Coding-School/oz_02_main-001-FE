@@ -18,8 +18,8 @@ const MainPage: React.FC = () => {
     queryKey: ["main"],
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
-
   console.log(data);
+
   useEffect(() => {
     if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);
@@ -95,7 +95,7 @@ const MainPage: React.FC = () => {
                     />
                     <CategorySectionList
                       mainPageData={data.data}
-                      categoryName="midnightSnack"
+                      categoryName="midnight"
                       category="야식"
                       categoryDescription="dessert cooking recipes"
                     />

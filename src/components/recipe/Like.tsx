@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { apiRoutes } from "../../api/apiRoutes";
 import { fetchData } from "../../api/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface LikeProps {
-  user: number;
+  queryKey: string;
   recipe: number;
   status: number;
   like: number;
 }
 
-const Like: React.FC<LikeProps> = ({ user, recipe, status, like }) => {
+const Like: React.FC<LikeProps> = ({ queryKey, recipe, status, like }) => {
   const queryClient = useQueryClient();
 
   const handleLike = (event: React.MouseEvent) => {
@@ -20,7 +20,6 @@ const Like: React.FC<LikeProps> = ({ user, recipe, status, like }) => {
 
   const fetchLike = async (): Promise<LikeType> => {
     return await fetchData<LikeType>("POST", apiRoutes.likes, {
-      user: user,
       recipe: recipe,
     });
   };
@@ -28,9 +27,7 @@ const Like: React.FC<LikeProps> = ({ user, recipe, status, like }) => {
   const mutationLike = useMutation<LikeType>({
     mutationFn: fetchLike,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["likes"],
-      });
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
     },
   });
 
@@ -39,7 +36,7 @@ const Like: React.FC<LikeProps> = ({ user, recipe, status, like }) => {
       <button className={`focus:outline-none transition-colors text-redPink`} onClick={handleLike}>
         <svg
           className="w-6 h-6"
-          fill={status ? "currentColor" : "none"}
+          fill={status > 0 ? "currentColor" : "none"}
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"

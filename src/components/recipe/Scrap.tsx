@@ -4,13 +4,13 @@ import { apiRoutes } from "../../api/apiRoutes";
 import { fetchData } from "../../api/axios";
 
 interface ScrapProps {
-  user: number;
+  queryKey: string;
   recipe: number;
   book: number;
   status: number;
 }
 
-const Scrap: React.FC<ScrapProps> = ({ user, recipe, book, status }) => {
+const Scrap: React.FC<ScrapProps> = ({ queryKey, recipe, book, status }) => {
   const queryClient = useQueryClient();
   const handleScrap = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -20,7 +20,6 @@ const Scrap: React.FC<ScrapProps> = ({ user, recipe, book, status }) => {
   const fetchBook = async (): Promise<BookmarkType> => {
     //bookmarks
     return await fetchData<BookmarkType>("POST", apiRoutes.bookmarks, {
-      user: user,
       recipe: recipe,
     });
   };
@@ -29,7 +28,7 @@ const Scrap: React.FC<ScrapProps> = ({ user, recipe, book, status }) => {
     mutationFn: fetchBook,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["bookmarks"],
+        queryKey: [queryKey],
       });
     },
   });
@@ -42,7 +41,7 @@ const Scrap: React.FC<ScrapProps> = ({ user, recipe, book, status }) => {
       >
         <svg
           className="w-6 h-6"
-          fill={status ? "currentColor" : "none"}
+          fill={status > 0 ? "currentColor" : "none"}
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"

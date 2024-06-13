@@ -35,7 +35,7 @@ const BookMarkPage: React.FC = () => {
         <SkeletonRecipeList />
       ) : (
         <div className="min-h-[calc(100vh-105px)]">
-          {data?.data && <RecipeList recipeData={data?.data} />}
+          {data?.data && <RecipeList queryKey="book" recipeData={data?.data} />}
         </div>
       )}
 

@@ -29,7 +29,11 @@ const LikedPage: React.FC = () => {
   return (
     <>
       <Header hasBackBtn={true} title="좋아요한 레시피" handleBackBtnClick={handleBackBtnClick} />
-      {isLoading ? <SkeletonRecipeList /> : data?.data && <RecipeList recipeData={data?.data} />}
+      {isLoading ? (
+        <SkeletonRecipeList />
+      ) : (
+        data?.data && <RecipeList queryKey="liked" recipeData={data?.data} />
+      )}
     </>
   );
 };
