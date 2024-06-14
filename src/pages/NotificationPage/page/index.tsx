@@ -46,8 +46,7 @@ const NotificationPage: React.FC = () => {
       });
     }
   };
-// 여러개 보내야 함
-// get 으로 받은 데이터오 들어가서 , 안읽은것들(true) readItems에 담아둠
+
   if (isError) {
     console.log(error);
   }
