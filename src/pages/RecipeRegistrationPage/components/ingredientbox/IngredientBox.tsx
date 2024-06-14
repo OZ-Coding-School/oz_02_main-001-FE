@@ -30,7 +30,7 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   const { data, isError, error, isLoading } = useQuery<data>({
     queryKey: ["searchIngredient", value],
     queryFn: () => fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`),
-    enabled: !!value.trim(),
+    // enabled: !!value.trim(),
   });
 
   if (isError) {

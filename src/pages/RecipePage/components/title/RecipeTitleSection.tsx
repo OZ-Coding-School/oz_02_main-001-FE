@@ -22,14 +22,11 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
 }) => {
   const { recipeId } = useParams();
   return (
-    <div
-      className="grid gap-6 p-6 bg-white
-    "
-    >
+    <div className="grid gap-6 p-6 bg-white">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-[1.5rem]">{title}</span>
-          <span className="text-[0.8rem] text-[#000000]/50">{date}</span>
+          <span className="text-[0.8rem] text-[#000000]/50">{date.slice(0, 10)}</span>
         </div>
         <div className="pt-[0.3rem]">
           <Scrap
