@@ -19,3 +19,11 @@ type PostAlertsType = {
   message: string;
   data: number[];
 };
+
+type PostAlertsRequestType = {
+  alerts: number[];
+};
+
+type updateDataType = {
+  alerts: number[];
+}
