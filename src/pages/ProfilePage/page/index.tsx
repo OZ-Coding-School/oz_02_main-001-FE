@@ -16,6 +16,7 @@ const ProfilePage: React.FC = () => {
   const { userId } = useParams();
   const observerRef = useRef<HTMLDivElement | null>(null);
 
+  // 무한 스크롤 관련 코드 ~
   const fetchAccountData = async (pageParam: number = 0): Promise<AccountFetchDataType> => {
     return await fetchData("GET", `${apiRoutes.userMypage}/${userId}/${pageParam}`);
   };
@@ -52,6 +53,7 @@ const ProfilePage: React.FC = () => {
       }
     };
   }, [fetchNextPage, hasNextPage]);
+  // ~ 여기까지 무한 스크롤
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
