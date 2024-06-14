@@ -5,3 +5,9 @@ type RefrigeratorType = {
     name: string;
   }[];
 };
+
+type FetchGetRefrigeratorType = {
+  status: number;
+  message: string;
+  data: RefrigeratorType;
+};
