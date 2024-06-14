@@ -1,12 +1,8 @@
 import React from "react";
-import { BeatLoader } from "react-spinners";
+import { SyncLoader } from "react-spinners";
 
 const Loading: React.FC = () => {
-  return (
-    <div>
-      <BeatLoader size={10} />
-    </div>
-  );
+  return <SyncLoader size={12} color="red" />;
 };
 
 export default Loading;

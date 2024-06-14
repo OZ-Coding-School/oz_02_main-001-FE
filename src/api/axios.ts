@@ -8,25 +8,25 @@ const customAxios = (() =>
     },
   }))();
 
-export const fetchData = async <T>(
+export const fetchData = async <ResponseType, RequestType = undefined>(
   method: "GET" | "POST" | "PUT" | "DELETE",
   endpoint: string,
-  data?: T,
-) => {
+  data?: RequestType,
+): Promise<ResponseType> => {
   try {
-    let response;
+    let response: AxiosResponse<ResponseType>;
     switch (method) {
       case "GET":
         response = await customAxios.get(endpoint);
         break;
       case "POST":
-        response = await customAxios.post<T>(endpoint, data);
+        response = await customAxios.post<ResponseType>(endpoint, data);
         break;
       case "PUT":
-        response = await customAxios.put<T>(endpoint, data);
+        response = await customAxios.put<ResponseType>(endpoint, data);
         break;
       case "DELETE":
-        response = await customAxios.delete<T>(endpoint);
+        response = await customAxios.delete<ResponseType>(endpoint);
         break;
       default:
         throw new Error("Invalid HTTP method");
