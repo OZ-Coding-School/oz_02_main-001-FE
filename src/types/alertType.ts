@@ -5,7 +5,7 @@ type AlertType = {
 type GetAlertStatusType = {
   status: number;
   message: string;
-  data: { status: boolean };
+  data: { status: boolean | number };
 };
 
 type FetchAlertsStatusType = {
