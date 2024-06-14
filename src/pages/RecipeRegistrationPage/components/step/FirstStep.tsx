@@ -45,7 +45,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ setIsValid }) => {
       />
       <Label name="완성 사진" />
       <div className="size-[180px]">
-        <MainImageUpload />
+        <MainImageUpload setIsValid={setIsValid} />
       </div>
       <Label name="카테고리" />
       <div className="w-[100px]">

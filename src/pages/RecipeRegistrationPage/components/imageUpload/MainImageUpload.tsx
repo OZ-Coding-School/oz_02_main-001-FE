@@ -6,15 +6,32 @@ import { apiRoutes } from "./../../../../api/apiRoutes";
 import { useImageStore } from "@store/useImageStore";
 import { fetchData } from "./../../../../api/axios";
 
-const MainImageUpload: React.FC = () => {
+interface MainImageUploadProp {
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { mainImage, setMainImage } = useImageStore();
 
-  const changeImage = useMutation({
+  const {
+    mutate: changeImage,
+    isError,
+    isPending,
+  } = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage),
-    onSuccess: (data) => console.log(data),
-    onError: (error) => console.log(error),
+    onSuccess: () => {
+      setIsValid(true);
+    },
+    onError: () => {
+      setMainImage({ ...mainImage, image: "" });
+      alert("이미지 업로드 실패");
+    },
   });
+
+  if (isPending) {
+    setIsValid(false);
+  }
 
   const handleMainImageClick = () => {
     if (!mainImage.image) {
@@ -30,6 +47,7 @@ const MainImageUpload: React.FC = () => {
       reader.onload = (e) => {
         const newImageUrl = e.target?.result as string;
         setMainImage({ ...mainImage, image: newImageUrl });
+        changeImage();
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -44,14 +62,10 @@ const MainImageUpload: React.FC = () => {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    changeImage.mutate();
-  }, [mainImage]);
-
   return (
     <>
       <div className="size-full cursor-pointer" onClick={handleMainImageClick}>
-        {mainImage.image ? (
+        {mainImage.image && !isError ? (
           <img src={mainImage.image} className="rounded-[5px] size-full object-cover" />
         ) : (
           <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
