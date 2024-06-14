@@ -1,24 +1,51 @@
 import Header from "@components/header/Header";
 import { useNavigate } from "react-router-dom";
 import NotificationItem from "../components/NotificationItem";
-import { NotificationType } from "src/types/notificationItemType";
 import { apiRoutes } from "../../../api/apiRoutes";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import SkeletonNoticeLoader from "../skeleton/SkeletonNoticeLoader";
 
 const NotificationPage: React.FC = () => {
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   const handleClick = () => {
     navigate(-1);
   };
 
-  const { data, isLoading, isError, error } = useQuery<NotificationType[]>({
+  const { data, isLoading, isError, error } = useQuery<DataType>({
     queryKey: ["notifications"],
-    queryFn: () => fetchData("GET", `${apiRoutes.alerts}`),
+    queryFn: () => fetchData("GET", apiRoutes.alerts),
   });
-  console.log(data);
+
+  const mutationAlert = useMutation<PostAlertsType, Error, number[]>({
+    mutationFn: (id: number[]) =>
+      fetchData<PostAlertsType, updateDataType>("POST", apiRoutes.alerts, {
+        alerts: id,
+      }),
+    onSuccess: (data: PostAlertsType) => {
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
+      console.log(data);
+      navigate(`/recipe/${data.data}`);
+    },
+  });
+
+  const handleReadAlert = (id: number) => {
+    console.log(id);
+    mutationAlert.mutate([id]);
+  };
+
+  const handleBellClick = () => {
+    let readItems: number[] = [];
+    if (data) {
+      data.data.forEach((notice) => {
+        if (notice.status === true) {
+          readItems = [...readItems, notice.id];
+        }
+        mutationAlert.mutate(readItems);
+      });
+    }
+  };
 
   if (isError) {
     console.log(error);
@@ -26,11 +53,26 @@ const NotificationPage: React.FC = () => {
 
   return (
     <div>
-      <Header hasBackBtn={true} title="알림" hasBell={true} handleBackBtnClick={handleClick} />
+      <Header
+        hasBackBtn={true}
+        title="알림"
+        hasBell={true}
+        handleBackBtnClick={handleClick}
+        handleClick={handleBellClick}
+      />
       {isLoading ? (
         [...Array(4)].map((_, index) => <SkeletonNoticeLoader key={index} />)
       ) : (
-        <div>{data?.map((notice) => <NotificationItem key={notice.title} notice={notice} />)}</div>
+        <div>
+          {data &&
+            data.data.map((notice) => (
+              <NotificationItem
+                key={notice.id}
+                notice={notice}
+                onClick={() => handleReadAlert(notice.id)}
+              />
+            ))}
+        </div>
       )}
     </div>
   );
