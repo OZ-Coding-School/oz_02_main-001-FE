@@ -1,10 +1,13 @@
 import Footer from "@components/footer/Footer";
 import Header from "@components/header/Header";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RefrigeratorItem from "../components/RefrigeratorItem";
 import BigButton from "@components/buttons/BigButton";
 import { useLocation, useNavigate } from "react-router";
 import { TiDeleteOutline } from "react-icons/ti";
+import { useQuery } from "@tanstack/react-query";
+import { fetchData } from "../../../api/axios";
+import { apiRoutes } from "../../../api/apiRoutes";
 
 const RefrigeratorPage: React.FC = () => {
   const location = useLocation();
@@ -13,9 +16,18 @@ const RefrigeratorPage: React.FC = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
 
-  useEffect(() => {
-    setIngredients(selectedIngredients);
-  }, [selectedIngredients]);
+  const getFridge = async (): Promise<FetchGetRefrigeratorType> => {
+    return await fetchData("GET", apiRoutes.refrigerator);
+  };
+
+  const { data, isLoading, error, refetch } = useQuery<FetchGetRefrigeratorType>({
+    queryKey: ["refrigerator"],
+    queryFn: getFridge,
+  });
+  if (error) {
+    console.log(error);
+  }
+  console.log(data);
 
   const handleFindRecipeClick = () => {
     navigate("/ingredientSelection", { state: { selectedIngredients: ingredients } });
