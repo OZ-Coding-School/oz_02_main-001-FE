@@ -22,7 +22,7 @@ const RecipeListPage: React.FC<RecipeTypeProps> = () => {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
 
   const { data, isLoading } = useQuery<RecipeCategoryType>({
-    queryKey: ["recipeCategory"],
+    queryKey: [`recipeCategory${categoryId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipeCategory}/${categoryId}`),
   });
   console.log(data);
