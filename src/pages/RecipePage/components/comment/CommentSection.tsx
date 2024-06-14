@@ -53,20 +53,22 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
         )}
       </div>
       <form>
-        <div className="w-full p-2 relative ">
-          <input
-            type="text"
-            className="bg-white p-3 w-full h-[50px] border border-cloudGray rounded-[5px] focus:outline-none "
-            placeholder="댓글을 입력하세요."
-            value={comment.comment}
-            onChange={(e) => handleChange(e.target.value)}
-          />
-          <button
-            className="flex justify-center items-center size-[40px] absolute right-2 top-[50%] translate-y-[-50%]"
-            onClick={handleButtonClick}
-          >
-            <IoArrowUpCircleOutline className="size-[24px] text-midnightGray" />
-          </button>
+        <div className="w-full p-2">
+          <div className="flex justify-between items-center border border-cloudGray rounded-[5px]">
+            <input
+              type="text"
+              className="bg-white p-3 w-[95%] h-[50px] focus:outline-none "
+              placeholder="댓글을 입력하세요."
+              value={comment.comment}
+              onChange={(e) => handleChange(e.target.value)}
+            />
+            <button
+              className="flex justify-center items-center size-[40px] "
+              onClick={handleButtonClick}
+            >
+              <IoArrowUpCircleOutline className="size-[24px] text-midnightGray" />
+            </button>
+          </div>
         </div>
       </form>
     </div>

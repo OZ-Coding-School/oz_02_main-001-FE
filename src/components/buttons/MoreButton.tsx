@@ -2,14 +2,25 @@ import ProceedModal from "@components/modal/ProceedModal";
 import React, { useState, useEffect, useRef } from "react";
 import { MdOutlineMoreHoriz } from "react-icons/md";
 
+interface MoreButtonProps {
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleEditModal: () => void;
+  handleDeleteModal: () => void;
+}
+
 /**
  * 메세지 수정 or 삭제 관련하여 선택할 수 있는 더보기 버튼입니다.
  * 레시피 페이지와 댓글에서 사용되기 때문에 buttons로 분류하였습니다.
  * @returns
  */
-const MoreButton: React.FC = () => {
+const MoreButton: React.FC<MoreButtonProps> = ({
+  isModalOpen,
+  setIsModalOpen,
+  handleEditModal,
+  handleDeleteModal,
+}) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalName, setModalName] = useState<string>("");
   const moreButtonRef = useRef<HTMLDivElement>(null);
 
@@ -26,10 +37,6 @@ const MoreButton: React.FC = () => {
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
-
-  const handleEditModal = () => {};
-
-  const handleDeleteModal = () => {};
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
