@@ -1,4 +1,4 @@
-export type NotificationType = {
+type NotificationType = {
   id: number;
   recipeId: number;
   nickname: string;
@@ -6,4 +6,16 @@ export type NotificationType = {
   type: string;
   status: boolean;
   createdAt: string;
+};
+
+type DataType = {
+  data: NotificationType[];
+  status: number;
+  message: string;
+};
+
+type PostAlertsType = {
+  status: number;
+  message: string;
+  data: number[];
 };

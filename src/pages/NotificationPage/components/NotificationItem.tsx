@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NotificationType } from "src/types/notificationItemType";
 
 interface NotificationItemProps {
   notice: NotificationType;
