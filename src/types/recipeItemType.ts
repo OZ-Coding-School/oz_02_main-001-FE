@@ -14,3 +14,9 @@ type RecipeCategoryType = {
   message: string;
   data: RecipeType[];
 };
+
+type FetchSearchData = {
+  status: number;
+  message: string;
+  data: RecipeType[];
+};

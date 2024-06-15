@@ -18,14 +18,13 @@ const MainPage: React.FC = () => {
     queryKey: ["main"],
     queryFn: () => fetchData("GET", apiRoutes.main),
   });
-  console.log(data);
+  if (error) {
+    console.log(error);
+  }
 
   useEffect(() => {
     if (data?.data.detailStatus === -1) {
       setIsMainPageModalOpen(true);
-    }
-    if (error) {
-      console.log(error);
     }
   }, [data]);
 
@@ -44,6 +43,9 @@ const MainPage: React.FC = () => {
         queryKey: ["detail"],
       });
       setIsMainPageModalOpen(false);
+    },
+    onError: () => {
+      console.log(error);
     },
   });
 

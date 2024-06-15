@@ -8,11 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiRoutes } from "../../../api/apiRoutes";
 import SkeletonRecipeListLoader from "../skeleton/SkeletonRecipeListLoader";
 
-interface RecipeTypeProps {
-  recipeData: RecipeType[];
-}
-
-const RecipeListPage: React.FC<RecipeTypeProps> = () => {
+const RecipeListPage: React.FC = () => {
   const { categoryId } = useParams();
   const navigate = useNavigate();
   const handleBackBtnClick = () => {
@@ -25,7 +21,6 @@ const RecipeListPage: React.FC<RecipeTypeProps> = () => {
     queryKey: [`recipeCategory${categoryId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipeCategory}/${categoryId}`),
   });
-  console.log(data);
 
   useEffect(() => {
     if (data?.data) {
@@ -63,7 +58,7 @@ const RecipeListPage: React.FC<RecipeTypeProps> = () => {
   return (
     <div>
       <Header hasBackBtn={true} title={title} handleBackBtnClick={handleBackBtnClick} />
-      <FilteringButtons onSortChange={handleSortChange} />
+      <FilteringButtons sortType={sortType} handleClick={handleSortChange} />
       {isLoading ? (
         [...Array(4)].map((_, index) => <SkeletonRecipeListLoader key={index} />)
       ) : (
