@@ -42,7 +42,9 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
 
         <div className="transform scale-y-90">
           <RectangularSmallButton
-            handleClick={() => (isDeletedMode ? deleteAllIngredients : navigate(`/ingredientList`))}
+            handleClick={() => {
+              isDeletedMode ? deleteAllIngredients() : navigate(`/ingredientList`);
+            }}
             buttonText={isDeletedMode ? "모두 삭제" : "재료 추가"}
           />
         </div>

@@ -5,7 +5,7 @@ import RefrigeratorItem from "../components/RefrigeratorItem";
 import BigButton from "@components/buttons/BigButton";
 import { useNavigate } from "react-router";
 import { TiDeleteOutline } from "react-icons/ti";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import Loading from "@components/loading/Loading";
@@ -14,7 +14,8 @@ const RefrigeratorPage: React.FC = () => {
   const navigate = useNavigate();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [allIngredients, setAllIngredients] = useState<IngredientDataType[]>([]);
-  let deleteIngredientItemsList: UpdateIngredientType[] = [];
+  const [deleteIngredientItemsList] = useState<UpdateIngredientType[]>([]);
+  const queryClient = useQueryClient();
 
   const getFridge = async (): Promise<FetchGetRefrigeratorType> => {
     return await fetchData("GET", apiRoutes.refrigerator);
@@ -46,39 +47,46 @@ const RefrigeratorPage: React.FC = () => {
 
   // 재료 하나하나 x버튼 눌렀을때 실행
   const handleDeleteIngredientItem = (id: number): void => {
+    console.log("하나하나 삭제 시작");
     deleteIngredientItemsList.push({ id: id, status: 0 });
-    allIngredients.filter((ingredient) => ingredient.id !== id);
+    console.log("삭제 재료(deleteIngredientItemsList): ", deleteIngredientItemsList);
+    setAllIngredients(allIngredients.filter((ingredient) => ingredient.id !== id));
   };
 
   // 모두 삭제 눌렀을때
   const clearAllIngredients = (): void => {
+    console.log("모두 삭제 클릭");
     allIngredients.map((ingredient) =>
       deleteIngredientItemsList.push({ id: ingredient.id, status: 0 }),
     );
+    console.log("중복 제거전: ", deleteIngredientItemsList);
     deleteIngredientItemsList.filter(
       (item, index, self) => index === self.findIndex((t) => t.id === item.id),
     );
+    console.log("중복 제거 후: ", deleteIngredientItemsList);
     setAllIngredients([]);
   };
 
-  const updateIngredient = async () => {
-    return await fetchData("POST", apiRoutes.upDateIngredients, [deleteIngredientItemsList]);
-  };
-
-  const mutationPostIngredients = useMutation({
-    mutationFn: updateIngredient,
+  // 재료 삭제 및 추가하는
+  const mutationPostIngredients = useMutation<PostFridgeType, Error, UpdateIngredientType[]>({
+    mutationFn: (deleteIngredientItemsList: UpdateIngredientType[]) =>
+      fetchData<PostFridgeType, UpdateIngredientType[]>(
+        "POST",
+        apiRoutes.upDateIngredients,
+        deleteIngredientItemsList,
+      ),
     onError: (error) => {
       console.log(error);
     },
     onSuccess: () => {
-      alert("업데이트 성공!!");
-      refetch();
+      queryClient.invalidateQueries({ queryKey: ["refrigerator"] });
+      setIsDeleteMode(false);
     },
   });
 
   // 완료버튼 눌렀을때
   const handleSaveBtnClick = (): void => {
-    mutationPostIngredients.mutate();
+    mutationPostIngredients.mutate(deleteIngredientItemsList);
   };
 
   return (

@@ -11,3 +11,8 @@ type FetchGetRefrigeratorType = {
   message: string;
   data: RefrigeratorType;
 };
+
+type PostFridgeType = {
+  status: number;
+  message: string;
+};
