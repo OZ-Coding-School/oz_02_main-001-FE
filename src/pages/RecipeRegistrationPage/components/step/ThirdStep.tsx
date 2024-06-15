@@ -63,7 +63,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
       hasEmptyValue ? setIsValid(false) : setIsValid(true);
     };
     formValidate();
-  }, [recipeData]);
+  }, [recipeData, stepImage]);
 
   return (
     <>

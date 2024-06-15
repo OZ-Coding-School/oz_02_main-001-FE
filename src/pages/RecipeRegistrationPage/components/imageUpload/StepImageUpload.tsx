@@ -22,7 +22,6 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
     },
     onSuccess: (data) => {
       console.log(data);
-      setIsValid(true);
     },
     onError: (error) => {
       deleteImage();
@@ -69,8 +68,8 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
       reader.onload = (e) => {
         const newImageUrl = e.target?.result as string;
         updateImage(newImageUrl);
-        changeImage.mutate();
         setIsValid(false);
+        changeImage.mutate();
       };
       reader.readAsDataURL(event.target.files[0]);
     }

@@ -44,7 +44,6 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   };
 
   const handleIngredientClick = (name: string) => {
-    console.log(name);
     const updateData = ingredients.map((ingredient, i) => {
       if (index === i) {
         return { ...ingredient, name };
