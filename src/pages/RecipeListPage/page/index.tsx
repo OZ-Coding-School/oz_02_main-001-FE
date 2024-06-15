@@ -25,7 +25,6 @@ const RecipeListPage: React.FC<RecipeTypeProps> = () => {
     queryKey: [`recipeCategory${categoryId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipeCategory}/${categoryId}`),
   });
-  console.log(data);
 
   useEffect(() => {
     if (data?.data) {
@@ -63,7 +62,7 @@ const RecipeListPage: React.FC<RecipeTypeProps> = () => {
   return (
     <div>
       <Header hasBackBtn={true} title={title} handleBackBtnClick={handleBackBtnClick} />
-      <FilteringButtons onSortChange={handleSortChange} />
+      <FilteringButtons sortType={sortType} handleClick={handleSortChange} />
       {isLoading ? (
         [...Array(4)].map((_, index) => <SkeletonRecipeListLoader key={index} />)
       ) : (
