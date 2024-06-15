@@ -29,23 +29,23 @@ const useImageStore = create<ImageStore>(
       setStepImage: (newData) => set({ stepImage: newData }),
     }),
     {
-      name: "imageData-storage",
+      name: "image-storage",
     },
   ) as (set: (fn: (state: ImageStore) => ImageStore) => void) => ImageStore,
 );
 
 const getStoredImageState = () => {
   // 로컬 스토리지의 문자열 형태의 데이터를 저장
-  const storedDataString = localStorage.getItem("imageData-storage");
+  const storedDataString = localStorage.getItem("image-storage");
   // 문자열 형태의 데이터를 객체 형태로 변환
   const storedData = storedDataString && JSON.parse(storedDataString);
 
   if (storedData) {
     const storedMainImage = storedData.state.mainImage;
-    const storedStepIamge = storedData.state.stepImage;
+    const storedStepImage = storedData.state.stepImage;
 
     const mainImage = storedMainImage;
-    const stepImage = storedStepIamge;
+    const stepImage = storedStepImage;
 
     return { mainImage, stepImage };
   } else {
