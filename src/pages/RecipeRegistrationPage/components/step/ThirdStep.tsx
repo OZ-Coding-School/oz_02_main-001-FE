@@ -6,6 +6,9 @@ import { FiMinusCircle } from "react-icons/fi";
 import { useRecipeStore } from "@store/useRecipeStore";
 import StepImageUpload from "../imageUpload/StepImageUpload";
 import { useImageStore } from "@store/useImageStore";
+import { useMutation } from "@tanstack/react-query";
+import { fetchData } from "./../../../../api/axios";
+import { apiRoutes } from "./../../../../api/apiRoutes";
 
 interface ThirdStepProps {
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,12 +18,19 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
   const { recipeData, setRecipeData } = useRecipeStore();
   const [steps, setSteps] = useState<string[]>(recipeData.steps);
   const { stepImage, setStepImage } = useImageStore();
+
   const initialValue = {
     action: "write",
     type: "step",
-    order: steps.length,
+    order: stepImage.length + 1,
     image: "",
   };
+
+  const { mutate } = useMutation<undefined, undefined, number>({
+    mutationFn: (id) => fetchData("DELETE", `${apiRoutes.deleteStepImage}/${id}`),
+    onSuccess: (data) => console.log(data),
+    onError: (error) => console.log(error),
+  });
 
   const handleAddClick = () => {
     setSteps((prev) => [...prev, ""]);
@@ -36,10 +46,11 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
     const newSteps = steps.filter((_, i) => i !== index);
     const deleteImage = stepImage.filter((_, i) => i !== index);
     const newImage = deleteImage.map((image, index) => {
-      return { ...image, order: index };
+      return { ...image, order: index + 1 };
     });
     setSteps(newSteps);
     setStepImage(newImage);
+    mutate(index + 1);
   };
 
   useEffect(() => {
@@ -77,7 +88,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
             </div>
             <div className="flex gap-2">
               <div className="size-[100px]">
-                <StepImageUpload order={index} />
+                <StepImageUpload order={index + 1} setIsValid={setIsValid} />
               </div>
               <textarea
                 className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none"

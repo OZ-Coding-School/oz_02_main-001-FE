@@ -18,14 +18,11 @@ const Like: React.FC<LikeProps> = ({ queryKey, recipe, status, like }) => {
     mutationLike.mutate();
   };
 
-  const fetchLike = async (): Promise<LikeType> => {
-    return await fetchData<LikeType>("POST", apiRoutes.likes, {
-      recipe: recipe,
-    });
-  };
-
-  const mutationLike = useMutation<LikeType>({
-    mutationFn: fetchLike,
+  const mutationLike = useMutation<FetchLikeType, Error>({
+    mutationFn: () =>
+      fetchData<FetchLikeType, LikeType>("POST", apiRoutes.likes, {
+        recipe: recipe,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
     },

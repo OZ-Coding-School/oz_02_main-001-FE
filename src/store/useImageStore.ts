@@ -19,7 +19,7 @@ export const useImageStore = create<ImageStore>((set) => ({
     {
       action: "write",
       type: "step",
-      order: 0,
+      order: 1,
       image: "",
     },
   ],

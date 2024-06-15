@@ -59,12 +59,19 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const handleChange = (index: number, field: string, value: string | number) => {
     const newIngredients = ingredients.map((ingredient, i) => {
       if (index === i) {
-        if (field === "quantity" && typeof value === "string")
-          return { ...ingredient, [field]: parseInt(value) };
-        return { ...ingredient, [field]: value };
-      } else {
-        return ingredient;
+        if (field === "quantity") {
+          if (typeof value === "string") {
+            const numberValue = parseInt(value);
+            if (isNaN(numberValue)) {
+              return ingredient;
+            }
+            return { ...ingredient, [field]: numberValue };
+          }
+        } else {
+          return { ...ingredient, [field]: value };
+        }
       }
+      return ingredient;
     });
     if (field === "name") {
       setShowModal(true);

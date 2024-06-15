@@ -61,6 +61,7 @@ const RecipeRegistrationPage: React.FC = () => {
     },
     onError: (error) => {
       console.log(error);
+      alert("레시피 등록에 실패하였습니다.");
     },
   });
 

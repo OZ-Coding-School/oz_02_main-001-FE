@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ProceedModal from "@components/modal/ProceedModal";
 import { FaRegImages } from "react-icons/fa6";
 import { useMutation } from "@tanstack/react-query";
@@ -8,21 +8,32 @@ import { useImageStore } from "@store/useImageStore";
 
 interface StepImageUploadProps {
   order: number;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
+const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { stepImage, setStepImage } = useImageStore();
 
   const changeImage = useMutation({
-    mutationFn: () => fetchData("POST", apiRoutes.updateImage, stepImage[order + 1]),
-    onSuccess: (data) => console.log(data),
-    onError: (error) => console.log(error),
+    mutationFn: () => {
+      console.log();
+      return fetchData("POST", apiRoutes.updateImage, stepImage[order - 1]);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      setIsValid(true);
+    },
+    onError: (error) => {
+      deleteImage();
+      console.log(error);
+      alert("이미지 전송 실패");
+    },
   });
 
   const updateImage = (newImageUrl: string) => {
     const newData: imageUpload[] = stepImage.map((image, i) => {
-      if (order === i) {
+      if (order - 1 === i) {
         return { ...image, image: newImageUrl };
       } else {
         return image;
@@ -35,7 +46,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
 
   const deleteImage = () => {
     const newData: imageUpload[] = stepImage.map((image, i) => {
-      if (order === i) {
+      if (order - 1 === i) {
         return { ...image, image: "" };
       } else {
         return image;
@@ -45,7 +56,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
   };
 
   const handleStepImageClick = () => {
-    if (!stepImage[order].image) {
+    if (!stepImage[order - 1].image) {
       document.getElementById(`fileInput${order}`)?.click();
     } else {
       setShowModal(true);
@@ -58,6 +69,8 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
       reader.onload = (e) => {
         const newImageUrl = e.target?.result as string;
         updateImage(newImageUrl);
+        changeImage.mutate();
+        setIsValid(false);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -65,6 +78,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
 
   const handleDeleteImage = (): void => {
     deleteImage();
+    changeImage.mutate();
     setShowModal(false);
   };
 
@@ -72,31 +86,11 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order }) => {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    changeImage.mutate();
-  }, [stepImage]);
-
-  useEffect(() => {
-    const addImage = () => {
-      const initialValue = {
-        action: "write",
-        type: "step",
-        order: order + 1,
-        image: "",
-      };
-      setStepImage([...stepImage, initialValue]);
-    };
-
-    if (order >= stepImage.length) {
-      addImage();
-    }
-  }, [order, stepImage.length]);
-
   return (
     <>
       <div className="size-full cursor-pointer" onClick={handleStepImageClick}>
-        {stepImage[order].image ? (
-          <img src={stepImage[order].image} className="rounded-[5px] size-full object-cover" />
+        {stepImage[order - 1].image ? (
+          <img src={stepImage[order - 1].image} className="rounded-[5px] size-full object-cover" />
         ) : (
           <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
             <FaRegImages className="size-[25%]" />

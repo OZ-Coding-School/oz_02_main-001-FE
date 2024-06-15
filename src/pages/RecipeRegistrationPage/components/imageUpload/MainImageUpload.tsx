@@ -20,8 +20,8 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
     isPending,
   } = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage),
-    onSuccess: () => {
-      setIsValid(true);
+    onSuccess: (data) => {
+      console.log(data);
     },
     onError: () => {
       setMainImage({ ...mainImage, image: "" });
@@ -29,9 +29,11 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
     },
   });
 
-  if (isPending) {
-    setIsValid(false);
-  }
+  useEffect(() => {
+    if (isPending) {
+      setIsValid(false);
+    }
+  }, [isPending]);
 
   const handleMainImageClick = () => {
     if (!mainImage.image) {

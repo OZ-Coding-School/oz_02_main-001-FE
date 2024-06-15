@@ -25,18 +25,18 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
 
   const { mutate } = useMutation({
     mutationFn: () => fetchData("DELETE", `${apiRoutes.recipes}/${recipeId}`),
-    onSuccess: (data) => console.log(data),
+    onSuccess: () => navigate(`/profile/0`),
     onError: (error) => console.log(error),
   });
 
   const handleDeleteModal = () => {
     mutate();
-    navigate(`/profile/0`);
   };
 
   const handleEditModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div className="flex justify-between items-center h-[50px] sticky top-0 bg-white z-[10] border-b-[1px]">
       <BackButton handleClick={handleClick} />

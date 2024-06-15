@@ -30,23 +30,24 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   const { data, isError, error, isLoading } = useQuery<data>({
     queryKey: ["searchIngredient", value],
     queryFn: () => fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`),
-    // enabled: !!value.trim(),
+    enabled: value !== "" || !!value.trim(),
   });
 
   if (isError) {
     console.log(error);
   } else {
-    console.log("data", data);
+    console.log(data);
   }
 
   const handleSubmit = () => {
     setShowModal(false);
   };
 
-  const handleIngredientClick = (value: string) => {
+  const handleIngredientClick = (name: string) => {
+    console.log(name);
     const updateData = ingredients.map((ingredient, i) => {
       if (index === i) {
-        return { ...ingredient, name: value };
+        return { ...ingredient, name };
       } else {
         return ingredient;
       }
@@ -59,7 +60,7 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
     <div className="absolute top-14 bg-white z-[10] w-full border border-softBlue rounded-[5px] pt-1">
       <div className="flex flex-col h-[260px] justify-between">
         <div className="overflow-auto">
-          {isError ? (
+          {isError || !value ? (
             <div className="py-2.5 px-3">재료명을 입력해주세요</div>
           ) : isLoading ? (
             <div className="flex flex-col gap-3 py-2.5 px-3">
@@ -75,7 +76,9 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
                   <div
                     className="py-2.5 px-3"
                     key={ingredient.id}
-                    onClick={() => handleIngredientClick(ingredient.name)}
+                    onClick={() => {
+                      return handleIngredientClick(ingredient.name);
+                    }}
                   >
                     {ingredient.name}
                   </div>

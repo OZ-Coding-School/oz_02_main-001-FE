@@ -17,15 +17,11 @@ const Scrap: React.FC<ScrapProps> = ({ queryKey, recipe, book, status }) => {
     mutationBook.mutate();
   };
 
-  const fetchBook = async (): Promise<BookmarkType> => {
-    //bookmarks
-    return await fetchData<BookmarkType>("POST", apiRoutes.bookmarks, {
-      recipe: recipe,
-    });
-  };
-
-  const mutationBook = useMutation<LikeType>({
-    mutationFn: fetchBook,
+  const mutationBook = useMutation<FetchBookMark, Error>({
+    mutationFn: () =>
+      fetchData<FetchBookMark, BookmarkType>("POST", apiRoutes.bookmarks, {
+        recipe: recipe,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [queryKey],
