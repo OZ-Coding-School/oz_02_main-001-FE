@@ -12,7 +12,6 @@ const SettingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalName, setModalName] = useState<string>("");
   const queryClient = useQueryClient();
-  const [isQueryEnabled, setIsQueryEnabled] = useState<boolean>(true);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -26,14 +25,13 @@ const SettingPage: React.FC = () => {
   const { data, error } = useQuery<GetAlertStatusType>({
     queryKey: ["alertStatus"],
     queryFn: () => fetchData("GET", apiRoutes.alertEnable),
-    enabled: isQueryEnabled, // 조건부로 쿼리 실행
   });
 
   useEffect(() => {
     data?.data.status === 1 ? setIsToggled(true) : setIsToggled(false);
-    setIsQueryEnabled(false);
   }, [data]);
 
+  //
   const putAlertStatus = async (): Promise<AlertType> => {
     const data = {
       enable: !isToggled,
@@ -60,6 +58,7 @@ const SettingPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
+  // 로그아웃 api 연동
   const fetchLogout = async () => {
     return await fetchData("POST", apiRoutes.userLogout);
   };
@@ -76,6 +75,7 @@ const SettingPage: React.FC = () => {
     mutationLogout.mutate();
   };
 
+  // 회원 탈퇴 api 연동
   const fetchDeleteAccount = async () => {
     return await fetchData("POST", apiRoutes.userLogout);
   };
