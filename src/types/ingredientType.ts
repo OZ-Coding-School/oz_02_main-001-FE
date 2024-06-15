@@ -1,5 +1,11 @@
 type IngredientDataType = {
   id: number;
   name: string;
-  image: string | null; // 백엔드에서 null로도 처리가능하도록 했다고 답변 받음
+  image: string | null;
+};
+
+type IngredientListDataType = {
+  data: IngredientDataType[];
+  status: number;
+  message: string;
 };

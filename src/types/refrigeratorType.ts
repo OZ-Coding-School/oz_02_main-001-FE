@@ -5,3 +5,7 @@ type RefrigeratorType = {
     name: string;
   }[];
 };
+type PostRefrigeratorType = {
+  id: number,
+  status: number,
+};

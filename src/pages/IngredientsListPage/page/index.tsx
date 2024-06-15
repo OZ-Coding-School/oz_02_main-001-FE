@@ -4,13 +4,37 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@components/footer/Footer";
 import Search from "../components/Search";
 import IngredientsListItem from "../components/IngredientsListItem";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchData } from "../../../api/axios";
+import { apiRoutes } from "../../../api/apiRoutes";
 
 const IngredientsListPage: React.FC = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [isSearchClicked, setIsSearchClicked] = useState(true);
   const [buttonStates, setButtonStates] = useState<{ [key: number]: boolean }>({});
   const [selectedIngredients, setSelectedIngredients] = useState<{ [key: number]: boolean }>({});
   const [searchKeyword, setSearchKeyword] = useState("");
+
+  const { data: ingredients } = useQuery<IngredientListDataType>({
+    queryKey: ["ingredients", searchKeyword],
+    queryFn: () => {
+      const endpoint = searchKeyword
+        ? `${apiRoutes.ingredients}/fridge/${searchKeyword}`
+        : `${apiRoutes.ingredients}/fridge`;
+      return fetchData<IngredientListDataType>("GET", endpoint);
+    },
+  });
+
+  const mutationIngrdient = useMutation<PostRefrigeratorType>({
+    mutationFn: (id: number) =>
+      fetchData<PostRefrigeratorType>("POST", apiRoutes.refrigerator, {
+        refrigerator: id,
+      }),
+    onSuccess: (_data: PostRefrigeratorType) => {
+      queryClient.invalidateQueries({ queryKey: ["refrigerator"] });
+    },
+  });
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -19,7 +43,7 @@ const IngredientsListPage: React.FC = () => {
   const handleBtnClick = (): void => {
     const selectedIngredientList = Object.keys(selectedIngredients)
       .map((id) => {
-        return ingredients.find((ingredient) => ingredient.id === parseInt(id));
+        return ingredients?.data.find((ingredient) => ingredient.id === parseInt(id));
       })
       .filter(Boolean);
     navigate("/refrigerator", { state: { selectedIngredients: selectedIngredientList } });
@@ -50,26 +74,8 @@ const IngredientsListPage: React.FC = () => {
     }
   };
 
-  const ingredients: IngredientDataType[] = [
-    { id: 1, name: "가다랑어포", image: null },
-    { id: 2, name: "가래떡", image: null },
-    { id: 3, name: "가자미", image: null },
-    { id: 4, name: "가지", image: null },
-    { id: 5, name: "갈치", image: null },
-    { id: 6, name: "감", image: null },
-    { id: 7, name: "감자", image: null },
-    { id: 8, name: "꿀", image: null },
-    { id: 9, name: "소금", image: null },
-    { id: 10, name: "후추", image: null },
-    { id: 11, name: "참치", image: null },
-    { id: 12, name: "쌀", image: null },
-    { id: 13, name: "밀가루", image: null },
-    { id: 14, name: "고구마", image: null },
-    { id: 15, name: "설탕", image: null },
-    { id: 16, name: "고등어", image: null },
-  ];
-
-  const sortedIngredients = ingredients.sort((a, b) => a.name.localeCompare(b.name, "ko"));
+  const sortedIngredients =
+    ingredients?.data.sort((a, b) => a.name.localeCompare(b.name, "ko")) || [];
   const filteredIngredients = searchKeyword
     ? sortedIngredients.filter((ingredient) => ingredient.name.includes(searchKeyword))
     : sortedIngredients;
