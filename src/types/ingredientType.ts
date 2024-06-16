@@ -8,3 +8,17 @@ type UpdateIngredientType = {
   id: number;
   status: number;
 };
+
+
+type PostIngredientsType = {
+  status: number;
+  message: string;
+};
+
+type PostIngredientsRequestType = {
+  refrigerator: number [];
+};
+
+type PostIngredientsResponseType = {
+  data: IngredientDataType[];
+};

@@ -16,23 +16,33 @@ const IngredientsListPage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<{ [key: number]: boolean }>({});
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const { data: ingredients } = useQuery<IngredientListDataType>({
+  // 서버에서 재료 데이터를 받아온다
+  const { data: ingredients } = useQuery<PostIngredientsResponseType>({
     queryKey: ["ingredients", searchKeyword],
-    queryFn: () => {
+    queryFn: async () => {
       const endpoint = searchKeyword
         ? `${apiRoutes.ingredients}/fridge/${searchKeyword}`
         : `${apiRoutes.ingredients}/fridge`;
-      return fetchData<IngredientListDataType>("GET", endpoint);
+      const response = await fetchData<PostIngredientsResponseType>("GET", endpoint);
+      return response;
     },
   });
 
-  const mutationIngrdient = useMutation<PostRefrigeratorType>({
-    mutationFn: (id: number) =>
-      fetchData<PostRefrigeratorType>("POST", apiRoutes.refrigerator, {
-        refrigerator: id,
-      }),
-    onSuccess: (_data: PostRefrigeratorType) => {
-      queryClient.invalidateQueries({ queryKey: ["refrigerator"] });
+  // 서버에 요청하여 재료 추가 및 취소한다.
+  const mutationIngrdient = useMutation<UpdateIngredientType, unknown, number[]>({
+    mutationFn: (id: number[]) => {
+      const requestBody: PostIngredientsRequestType = { refrigerator: id };
+      return fetchData<UpdateIngredientType, PostIngredientsRequestType>(
+        "POST",
+        apiRoutes.upDateIngredients,
+        requestBody,
+      );
+      // upDateIngredients: "/fridges/ingredients",
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["ingredients"] }); // 재료목록 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ["refrigerator"] }); // 냉장고 쿼리 무효화 즉 최신 상태로의 업데이트
+      console.log(data);
     },
   });
 
@@ -40,23 +50,38 @@ const IngredientsListPage: React.FC = () => {
     navigate(-1);
   };
 
+  // 완료 버튼
   const handleBtnClick = (): void => {
     const selectedIngredientList = Object.keys(selectedIngredients)
       .map((id) => {
         return ingredients?.data.find((ingredient) => ingredient.id === parseInt(id));
       })
-      .filter(Boolean);
-    navigate("/refrigerator", { state: { selectedIngredients: selectedIngredientList } });
+      // 선택된 재료 리스트 생성
+      .filter(Boolean) as IngredientDataType[]; // 유효한 재료만 필터링해준다.
+
+    // 선택된 재료의 ID 리스트를 추출
+    const selectedIngredientIds = Object.keys(selectedIngredients).map((id) => parseInt(id));
+
+    // 선택된 재료의 ID 리스트를 서버에 전송
+    mutationIngrdient.mutate(selectedIngredientIds);
+
+    // 선택된 재료의 ID 리스트를 navigate 함수의 state 속성에 전달.
+    navigate("/refrigerator", {
+      state: { selectedIngredients: selectedIngredientList, selectedIngredientIds },
+    });
   };
 
+  // 검색 클릭
   const handleSearchClick = () => {
     setIsSearchClicked(true);
   };
 
+  // 검색 키워드 변경
   const handleSearchKeywordChange = (keyword: string) => {
     setSearchKeyword(keyword);
   };
 
+  // 버튼 상태 토글
   const toggleButtonState = (id: number) => {
     setButtonStates((prevState) => ({
       ...prevState,
@@ -74,8 +99,10 @@ const IngredientsListPage: React.FC = () => {
     }
   };
 
+  // 이름순으로 재료 목록 출력
   const sortedIngredients =
     ingredients?.data.sort((a, b) => a.name.localeCompare(b.name, "ko")) || [];
+  // 검색 키워드에 따른 필터링
   const filteredIngredients = searchKeyword
     ? sortedIngredients.filter((ingredient) => ingredient.name.includes(searchKeyword))
     : sortedIngredients;
