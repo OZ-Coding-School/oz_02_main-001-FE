@@ -55,16 +55,18 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
     setIngredients(newIngredients);
   };
 
+  console.log(recipeData);
+
   const handleChange = (index: number, field: string, value: string | number) => {
     const newIngredients = ingredients.map((ingredient, i) => {
       if (index === i) {
         if (field === "quantity") {
           if (typeof value === "string") {
             const numberValue = parseInt(value);
-            if (isNaN(numberValue)) {
-              return ingredient;
+            if (!isNaN(numberValue)) {
+              return { ...ingredient, [field]: numberValue };
             }
-            return { ...ingredient, [field]: numberValue };
+            return { ...ingredient, [field]: -1 };
           }
         } else {
           return { ...ingredient, [field]: value };
@@ -72,9 +74,11 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
       }
       return ingredient;
     });
+
     if (field === "name") {
       setShowModal(true);
     }
+
     setIngredients(newIngredients);
     setRecipeData({ ...recipeData, recipeIngredients: newIngredients });
   };
