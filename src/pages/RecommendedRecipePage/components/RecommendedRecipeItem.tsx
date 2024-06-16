@@ -1,5 +1,3 @@
-import Like from "@components/recipe/Like";
-import Scrap from "@components/recipe/Scrap";
 import React from "react";
 
 interface RecommendedRecipeItemProps {

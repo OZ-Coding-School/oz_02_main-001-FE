@@ -13,8 +13,6 @@ const IngredientSelectionPage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
 
-  console.log(selectedIngredients);
-
   const handleBackBtnClick = (): void => {
     navigate(-1);
   };

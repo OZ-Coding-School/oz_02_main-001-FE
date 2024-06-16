@@ -23,7 +23,7 @@ const RefrigeratorPage: React.FC = () => {
     return await fetchData("GET", apiRoutes.refrigerator);
   };
 
-  const { data, isLoading, error, refetch } = useQuery<FetchGetRefrigeratorType>({
+  const { data, isLoading, error } = useQuery<FetchGetRefrigeratorType>({
     queryKey: ["refrigerator"],
     queryFn: getFridge,
   });
@@ -33,7 +33,6 @@ const RefrigeratorPage: React.FC = () => {
 
   useEffect(() => {
     if (data?.data.ingredients) {
-      console.log(data.data.ingredients);
       setAllIngredients(data.data.ingredients);
       setRefrigeratorIngredients(data.data.ingredients);
     }
@@ -51,23 +50,18 @@ const RefrigeratorPage: React.FC = () => {
 
   // 재료 하나하나 x버튼 눌렀을때 실행
   const handleDeleteIngredientItem = (id: number): void => {
-    console.log("하나하나 삭제 시작");
     deleteIngredientItemsList.push({ id: id, status: 0 });
-    console.log("삭제 재료(deleteIngredientItemsList): ", deleteIngredientItemsList);
     setAllIngredients(allIngredients.filter((ingredient) => ingredient.id !== id));
   };
 
   // 모두 삭제 눌렀을때
   const clearAllIngredients = (): void => {
-    console.log("모두 삭제 클릭");
     allIngredients.map((ingredient) =>
       deleteIngredientItemsList.push({ id: ingredient.id, status: 0 }),
     );
-    console.log("중복 제거전: ", deleteIngredientItemsList);
     deleteIngredientItemsList.filter(
       (item, index, self) => index === self.findIndex((t) => t.id === item.id),
     );
-    console.log("중복 제거 후: ", deleteIngredientItemsList);
     setAllIngredients([]);
   };
 

@@ -14,9 +14,6 @@ const IngredientsListPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<UpdateIngredientType[]>([]);
-  const { refrigeratorIngredients } = useIngredientStore();
-
-  console.log(refrigeratorIngredients);
 
   // 서버에서 재료 데이터를 받아온다
   const { data: ingredients } = useQuery<IngredientsResponseType>({

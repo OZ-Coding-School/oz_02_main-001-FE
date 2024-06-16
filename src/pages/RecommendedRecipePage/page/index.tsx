@@ -25,7 +25,6 @@ const RecommendedRecipePage: React.FC = () => {
         ingredients: selectedIngredients,
       }),
     onSuccess: (data) => {
-      console.log(data);
       queryClient.setQueryData(["recommendedRecipes"], data?.data);
       queryClient.invalidateQueries({ queryKey: ["recommendedRecipes"] });
     },
