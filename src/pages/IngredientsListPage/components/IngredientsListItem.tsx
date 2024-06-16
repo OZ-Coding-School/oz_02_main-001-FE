@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import RoundedSmallButton from "@components/buttons/RoundedSmallButton";
+import { useIngredientStore } from "@store/useIngredientStore";
 
 interface IngredientsListItemProps {
   ingredient: IngredientDataType;
-  buttonState: boolean;
-  toggleButtonState: (id: number) => void;
+  handleToggleChange: (id: number, status: number) => void;
 }
 
 const IngredientsListItem: React.FC<IngredientsListItemProps> = ({
   ingredient,
-  toggleButtonState,
+  handleToggleChange,
 }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const { refrigeratorIngredients } = useIngredientStore();
+  const isSelected = refrigeratorIngredients.includes(ingredient.id);
+  const [isClicked, setIsClicked] = useState<boolean>(isSelected);
 
   const handleClick = () => {
-    if (ingredient.id !== undefined) {
-      toggleButtonState(ingredient.id);
-      setIsClicked(!isClicked);
-    }
+    setIsClicked((prev) => !prev);
+    handleToggleChange(ingredient.id, !isClicked ? 1 : 0);
   };
 
   return (

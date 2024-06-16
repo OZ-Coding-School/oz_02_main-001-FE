@@ -9,16 +9,17 @@ type UpdateIngredientType = {
   status: number;
 };
 
-
 type PostIngredientsType = {
   status: number;
   message: string;
 };
 
 type PostIngredientsRequestType = {
-  refrigerator: number [];
+  refrigerator: number[];
 };
 
-type PostIngredientsResponseType = {
+type IngredientsResponseType = {
+  status: number;
+  message: string;
   data: IngredientDataType[];
 };
