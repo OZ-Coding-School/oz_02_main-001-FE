@@ -62,7 +62,7 @@ const RecipeListPage: React.FC = () => {
       {isLoading ? (
         [...Array(4)].map((_, index) => <SkeletonRecipeListLoader key={index} />)
       ) : (
-        <RecipeList recipeData={sortedRecipes} queryKey={"recipeCategory"} />
+        <RecipeList recipeData={sortedRecipes} queryKey={`recipeCategory${categoryId}`} />
       )}
     </div>
   );

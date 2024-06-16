@@ -35,7 +35,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
   const commentUpload = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.comments, comment),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recipeData"] });
+      queryClient.invalidateQueries({ queryKey: [`recipeData${recipeId}`] });
       setComment((prev) => ({ ...prev, comment: "" }));
     },
     onError: (error) => console.log(error),
