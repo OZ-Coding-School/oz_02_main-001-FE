@@ -9,6 +9,7 @@ import { FreeMode } from "swiper/modules";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
+import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
 
 const RecommendedRecipePage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const RecommendedRecipePage: React.FC = () => {
     queryKey: ["recommendedRecipes"],
   });
 
-  const { mutate } = useMutation<FetchRecommended>({
+  const { mutate, isPending } = useMutation<FetchRecommended>({
     mutationFn: () =>
       fetchData<FetchRecommended, PostRecommendedData>("POST", apiRoutes.recommendRecipe, {
         ingredients: selectedIngredients,
@@ -72,16 +73,20 @@ const RecommendedRecipePage: React.FC = () => {
           </Swiper>
         </div>
         <DividingLine />
-        <div className="flex flex-col gap-3 p-3">
-          {sortedRecipes &&
-            sortedRecipes.map((recipe) => (
-              <RecommendedRecipeItem
-                recipe={recipe}
-                key={recipe.recipeId}
-                handleRecipeClick={handleRecipeClick}
-              />
-            ))}
-        </div>
+        {isPending ? (
+          <SkeletonRecipeList />
+        ) : (
+          <div className="flex flex-col gap-3 p-3">
+            {sortedRecipes &&
+              sortedRecipes.map((recipe) => (
+                <RecommendedRecipeItem
+                  recipe={recipe}
+                  key={recipe.recipeId}
+                  handleRecipeClick={handleRecipeClick}
+                />
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );
