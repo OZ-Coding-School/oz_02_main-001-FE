@@ -17,8 +17,8 @@ const Bell: React.FC<BellPropsType> = ({ onClick }) => {
     navigate("/notice");
   };
 
-  const fetchAlertsStatus = async (): Promise<FetchAlertsStatusType> => {
-    return await fetchData<FetchAlertsStatusType>("GET", apiRoutes.alertsStatus);
+  const fetchAlertsStatus = async (): Promise<GetAlertStatusType> => {
+    return await fetchData<GetAlertStatusType>("GET", apiRoutes.alertsStatus);
   };
 
   const { data, error } = useQuery({
@@ -37,7 +37,7 @@ const Bell: React.FC<BellPropsType> = ({ onClick }) => {
       onClick={isNoticePage ? onClick : handleClick}
     >
       {isNoticePage ? (
-        data ? (
+        data?.data.status ? (
           <PiBellFill className="w-[24px] h-[24px] text-redPink" />
         ) : (
           <PiBellBold className="w-[24px] h-[24px]" />
@@ -45,7 +45,9 @@ const Bell: React.FC<BellPropsType> = ({ onClick }) => {
       ) : (
         <>
           <PiBellBold className="w-[24px] h-[24px]" />
-          {data && <GoDotFill className="absolute top-1 right-2 text-redPink w-6 h-6" />}
+          {data?.data.status && (
+            <GoDotFill className="absolute top-1 right-2 text-redPink w-6 h-6" />
+          )}
         </>
       )}
     </div>
