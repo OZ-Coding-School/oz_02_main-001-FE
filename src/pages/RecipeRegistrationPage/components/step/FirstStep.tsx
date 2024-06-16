@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import Label from "../Label";
 import Input from "../input/TitleInput";
 import SelectBox from "../selectbox/SelectBox";
-import { useRecipeStore } from "@store/useRecipeStore";
 import { selectOption } from "src/types/selectBoxType";
 import { useImageStore } from "@store/useImageStore";
 import MainImageUpload from "../imageUpload/MainImageUpload";
+import { useRecipeStore } from "@store/useRecipeStore";
 
 interface FirstStepProps {
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,7 +45,7 @@ const FirstStep: React.FC<FirstStepProps> = ({ setIsValid }) => {
       />
       <Label name="완성 사진" />
       <div className="size-[180px]">
-        <MainImageUpload />
+        <MainImageUpload setIsValid={setIsValid} />
       </div>
       <Label name="카테고리" />
       <div className="w-[100px]">

@@ -54,13 +54,14 @@ const RecipeRegistrationPage: React.FC = () => {
         {
           action: "write",
           type: "step",
-          order: 0,
+          order: 1,
           image: "",
         },
       ]);
     },
     onError: (error) => {
       console.log(error);
+      alert("레시피 등록에 실패하였습니다.");
     },
   });
 

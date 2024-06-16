@@ -13,6 +13,7 @@ export const apiRoutes = {
   recommendRecipe: "/recipes/recommend",
   ingredients: "/ingredients",
   updateImage: "/recipes/temp",
+  deleteStepImage: "/recipes/step",
   recipes: "/recipes",
   recipeCategory: "/recipes/category",
   recipeSearch: "/recipes/search",

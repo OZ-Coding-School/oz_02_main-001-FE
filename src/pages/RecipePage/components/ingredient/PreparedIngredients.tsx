@@ -23,7 +23,7 @@ const PreparedIngredients: React.FC<PreparedIngredientsProps> = ({ ingredients }
           <span className="text-redPink">{ingredients.length}</span> 개
         </div>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col items-center gap-3">
         <div className="border-2 border-lightBeige rounded-[5px] w-[98%] h-auto p-3">
           {previewIngredients.map((ingredient) => (
             <div className="flex justify-between" key={ingredient.id}>
@@ -43,12 +43,14 @@ const PreparedIngredients: React.FC<PreparedIngredientsProps> = ({ ingredients }
               </div>
             ))}
         </div>
-        <div className="w-[98%]">
-          <BigButton
-            buttonText={isMoreClicked ? "재료 접기" : "재료 더 보기"}
-            handleClick={handleClick}
-          />
-        </div>
+        {ingredients.length > 4 && (
+          <div className="w-[98%]">
+            <BigButton
+              buttonText={isMoreClicked ? "재료 접기" : "재료 더 보기"}
+              handleClick={handleClick}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

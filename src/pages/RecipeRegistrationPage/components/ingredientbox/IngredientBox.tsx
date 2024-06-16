@@ -1,6 +1,6 @@
 import BigButton from "@components/buttons/BigButton";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { apiRoutes } from "./../../../../api/apiRoutes";
 import { fetchData } from "./../../../../api/axios";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -27,26 +27,31 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   setIngredients,
   setShowModal,
 }) => {
-  const { data, isError, error, isLoading } = useQuery<data>({
+  const queryClient = useQueryClient();
+  const [scroll, setScroll] = useState<number>(0);
+  const { data, isError, isLoading, isSuccess } = useQuery<data>({
     queryKey: ["searchIngredient", value],
-    queryFn: () => fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`),
-    // enabled: !!value.trim(),
+    queryFn: () => {
+      console.log(value);
+      return fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`);
+    },
+    enabled: !!value.trim(),
   });
 
-  if (isError) {
-    console.log(error);
-  } else {
-    console.log("data", data);
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      queryClient.invalidateQueries({ queryKey: ["searchIngredient"] });
+    }
+  }, [isSuccess]);
 
   const handleSubmit = () => {
     setShowModal(false);
   };
 
-  const handleIngredientClick = (value: string) => {
+  const handleIngredientClick = (name: string) => {
     const updateData = ingredients.map((ingredient, i) => {
       if (index === i) {
-        return { ...ingredient, name: value };
+        return { ...ingredient, name };
       } else {
         return ingredient;
       }
@@ -58,8 +63,11 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   return (
     <div className="absolute top-14 bg-white z-[10] w-full border border-softBlue rounded-[5px] pt-1">
       <div className="flex flex-col h-[260px] justify-between">
-        <div className="overflow-auto">
-          {isError ? (
+        <div
+          className="overflow-auto"
+          onScroll={(event) => setScroll(event.currentTarget.scrollTop)}
+        >
+          {isError || !value ? (
             <div className="py-2.5 px-3">재료명을 입력해주세요</div>
           ) : isLoading ? (
             <div className="flex flex-col gap-3 py-2.5 px-3">
@@ -75,7 +83,11 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
                   <div
                     className="py-2.5 px-3"
                     key={ingredient.id}
-                    onClick={() => handleIngredientClick(ingredient.name)}
+                    onMouseUp={() => handleIngredientClick(ingredient.name)}
+                    onMouseDown={(event) => {
+                      if (event.currentTarget.parentElement)
+                        event.currentTarget.parentElement.scrollTop = scroll;
+                    }}
                   >
                     {ingredient.name}
                   </div>

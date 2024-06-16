@@ -30,7 +30,7 @@ const RecipeTitleSection: React.FC<RecipeTitleSectionProps> = ({
         </div>
         <div className="pt-[0.3rem]">
           <Scrap
-            queryKey="recipeData"
+            queryKey={`recipeData${recipeId}`}
             recipe={parseInt(recipeId!)}
             book={bookmark}
             status={bookmarkStatus}

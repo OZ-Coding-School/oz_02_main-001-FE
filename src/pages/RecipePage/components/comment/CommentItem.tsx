@@ -34,7 +34,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
       return fetchData("PUT", apiRoutes.comments, UpdateData);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recipeData"] });
+      queryClient.invalidateQueries({ queryKey: [`recipeData${recipeId}`] });
     },
     onError: (error) => {
       console.log(error);
@@ -46,7 +46,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
       return fetchData("DELETE", `${apiRoutes.comments}/${comment.id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["recipeData"] });
+      queryClient.invalidateQueries({ queryKey: [`recipeData${recipeId}`] });
     },
     onError: (error) => {
       console.log(error);

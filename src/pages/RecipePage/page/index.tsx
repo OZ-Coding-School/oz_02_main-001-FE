@@ -29,7 +29,6 @@ const RecipePage: React.FC = () => {
     data: recipeData,
     isLoading,
     isError,
-    error,
   } = useQuery<data>({
     queryKey: [`recipeData${recipeId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipes}/${recipeId}`),
@@ -79,7 +78,7 @@ const RecipePage: React.FC = () => {
           <DividingLine />
           <div className="flex gap-4 p-3">
             <Like
-              queryKey="recipeData"
+              queryKey={`recipeData${recipeId}`}
               recipe={parseInt(recipeId!)}
               like={recipeData.data.like}
               status={recipeData.data.likeStatus}

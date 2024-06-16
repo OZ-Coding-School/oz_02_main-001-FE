@@ -8,22 +8,22 @@ const customAxios = (() =>
     },
   }))();
 
-customAxios.interceptors.response.use(
-  (response) => response,
-  async (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      const originalRequest = error.config as AxiosRequestConfig;
-      if (originalRequest) {
-        try {
-          return customAxios.request(originalRequest);
-        } catch (retryError: any) {
-          return Promise.reject(retryError);
-        }
-      }
-    }
-    return Promise.reject(error);
-  },
-);
+// customAxios.interceptors.response.use(
+//   (response) => response,
+//   async (error: AxiosError) => {
+//     if (error.response?.status === 401) {
+//       const originalRequest = error.config as AxiosRequestConfig;
+//       if (originalRequest) {
+//         try {
+//           return customAxios.request(originalRequest);
+//         } catch (retryError: any) {
+//           return Promise.reject(retryError);
+//         }
+//       }
+//     }
+//     return Promise.reject(error);
+//   },
+// );
 
 export const fetchData = async <ResponseType, RequestType = undefined>(
   method: "GET" | "POST" | "PUT" | "DELETE",

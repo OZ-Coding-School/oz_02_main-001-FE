@@ -22,7 +22,7 @@ import ScrollTo from "./utils/ScrollTo";
 function App() {
   return (
     <Router>
-      <ScrollTo />
+      {/* <ScrollTo /> */}
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />

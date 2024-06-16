@@ -4,6 +4,13 @@ type RecipeIngredient = {
   unit: number;
 };
 
+type IngredientType = {
+  id: number;
+  name: string;
+  quantity: number;
+  unit: number;
+};
+
 type StepType = {
   step: string;
   image: string;
@@ -37,7 +44,7 @@ type RecipeDataType = {
   like: number;
   likeStatus: number;
   user: UserType;
-  ingredients: RecipeIngredient[];
+  ingredients: IngredientType[];
   steps: StepType[];
   comments: CommentType[];
 };
