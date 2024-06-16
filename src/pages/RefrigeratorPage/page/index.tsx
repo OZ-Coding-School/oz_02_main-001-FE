@@ -16,7 +16,7 @@ const RefrigeratorPage: React.FC = () => {
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [allIngredients, setAllIngredients] = useState<IngredientDataType[]>([]);
   const [deleteIngredientItemsList] = useState<UpdateIngredientType[]>([]);
-  const { refrigeratorIngredients, setRefrigeratorIngredients } = useIngredientStore();
+  const { setRefrigeratorIngredients } = useIngredientStore();
   const queryClient = useQueryClient();
 
   const getFridge = async (): Promise<FetchGetRefrigeratorType> => {
@@ -39,7 +39,6 @@ const RefrigeratorPage: React.FC = () => {
     }
   }, [data]);
 
-  console.log(refrigeratorIngredients);
   // 레시피 찾아보기
   const handleFindRecipeClick = () => {
     navigate("/ingredientSelection", { state: { Ingredients: data?.data.ingredients } });
