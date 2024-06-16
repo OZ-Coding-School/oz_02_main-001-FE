@@ -43,7 +43,11 @@ const RecipePage: React.FC = () => {
     );
   }
   if (isError) {
-    console.log(error);
+    return (
+      <div className="flex justify-center items-center w-full h-[100vh]">
+        해당 레시피를 찾지 못 했습니다.
+      </div>
+    );
   }
 
   return (
