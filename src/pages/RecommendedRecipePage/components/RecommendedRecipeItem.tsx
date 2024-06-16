@@ -1,5 +1,3 @@
-import Like from "@components/recipe/Like";
-import Scrap from "@components/recipe/Scrap";
 import React from "react";
 
 interface RecommendedRecipeItemProps {
@@ -19,10 +17,6 @@ const RecommendedRecipeItem: React.FC<RecommendedRecipeItemProps> = ({
       <div>
         <div className="flex w-full justify-between items-start gap-2">
           <span className="font-[500] text-[1.1rem]">{recipe.title}</span>
-          <div className="flex gap-2">
-            <Like recipe={recipe.recipeId} like={recipe.likes} status={recipe.likeStatus} />
-            <Scrap recipe={recipe.recipeId} book={recipe.bookmark} status={recipe.bookmarkStatus} />
-          </div>
         </div>
         <div className="text-gray-600">{recipe.nickname}</div>
       </div>

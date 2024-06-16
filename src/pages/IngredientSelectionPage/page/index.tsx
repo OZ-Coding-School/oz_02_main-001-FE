@@ -5,9 +5,6 @@ import BigButton from "@components/buttons/BigButton";
 import IngredientSelectionItem from "../components/IngredientSelectionItem";
 import { BsCheckCircle } from "react-icons/bs";
 import Header from "@components/header/Header";
-import { useMutation } from "@tanstack/react-query";
-import { fetchData } from "./../../../api/axios";
-import { apiRoutes } from "./../../../api/apiRoutes";
 
 const IngredientSelectionPage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,29 +13,14 @@ const IngredientSelectionPage: React.FC = () => {
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
 
-  const { mutate } = useMutation<FetchRecommended>({
-    mutationFn: () => {
-      return fetchData<FetchRecommended, PostRecommendedData>("POST", apiRoutes.recommendRecipe, {
-        ingredients: selectedIngredients,
-      });
-    },
-    onSuccess: (data) => {
-      console.log(data);
-      return navigate(`/recommendedList`, {
-        state: { recommendedRecipes: data?.data },
-      });
-    },
-    onError: () => alert("오류가 발생했습니다"),
-  });
-
-  console.log(selectedIngredients);
-
   const handleBackBtnClick = (): void => {
     navigate(-1);
   };
 
   const handleRecommendedClick = () => {
-    mutate();
+    navigate(`/recommendedList`, {
+      state: { selectedIngredients: selectedIngredients },
+    });
   };
 
   const selectAllIngredients = () => {

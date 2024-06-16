@@ -33,7 +33,6 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
   const [ingredientInputIndex, setIngredientInputIndex] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  console.log(ingredients);
   const handleAddClick = () => {
     const addIngredients = [...ingredients, initialIngredientData];
     setIngredients(addIngredients);
