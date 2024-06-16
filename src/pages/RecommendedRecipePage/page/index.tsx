@@ -1,5 +1,5 @@
 import Header from "@components/header/Header";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RecommendedRecipeItem from "../components/RecommendedRecipeItem";
 import DividingLine from "@components/dividingLine/DividingLine";
@@ -38,7 +38,16 @@ const RecommendedRecipePage: React.FC = () => {
 
   useEffect(() => {
     mutate();
-  }, []);
+  }, [mutate]);
+
+  const sortedRecipes = useMemo(() => {
+    if (recommendedRecipes) {
+      return [...recommendedRecipes.recipes].sort(
+        (a, b) => b.includeIngredients.length - a.includeIngredients.length,
+      );
+    }
+    return [];
+  }, [recommendedRecipes]);
 
   return (
     <div>
@@ -65,8 +74,8 @@ const RecommendedRecipePage: React.FC = () => {
         </div>
         <DividingLine />
         <div className="flex flex-col gap-3 p-3">
-          {recommendedRecipes &&
-            recommendedRecipes.recipes.map((recipe) => (
+          {sortedRecipes &&
+            sortedRecipes.map((recipe) => (
               <RecommendedRecipeItem
                 recipe={recipe}
                 key={recipe.recipeId}
