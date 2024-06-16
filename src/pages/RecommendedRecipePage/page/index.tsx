@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
 import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
+import Skeleton from "react-loading-skeleton";
 
 const RecommendedRecipePage: React.FC = () => {
   const navigate = useNavigate();
@@ -52,30 +53,37 @@ const RecommendedRecipePage: React.FC = () => {
   return (
     <div>
       <Header hasBackBtn={true} title="추천 레시피" handleBackBtnClick={() => navigate(-1)} />
-      <div>
-        <div className="flex flex-col gap-2 p-3">
-          <div className="font-[600]">선택한 재료</div>
-          <Swiper
-            slidesPerView="auto"
-            spaceBetween={10}
-            freeMode={true}
-            modules={[FreeMode]}
-            className="w-full h-full"
-          >
-            {recommendedRecipes &&
-              recommendedRecipes.ingredients.map((ingredient, index) => (
-                <SwiperSlide key={index} className="flex justify-center items-center w-fit">
-                  <span className="bg-softBlue text-midnightGray rounded-[5px] py-1 px-2">
-                    {ingredient}
-                  </span>
-                </SwiperSlide>
-              ))}
-          </Swiper>
-        </div>
-        <DividingLine />
-        {isPending ? (
+      {isPending ? (
+        <>
+          <div className="flex flex-col gap-2 p-3">
+            <div className="font-[600]">선택한 재료</div>
+            <Skeleton borderRadius={"6px"} height={35} width={"100%"} />
+          </div>
+          <DividingLine />
           <SkeletonRecipeList />
-        ) : (
+        </>
+      ) : (
+        <div>
+          <div className="flex flex-col gap-2 p-3">
+            <div className="font-[600]">선택한 재료</div>
+            <Swiper
+              slidesPerView="auto"
+              spaceBetween={10}
+              freeMode={true}
+              modules={[FreeMode]}
+              className="w-full h-full"
+            >
+              {recommendedRecipes &&
+                recommendedRecipes.ingredients.map((ingredient, index) => (
+                  <SwiperSlide key={index} className="flex justify-center items-center w-fit">
+                    <span className="bg-softBlue text-midnightGray rounded-[5px] py-1 px-2">
+                      {ingredient}
+                    </span>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
+          <DividingLine />
           <div className="flex flex-col gap-3 p-3">
             {sortedRecipes &&
               sortedRecipes.map((recipe) => (
@@ -86,8 +94,8 @@ const RecommendedRecipePage: React.FC = () => {
                 />
               ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

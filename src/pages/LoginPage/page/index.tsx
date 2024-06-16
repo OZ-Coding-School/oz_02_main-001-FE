@@ -33,18 +33,18 @@ const LoginPage: React.FC = () => {
   const handleKakaoLoginClick = () => {
     const currentUrl = window.location.href;
     if (currentUrl.includes("localhost:5173")) {
-      window.location.href = `https://nddapp.duckdns.org/api/v1${apiRoutes.kakaoLogin}&dev=1`;
+      window.location.href = `https://ndd.life/api/v1${apiRoutes.kakaoLogin}&dev=1`;
     } else if (currentUrl.includes("ndd-project.vercel.app")) {
-      window.location.href = `https://nddapp.duckdns.org/api/v1${apiRoutes.kakaoLogin}`;
+      window.location.href = `https://ndd.life/api/v1${apiRoutes.kakaoLogin}`;
     }
   };
 
   const handleGoogleLoginClick = (): void => {
     const currentUrl = window.location.href;
     if (currentUrl.includes("localhost:5173")) {
-      window.location.href = `https://nddapp.duckdns.org/api/v1${apiRoutes.googleLogin}&dev=1`;
+      window.location.href = `https://ndd.life/api/v1${apiRoutes.googleLogin}&dev=1`;
     } else if (currentUrl.includes("ndd-project.vercel.app")) {
-      window.location.href = `https://nddapp.duckdns.org/api/v1${apiRoutes.googleLogin}`;
+      window.location.href = `https://ndd.life/api/v1${apiRoutes.googleLogin}`;
     }
   };
 

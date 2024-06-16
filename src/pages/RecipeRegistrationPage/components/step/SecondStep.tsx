@@ -55,8 +55,6 @@ const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
     setIngredients(newIngredients);
   };
 
-  console.log(recipeData);
-
   const handleChange = (index: number, field: string, value: string | number) => {
     const newIngredients = ingredients.map((ingredient, i) => {
       if (index === i) {

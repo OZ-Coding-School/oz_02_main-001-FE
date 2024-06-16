@@ -29,7 +29,6 @@ const RecipePage: React.FC = () => {
     data: recipeData,
     isLoading,
     isError,
-    error,
   } = useQuery<data>({
     queryKey: [`recipeData${recipeId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipes}/${recipeId}`),
