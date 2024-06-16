@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
-import Loading from "@components/loading/Loading";
+import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
 
 const SearchPage: React.FC = () => {
   const [keyWord, setKeyWord] = useState<string>("");
@@ -69,9 +69,7 @@ const SearchPage: React.FC = () => {
       {keyWord !== "" && (
         <>
           {isLoading ? (
-            <div className="w-full h-[calc(100vh-95px)] flex justify-center items-center">
-              <Loading />
-            </div>
+            <SkeletonRecipeList />
           ) : isError ? (
             <div className="w-full h-[calc(100vh-95px)] flex justify-center items-center">
               검색 결과가 없습니다

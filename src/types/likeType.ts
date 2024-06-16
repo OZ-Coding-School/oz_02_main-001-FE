@@ -5,5 +5,7 @@ type LikeType = {
 type FetchLikeType = {
   status: number;
   message: string;
-  data: LikeType;
+  data: {
+    status: number;
+  };
 };

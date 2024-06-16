@@ -17,9 +17,9 @@ const Scrap: React.FC<ScrapProps> = ({ queryKey, recipe, book, status }) => {
     mutationBook.mutate();
   };
 
-  const mutationBook = useMutation<FetchBookMark, Error>({
+  const mutationBook = useMutation<FetchBookmarkType>({
     mutationFn: () =>
-      fetchData<FetchBookMark, BookmarkType>("POST", apiRoutes.bookmarks, {
+      fetchData<FetchBookmarkType, BookmarkType>("POST", apiRoutes.bookmarks, {
         recipe: recipe,
       }),
     onSuccess: () => {

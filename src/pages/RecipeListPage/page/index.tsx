@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchData } from "../../../api/axios";
 import { useQuery } from "@tanstack/react-query";
 import { apiRoutes } from "../../../api/apiRoutes";
-import SkeletonRecipeListLoader from "../skeleton/SkeletonRecipeListLoader";
+import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
 
 const RecipeListPage: React.FC = () => {
   const { categoryId } = useParams();
@@ -60,7 +60,7 @@ const RecipeListPage: React.FC = () => {
       <Header hasBackBtn={true} title={title} handleBackBtnClick={handleBackBtnClick} />
       <FilteringButtons sortType={sortType} handleClick={handleSortChange} />
       {isLoading ? (
-        [...Array(4)].map((_, index) => <SkeletonRecipeListLoader key={index} />)
+        <SkeletonRecipeList />
       ) : (
         <RecipeList recipeData={sortedRecipes} queryKey={`recipeCategory${categoryId}`} />
       )}

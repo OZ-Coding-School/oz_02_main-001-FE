@@ -9,20 +9,18 @@ import Header from "@components/header/Header";
 const IngredientSelectionPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const prevSelectedIngredients: IngredientDataType[] = location.state?.selectedIngredients || [];
+  const prevSelectedIngredients: IngredientDataType[] = location.state?.Ingredients || [];
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
-
-  useEffect(() => {
-    setIngredients(prevSelectedIngredients);
-  }, [prevSelectedIngredients]);
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
   };
 
-  const handleRecommendedlick = () => {
-    navigate(`/recommendedList`);
+  const handleRecommendedClick = () => {
+    navigate(`/recommendedList`, {
+      state: { selectedIngredients: selectedIngredients },
+    });
   };
 
   const selectAllIngredients = () => {
@@ -40,6 +38,10 @@ const IngredientSelectionPage: React.FC = () => {
         : [...prevSelected, id],
     );
   };
+
+  useEffect(() => {
+    setIngredients(prevSelectedIngredients);
+  }, []);
 
   return (
     <div className="h-[calc(100vh-55px)] flex flex-col">
@@ -76,7 +78,11 @@ const IngredientSelectionPage: React.FC = () => {
         </div>
       </div>
       <div className="py-[18px] pl-[22px] pr-[22px] font-semibold">
-        <BigButton buttonText={"재료 선택 완료"} handleClick={handleRecommendedlick} />
+        <BigButton
+          buttonText={"재료 선택 완료"}
+          handleClick={handleRecommendedClick}
+          disabled={selectedIngredients.length === 0}
+        />
       </div>
       <footer className="mb-[-53px]">
         <Footer page={"refrigerator"} />

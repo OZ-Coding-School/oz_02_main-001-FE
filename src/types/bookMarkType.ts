@@ -2,7 +2,7 @@ type BookmarkType = {
   recipe: number;
 };
 
-type FetchBookMark = {
+type FetchBookmarkType = {
   status: number;
   message: string;
   data: BookmarkType;

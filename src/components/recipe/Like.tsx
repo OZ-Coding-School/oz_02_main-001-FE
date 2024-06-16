@@ -23,7 +23,8 @@ const Like: React.FC<LikeProps> = ({ queryKey, recipe, status, like }) => {
       fetchData<FetchLikeType, LikeType>("POST", apiRoutes.likes, {
         recipe: recipe,
       }),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
       queryClient.invalidateQueries({ queryKey: [queryKey] });
     },
   });
