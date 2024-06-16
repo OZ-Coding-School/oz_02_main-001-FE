@@ -9,12 +9,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import Loading from "@components/loading/Loading";
+import { useIngredientStore } from "@store/useIngredientStore";
 
 const RefrigeratorPage: React.FC = () => {
   const navigate = useNavigate();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [allIngredients, setAllIngredients] = useState<IngredientDataType[]>([]);
   const [deleteIngredientItemsList] = useState<UpdateIngredientType[]>([]);
+  const { refrigeratorIngredients, setRefrigeratorIngredients } = useIngredientStore();
   const queryClient = useQueryClient();
 
   const getFridge = async (): Promise<FetchGetRefrigeratorType> => {
@@ -28,13 +30,16 @@ const RefrigeratorPage: React.FC = () => {
   if (error) {
     console.log(error);
   }
+
   useEffect(() => {
     if (data?.data.ingredients) {
       console.log(data.data.ingredients);
       setAllIngredients(data.data.ingredients);
+      setRefrigeratorIngredients(data.data.ingredients);
     }
   }, [data]);
 
+  console.log(refrigeratorIngredients);
   // 레시피 찾아보기
   const handleFindRecipeClick = () => {
     navigate("/ingredientSelection", { state: { Ingredients: data?.data.ingredients } });
