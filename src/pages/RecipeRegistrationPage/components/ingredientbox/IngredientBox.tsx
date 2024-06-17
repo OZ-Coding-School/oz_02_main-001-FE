@@ -29,13 +29,25 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
 }) => {
   const queryClient = useQueryClient();
   const [scroll, setScroll] = useState<number>(0);
+  const [debouncedValue, setDebouncedValue] = useState<string>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
+
   const { data, isError, isLoading, isSuccess } = useQuery<data>({
-    queryKey: ["searchIngredient", value],
+    queryKey: ["searchIngredient", debouncedValue],
     queryFn: () => {
-      console.log(value);
-      return fetchData("GET", `${apiRoutes.ingredients}/recipe/${value}`);
+      console.log(debouncedValue);
+      return fetchData("GET", `${apiRoutes.ingredients}/recipe/${debouncedValue}`);
     },
-    enabled: !!value.trim(),
+    enabled: !!debouncedValue.trim(),
   });
 
   useEffect(() => {

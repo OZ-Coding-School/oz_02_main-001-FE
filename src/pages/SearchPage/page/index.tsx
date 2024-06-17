@@ -9,6 +9,7 @@ import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
 
 const SearchPage: React.FC = () => {
   const [keyWord, setKeyWord] = useState<string>("");
+  const [debouncedKeyWord, setDebouncedKeyWord] = useState<string>("");
   const [sortType, setSortType] = useState<string>("추천순");
   const [sortedRecipes, setSortedRecipes] = useState<RecipeType[]>([]);
 
@@ -22,19 +23,29 @@ const SearchPage: React.FC = () => {
     setKeyWord("");
   };
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedKeyWord(keyWord);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [keyWord]);
+
   const { data, isSuccess, isError, isLoading } = useQuery<FetchSearchData>({
-    queryKey: [`searchRecipe${keyWord}`],
-    queryFn: () => fetchData("GET", `${apiRoutes.recipeSearch}/${keyWord}`),
-    enabled: keyWord !== "",
+    queryKey: [`searchRecipe${debouncedKeyWord}`],
+    queryFn: () => fetchData("GET", `${apiRoutes.recipeSearch}/${debouncedKeyWord}`),
+    enabled: debouncedKeyWord !== "",
     retry: 1,
   });
 
   useEffect(() => {
-    if (keyWord === "") {
-      queryClient.invalidateQueries({ queryKey: [`searchRecipe${keyWord}`] });
+    if (debouncedKeyWord === "") {
+      queryClient.invalidateQueries({ queryKey: [`searchRecipe${debouncedKeyWord}`] });
       setSortedRecipes([]);
     }
-  }, [keyWord, queryClient]);
+  }, [debouncedKeyWord, queryClient]);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -61,12 +72,12 @@ const SearchPage: React.FC = () => {
     <div>
       <SearchHeader keyWord={keyWord} handleChange={handleChange} handleDelete={handleDelete} />
       <FilteringButtons sortType={sortType} handleClick={handleSortChange} />
-      {keyWord === "" && (
+      {debouncedKeyWord === "" && (
         <div className="w-full h-[calc(100vh-95px)] flex justify-center items-center">
           검색어를 입력해주세요
         </div>
       )}
-      {keyWord !== "" && (
+      {debouncedKeyWord !== "" && (
         <>
           {isLoading ? (
             <SkeletonRecipeList />
