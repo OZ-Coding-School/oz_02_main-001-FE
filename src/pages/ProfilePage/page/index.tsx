@@ -81,7 +81,9 @@ const ProfilePage: React.FC = () => {
           <AccountHeader />
           <div className="min-h-[calc(100vh-105px)]">
             <ProfileSection
-              profileImage={data.pages[0].data.image === "" ? noProfile : data.pages[0].data.image}
+              profileImage={
+                data.pages[0].data.image === null ? noProfile : data.pages[0].data.image
+              }
               postsCount={data.pages[0].data.totalRecipesCount}
               name={data.pages[0].data.nickname}
               userId={userId}
@@ -102,7 +104,7 @@ const ProfilePage: React.FC = () => {
         <>
           <Header hasBackBtn={true} handleBackBtnClick={handleBackBtnClick} />
           <ProfileSection
-            profileImage={data.pages[0].data.image}
+            profileImage={data.pages[0].data.image === null ? noProfile : data.pages[0].data.image}
             postsCount={data.pages[0].data.totalRecipesCount}
             userId={userId}
             name={data.pages[0].data.nickname}

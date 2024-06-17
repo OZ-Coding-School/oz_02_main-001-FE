@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import BackButton from "./BackButton";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RiShare2Line } from "react-icons/ri";
 import MoreButton from "@components/buttons/MoreButton";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "./../../api/axios";
 import { apiRoutes } from "./../../api/apiRoutes";
 
@@ -16,6 +16,7 @@ interface RecipeHeaderProps {
  * @returns
  */
 const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
+  const { pathname } = useLocation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { recipeId } = useParams();
   const navigate = useNavigate();
@@ -37,11 +38,23 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
     setIsModalOpen(false);
   };
 
+  const handleShareClick = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 링크가 복사되었습니다!");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex justify-between items-center h-[50px] sticky top-0 bg-white z-[10] border-b-[1px]">
       <BackButton handleClick={handleClick} />
       <div className="flex ">
-        <div className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer">
+        <div
+          className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer"
+          onClick={() => handleShareClick(`https://ndd.life${pathname}`)}
+        >
           <RiShare2Line className="w-[24px] h-[24px]" />
         </div>
         {canUpdate !== 0 && (

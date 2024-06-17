@@ -62,12 +62,11 @@ const RecipePage: React.FC = () => {
             placeholderSrc={recipeData.data.mainImage}
           />
           <RecipeTitleSection
+            user={recipeData.data.user}
             title={recipeData.data.title}
-            date={recipeData.data.user.date}
             bookmark={recipeData.data.book}
             bookmarkStatus={recipeData.data.bookStatus}
-            userNickname={recipeData.data.user.nickname}
-            userProfileImage={recipeData.data.user.profileImage}
+            canUpdate={recipeData.data.canUpdate}
           />
           <DividingLine />
           <div className="flex flex-col gap-5 p-6">
