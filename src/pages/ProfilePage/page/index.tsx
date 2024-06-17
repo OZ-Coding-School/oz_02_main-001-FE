@@ -110,7 +110,7 @@ const ProfilePage: React.FC = () => {
             name={data.pages[0].data.nickname}
           />
           <PostsList
-            whoProfile="user"
+            whoProfile="notUser"
             postsCount={data.pages[0].data.totalRecipesCount}
             linkTo="/recipeRegistration"
             buttonText="등록된 레시피가 없습니다."
