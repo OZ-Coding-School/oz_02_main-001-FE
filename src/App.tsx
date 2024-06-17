@@ -18,8 +18,8 @@ import RecommendedRecipePage from "./pages/RecommendedRecipePage/page";
 import ErrorPage from "./pages/ErrorPage";
 import SettingPage from "./pages/SettingPage/page";
 import ScrollTo from "./utils/ScrollTo";
-import CommonRoute from "./routes/CommonRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import CommonRoute from "./routes/CommonRoute";
 
 function App() {
   return (
