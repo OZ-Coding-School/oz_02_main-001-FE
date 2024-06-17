@@ -31,7 +31,7 @@ const IngredientsListPage: React.FC = () => {
     return () => {
       clearTimeout(handler)
     }
-  })
+  });
 
   // 서버에서 재료 데이터를 받아온다
   const { data: ingredients } = useQuery<IngredientsResponseType>({
