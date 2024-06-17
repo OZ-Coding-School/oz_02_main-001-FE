@@ -12,6 +12,7 @@ const IngredientsListPage: React.FC = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [debouncedKeyWord, setDebouncedKeyWord] = useState<string>("");
   const [selectedIngredients, setSelectedIngredients] = useState<UpdateIngredientType[]>([]);
   const [selectedIngredientIds, setSelectedIngredientIds] = useState<number[]>([]);
 
@@ -22,12 +23,22 @@ const IngredientsListPage: React.FC = () => {
     }
   }, [searchKeyword]);
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedKeyWord(searchKeyword);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler)
+    }
+  })
+
   // 서버에서 재료 데이터를 받아온다
   const { data: ingredients } = useQuery<IngredientsResponseType>({
-    queryKey: ["ingredients", searchKeyword],
+    queryKey: ["ingredients", debouncedKeyWord],
     queryFn: async () => {
-      const endpoint = searchKeyword
-        ? `${apiRoutes.ingredients}/fridge/${searchKeyword}`
+      const endpoint = debouncedKeyWord
+        ? `${apiRoutes.ingredients}/fridge/${debouncedKeyWord}`
         : `${apiRoutes.ingredients}/fridge`;
       return await fetchData<IngredientsResponseType>("GET", endpoint);
     },
