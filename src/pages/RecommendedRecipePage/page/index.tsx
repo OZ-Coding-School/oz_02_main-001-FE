@@ -1,12 +1,12 @@
 import Header from "@components/header/Header";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RecommendedRecipeItem from "../components/RecommendedRecipeItem";
 import DividingLine from "@components/dividingLine/DividingLine";
 import { Swiper } from "swiper/react";
 import { SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
 import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
@@ -15,31 +15,32 @@ import Skeleton from "react-loading-skeleton";
 const RecommendedRecipePage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryClient = useQueryClient();
   const selectedIngredients: number[] = location.state?.selectedIngredients || [];
-  const { data: recommendedRecipes } = useQuery<RecommendedDataType>({
+
+  const fetchRecommendedRecipes = async (): Promise<RecommendedDataType> => {
+    const response = await fetchData<FetchRecommended, PostRecommendedData>(
+      "POST",
+      apiRoutes.recommendRecipe,
+      { ingredients: selectedIngredients },
+    );
+    return response.data;
+  };
+
+  const {
+    data: recommendedRecipes,
+    isLoading,
+    error,
+  } = useQuery<RecommendedDataType>({
     queryKey: ["recommendedRecipes"],
+    queryFn: fetchRecommendedRecipes,
   });
-  console.log(recommendedRecipes);
-  const { mutate, isPending } = useMutation<FetchRecommended>({
-    mutationFn: () =>
-      fetchData<FetchRecommended, PostRecommendedData>("POST", apiRoutes.recommendRecipe, {
-        ingredients: selectedIngredients,
-      }),
-    onSuccess: (data) => {
-      queryClient.setQueryData(["recommendedRecipes"], data?.data);
-      queryClient.invalidateQueries({ queryKey: ["recommendedRecipes"] });
-    },
-    onError: () => alert("오류가 발생했습니다"),
-  });
+  if (error) {
+    console.log(error);
+  }
 
   const handleRecipeClick = (recipeId: number) => {
     navigate(`/recipe/${recipeId}`);
   };
-
-  useEffect(() => {
-    mutate();
-  }, [mutate]);
 
   const sortedRecipes = useMemo(() => {
     if (recommendedRecipes) {
@@ -53,7 +54,7 @@ const RecommendedRecipePage: React.FC = () => {
   return (
     <div>
       <Header hasBackBtn={true} title="추천 레시피" handleBackBtnClick={() => navigate(-1)} />
-      {isPending ? (
+      {isLoading ? (
         <>
           <div className="flex flex-col gap-2 p-3">
             <div className="font-[600]">선택한 재료</div>
