@@ -12,7 +12,11 @@ const IngredientsListItem: React.FC<IngredientsListItemProps> = ({
   handleToggleChange,
 }) => {
   const { refrigeratorIngredients } = useIngredientStore();
-  const isSelected = refrigeratorIngredients.includes(ingredient.id);
+  const selectedIngredientIds = [
+    ...JSON.parse(localStorage.getItem("selectedIngredientIds")!),
+    ...refrigeratorIngredients,
+  ];
+  const isSelected = selectedIngredientIds.includes(ingredient.id);
   const [isClicked, setIsClicked] = useState<boolean>(isSelected);
 
   const handleClick = () => {

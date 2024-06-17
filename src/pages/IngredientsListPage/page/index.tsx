@@ -7,7 +7,6 @@ import IngredientsListItem from "../components/IngredientsListItem";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
-import { useIngredientStore } from "@store/useIngredientStore";
 
 const IngredientsListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -58,7 +57,13 @@ const IngredientsListPage: React.FC = () => {
     } else {
       newData = [...selectedIngredients, { id, status }];
     }
+
     setSelectedIngredients(newData);
+
+    const selectedIdsForStorage = newData
+      .filter((item) => item.status === 1)
+      .map((item) => item.id);
+    localStorage.setItem("selectedIngredientIds", JSON.stringify(selectedIdsForStorage));
   };
 
   const handleSearchKeywordChange = (keyword: string) => {
