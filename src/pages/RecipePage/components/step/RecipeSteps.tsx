@@ -20,7 +20,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
                 <img
                   src={step.image}
                   alt={`스텝${index + 1} 이미지`}
-                  className="w-[110px] h-[110px] rounded-[10px]"
+                  className="w-[110px] h-[110px] rounded-[10px] object-fit-cover"
                 />
               )}
             </div>
