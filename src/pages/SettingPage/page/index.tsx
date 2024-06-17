@@ -28,7 +28,7 @@ const SettingPage: React.FC = () => {
   });
 
   useEffect(() => {
-    data?.data.status === 1 ? setIsToggled(true) : setIsToggled(false);
+    data?.data.status ? setIsToggled(true) : setIsToggled(false);
   }, [data]);
 
   //
