@@ -26,7 +26,7 @@ const NotificationPage: React.FC = () => {
     onSuccess: (data: PostAlertsType) => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
       console.log(data);
-      navigate(`/recipe/${data.data}`);
+      if (data.data.length === 1) navigate(`/recipe/${data.data}`);
     },
   });
 
@@ -42,8 +42,8 @@ const NotificationPage: React.FC = () => {
         if (notice.status === true) {
           readItems = [...readItems, notice.id];
         }
-        mutationAlert.mutate(readItems);
       });
+      mutationAlert.mutate(readItems);
     }
   };
 
