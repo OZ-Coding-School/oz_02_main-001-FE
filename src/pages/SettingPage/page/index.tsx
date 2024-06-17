@@ -66,6 +66,9 @@ const SettingPage: React.FC = () => {
   const mutationLogout = useMutation({
     mutationFn: fetchLogout,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["login"],
+      });
       setIsModalOpen(false);
       navigate("/login");
     },

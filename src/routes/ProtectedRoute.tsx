@@ -5,11 +5,11 @@ import { apiRoutes } from "../api/apiRoutes";
 import { useQuery } from "@tanstack/react-query";
 
 const ProtectedRoute: React.FC = () => {
-  const fetchLogin = async (): Promise<void> => {
+  const fetchLogin = async (): Promise<FetchAlertsStatusType> => {
     return await fetchData("GET", apiRoutes.userLogin);
   };
 
-  const { data, isFetched } = useQuery<void, void>({
+  const { data, isFetched } = useQuery<FetchAlertsStatusType, void>({
     queryFn: fetchLogin,
     queryKey: ["login"],
   });
@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC = () => {
   }
 
   // 로그인 상태가 아니면 무조건 로그인 페이지로 리디렉션
-  return data ? <Outlet /> : <Navigate to={"/login"} />;
+  return data?.status === 200 ? <Outlet /> : <Navigate to={"/login"} />;
 };
 
 export default ProtectedRoute;
