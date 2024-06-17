@@ -3,7 +3,7 @@ type NotificationType = {
   recipeId: number;
   nickname: string;
   title: string;
-  type: string;
+  type: number;
   status: boolean;
   createdAt: string;
 };
