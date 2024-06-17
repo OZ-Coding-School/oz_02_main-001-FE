@@ -14,3 +14,13 @@ type RecommendedDataType = {
   ingredients: string[];
   recipes: RecommendedRecipeType[];
 };
+
+type FetchRecommended = {
+  message: string;
+  status: number;
+  data: RecommendedDataType;
+};
+
+type PostRecommendedData = {
+  ingredients: number[];
+};

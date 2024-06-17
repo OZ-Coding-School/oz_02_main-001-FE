@@ -5,29 +5,46 @@ import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import Label from "../Label";
 import { FiMinusCircle } from "react-icons/fi";
 import { useRecipeStore } from "@store/useRecipeStore";
+import IngredientBox from "../ingredientbox/IngredientBox";
 
-const SecondStep: React.FC = () => {
-  const units = ["개", "컵", "큰술", "작은술", "티스푼", "ml", "g", "꼬집"];
-  const initialIngredientData: IngredientType = {
+interface SecondStepProps {
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const SecondStep: React.FC<SecondStepProps> = ({ setIsValid }) => {
+  const units = [
+    { id: 0, name: "개" },
+    { id: 1, name: "컵" },
+    { id: 2, name: "큰술" },
+    { id: 3, name: "작은술" },
+    { id: 4, name: "티스푼" },
+    { id: 5, name: "ml" },
+    { id: 6, name: "g" },
+    { id: 7, name: "꼬집" },
+  ];
+  const initialIngredientData: RecipeIngredient = {
     name: "",
     quantity: -1,
-    unit: "단위",
+    unit: -1,
   };
   const { recipeData, setRecipeData } = useRecipeStore();
-  const [ingredients, setIngredients] = useState<IngredientType[]>(recipeData.ingredients);
+  const [ingredients, setIngredients] = useState<RecipeIngredient[]>(recipeData.recipeIngredients);
   const [isDeleteButtonClick, setIsDeleteButtonClick] = useState<boolean>(false);
   const [ingredientInputIndex, setIngredientInputIndex] = useState<number | null>(null);
-  console.log(ingredientInputIndex);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleAddClick = () => {
-    setIngredients((prev) => [...prev, initialIngredientData]);
+    const addIngredients = [...ingredients, initialIngredientData];
+    setIngredients(addIngredients);
   };
 
   const handleDeleteClick = () => {
+    setShowModal(false);
     setIsDeleteButtonClick(true);
   };
 
   const handleCompleteClick = () => {
+    setShowModal(false);
     setIsDeleteButtonClick(false);
   };
 
@@ -36,30 +53,53 @@ const SecondStep: React.FC = () => {
       return index !== i;
     });
     setIngredients(newIngredients);
-    setRecipeData({ ...recipeData, ingredients: newIngredients });
   };
 
-  const handleChange = (index: number, field: string, value: string) => {
+  const handleChange = (index: number, field: string, value: string | number) => {
     const newIngredients = ingredients.map((ingredient, i) => {
       if (index === i) {
-        return { ...ingredient, [field]: value };
-      } else {
-        return ingredient;
+        if (field === "quantity") {
+          if (typeof value === "string") {
+            const numberValue = parseInt(value);
+            if (!isNaN(numberValue)) {
+              return { ...ingredient, [field]: numberValue };
+            }
+            return { ...ingredient, [field]: -1 };
+          }
+        } else {
+          return { ...ingredient, [field]: value };
+        }
       }
+      return ingredient;
     });
 
+    if (field === "name") {
+      setShowModal(true);
+    }
+
     setIngredients(newIngredients);
-    setRecipeData({ ...recipeData, ingredients: newIngredients });
+    setRecipeData({ ...recipeData, recipeIngredients: newIngredients });
   };
 
   useEffect(() => {
     if (ingredients.length === 1) {
       setIsDeleteButtonClick(false);
     }
+    setRecipeData({ ...recipeData, recipeIngredients: ingredients });
   }, [ingredients]);
 
+  useEffect(() => {
+    const formValidate = () => {
+      const isValid = recipeData.recipeIngredients.every((ingredient) => {
+        return ingredient.name !== "" && ingredient.quantity > 0 && ingredient.unit !== -1;
+      });
+      setIsValid(isValid);
+    };
+    formValidate();
+  }, [recipeData]);
+
   return (
-    <>
+    <div className="flex flex-col gap-4 pb-[150px]">
       <div className="flex justify-between items-center">
         <Label name="요리 재료" />
         {ingredients.length !== 1 &&
@@ -77,9 +117,13 @@ const SecondStep: React.FC = () => {
         {ingredients.map((ingredient, index) => (
           <div key={index} className="flex gap-1">
             <div
-              className={`flex flex-col gap-2 ${ingredients.length === 1 || !isDeleteButtonClick ? "w-full" : "w-[420px]"}`}
+              className={`relative flex flex-col gap-2 ${ingredients.length === 1 || !isDeleteButtonClick ? "w-full" : "w-[420px]"}`}
             >
-              <div onClick={() => setIngredientInputIndex(index)}>
+              <div
+                onClick={() => {
+                  setIngredientInputIndex(index);
+                }}
+              >
                 <IngredientInput
                   value={ingredient.name}
                   index={index}
@@ -89,7 +133,15 @@ const SecondStep: React.FC = () => {
                   handleChange={handleChange}
                 />
               </div>
-              {/* {ingredientInputIndex === index && <IngredientBox />} */}
+              {ingredientInputIndex === index && showModal && (
+                <IngredientBox
+                  index={index}
+                  value={ingredient.name}
+                  ingredients={ingredients}
+                  setShowModal={setShowModal}
+                  setIngredients={setIngredients}
+                />
+              )}
               <div className="flex gap-2">
                 <div className="w-[50%]">
                   <IngredientInput
@@ -127,7 +179,7 @@ const SecondStep: React.FC = () => {
       <div className="w-[100px]">
         <RectangularSmallButton buttonText="재료 추가" handleClick={handleAddClick} />
       </div>
-    </>
+    </div>
   );
 };
 

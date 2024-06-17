@@ -1,8 +1,14 @@
-type IngredientType = {
-  id?: number;
+type RecipeIngredient = {
   name: string;
   quantity: number;
-  unit: string;
+  unit: number;
+};
+
+type IngredientType = {
+  id: number;
+  name: string;
+  quantity: number;
+  unit: number;
 };
 
 type StepType = {
@@ -33,8 +39,8 @@ type RecipeDataType = {
   mainImage: string;
   category: string;
   story: string;
-  bookmark: number;
-  bookmarkStatus: number;
+  book: number;
+  bookStatus: number;
   like: number;
   likeStatus: number;
   user: UserType;
@@ -45,9 +51,8 @@ type RecipeDataType = {
 
 type RecipeRegistrationDataType = {
   title: string;
-  mainImage: string;
-  category: string;
+  category: number;
+  recipeIngredients: RecipeIngredient[];
+  steps: string[];
   story: string;
-  ingredients: IngredientType[];
-  steps: StepType[];
 };

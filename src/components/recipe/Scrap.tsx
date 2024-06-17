@@ -1,23 +1,33 @@
-import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { apiRoutes } from "../../api/apiRoutes";
+import { fetchData } from "../../api/axios";
 
 interface ScrapProps {
+  queryKey: string;
+  recipe: number;
   book: number;
-  bookStatus: number;
+  status: number;
 }
 
-const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
-  const [scrapCount, setScrapCount] = useState<{ book: number; booked: boolean }>({
-    book,
-    booked: bookStatus === 1,
-  });
-
+const Scrap: React.FC<ScrapProps> = ({ queryKey, recipe, book, status }) => {
+  const queryClient = useQueryClient();
   const handleScrap = (event: React.MouseEvent) => {
     event.stopPropagation();
-    setScrapCount((prevState) => ({
-      book: prevState.booked ? prevState.book - 1 : prevState.book + 1,
-      booked: !prevState.booked,
-    }));
+    mutationBook.mutate();
   };
+
+  const mutationBook = useMutation<FetchBookmarkType>({
+    mutationFn: () =>
+      fetchData<FetchBookmarkType, BookmarkType>("POST", apiRoutes.bookmarks, {
+        recipe: recipe,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [queryKey],
+      });
+    },
+  });
 
   return (
     <div className="flex items-center">
@@ -27,7 +37,7 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
       >
         <svg
           className="w-6 h-6"
-          fill={scrapCount.booked ? "currentColor" : "none"}
+          fill={status > 0 ? "currentColor" : "none"}
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -37,7 +47,7 @@ const Scrap: React.FC<ScrapProps> = ({ book, bookStatus }) => {
           <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v18l-7-3.5L5 23V5z" />
         </svg>
       </button>
-      <span className="ml-1 text-[#000000]/50">{scrapCount.book}</span>
+      <span className="ml-1 text-[#000000]/50">{book}</span>
     </div>
   );
 };

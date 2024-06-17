@@ -1,14 +1,17 @@
 import Header from "@components/header/Header";
 import ProceedModal from "@components/modal/ProceedModal";
-import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { apiRoutes } from "../../../api/apiRoutes";
+import { fetchData } from "../../../api/axios";
 
 const SettingPage: React.FC = () => {
   const navigate = useNavigate();
-  // 토글상태는 useEffect로 받아와야함
   const [isToggled, setIsToggled] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalName, setModalName] = useState<string>("");
+  const queryClient = useQueryClient();
 
   const handleBackBtnClick = (): void => {
     navigate(-1);
@@ -19,29 +22,74 @@ const SettingPage: React.FC = () => {
     setIsModalOpen(true);
   };
 
+  const { data, error } = useQuery<GetAlertStatusType>({
+    queryKey: ["alertStatus"],
+    queryFn: () => fetchData("GET", apiRoutes.alertEnable),
+  });
+
+  useEffect(() => {
+    data?.data.status ? setIsToggled(true) : setIsToggled(false);
+  }, [data]);
+
+  //
+  const putAlertStatus = async (): Promise<AlertType> => {
+    const data = {
+      enable: !isToggled,
+    };
+    return await fetchData("PUT", apiRoutes.alertEnable, data);
+  };
+
+  const mutationPutAlertStatus = useMutation<AlertType, void>({
+    mutationFn: putAlertStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["updateAlert"],
+      });
+      setIsToggled(!isToggled);
+    },
+    onError: () => console.log(error),
+  });
+
   const handleToggle = () => {
-    setIsToggled(!isToggled);
-    if (isToggled) {
-      // 알림 설정 on일때 실행되는 함수
-      return;
-    }
-    // 알림 설정 off일때 실행되는 함수
+    mutationPutAlertStatus.mutate();
   };
 
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
 
-  const handleLogout = (): void => {
-    // api 로그아웃 연동
-    setIsModalOpen(false);
-    navigate("/login");
+  // 로그아웃 api 연동
+  const fetchLogout = async () => {
+    return await fetchData("POST", apiRoutes.userLogout);
   };
 
+  const mutationLogout = useMutation({
+    mutationFn: fetchLogout,
+    onSuccess: () => {
+      setIsModalOpen(false);
+      navigate("/login");
+    },
+  });
+
+  const handleLogout = (): void => {
+    mutationLogout.mutate();
+  };
+
+  // 회원 탈퇴 api 연동
+  const fetchDeleteAccount = async () => {
+    return await fetchData("POST", apiRoutes.userLogout);
+  };
+
+  const mutationDeleteAccount = useMutation({
+    mutationFn: fetchDeleteAccount,
+    onSuccess: () => {
+      setIsModalOpen(false);
+      navigate("/login");
+    },
+  });
+
   const handleDeleteAccount = (): void => {
-    // api 계정삭제 연동
-    setIsModalOpen(false);
-    navigate("/login");
+    mutationDeleteAccount.mutate();
   };
   return (
     <>

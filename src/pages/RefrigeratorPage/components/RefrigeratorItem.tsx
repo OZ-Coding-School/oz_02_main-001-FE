@@ -2,25 +2,25 @@ import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
 import React from "react";
 import { PiHamburger } from "react-icons/pi";
 import { useNavigate } from "react-router";
-import { RefrigeratorType } from "src/types/refrigeratorType";
 
 interface RefrigeratorItemProps {
-  refrigerator: RefrigeratorType;
-  ingredients: { id: number; name: string }[];
+  nickname: string;
   isDeletedMode: boolean;
   handleDeleteClick: () => void;
   deleteAllIngredients: () => void;
+  handleSave: () => void;
+  isExistIngredient: boolean;
 }
 
 const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
-  refrigerator,
-  ingredients,
+  nickname,
   isDeletedMode,
   handleDeleteClick,
   deleteAllIngredients,
+  handleSave,
+  isExistIngredient,
 }) => {
   const navigate = useNavigate();
-  const hasIngredientsWithName = ingredients.some((ingredient) => ingredient.name);
 
   return (
     <div>
@@ -28,25 +28,22 @@ const RefrigeratorItem: React.FC<RefrigeratorItemProps> = ({
         <div className="bg-[#EBF6C1] rounded-lg w-8 h-8 flex justify-center items-center ml-6">
           <PiHamburger className="w-6 h-6" style={{ color: "#A2A38B" }} />
         </div>
-        <span className="text-gray-500">{refrigerator.nickname}님의 냉장고</span>
+        <span className="text-gray-500">{nickname}님의 냉장고</span>
       </div>
       <div className="mt-4 flex space-x-2 absolute right-[28px]">
-        {hasIngredientsWithName && (
+        {isExistIngredient && (
           <div className="transform scale-y-90">
             <RectangularSmallButton
-              handleClick={handleDeleteClick}
+              handleClick={isDeletedMode ? handleSave : handleDeleteClick}
               buttonText={isDeletedMode ? "완료" : "재료 삭제"}
             />
           </div>
         )}
+
         <div className="transform scale-y-90">
           <RectangularSmallButton
             handleClick={() => {
-              if (isDeletedMode) {
-                deleteAllIngredients();
-              } else {
-                navigate(`/ingredientList`);
-              }
+              isDeletedMode ? deleteAllIngredients() : navigate(`/ingredientList`);
             }}
             buttonText={isDeletedMode ? "모두 삭제" : "재료 추가"}
           />

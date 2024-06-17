@@ -1,29 +1,28 @@
 import RectangularSmallButton from "@components/buttons/RectangularSmallButton";
-import React, { useState } from "react";
+import React from "react";
 
-const FilteringButtons: React.FC = () => {
-  const [activeButton, setActiveButton] = useState<string>("추천순");
+interface FilteringButtonsProps {
+  sortType: string;
+  handleClick: (sortType: string) => void;
+}
 
-  const handleClick = (buttonText: string) => {
-    setActiveButton(buttonText);
-  };
-
+const FilteringButtons: React.FC<FilteringButtonsProps> = ({ sortType, handleClick }) => {
   return (
     <div className="flex w-[300px] gap-2 px-3 pt-3">
       <RectangularSmallButton
         buttonText="추천순"
         handleClick={() => handleClick("추천순")}
-        isActive={activeButton === "추천순"}
+        isActive={sortType === "추천순"}
       />
       <RectangularSmallButton
         buttonText="인기순"
         handleClick={() => handleClick("인기순")}
-        isActive={activeButton === "인기순"}
+        isActive={sortType === "인기순"}
       />
       <RectangularSmallButton
         buttonText="최신순"
         handleClick={() => handleClick("최신순")}
-        isActive={activeButton === "최신순"}
+        isActive={sortType === "최신순"}
       />
     </div>
   );

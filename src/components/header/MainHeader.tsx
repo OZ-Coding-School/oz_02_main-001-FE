@@ -20,7 +20,7 @@ const MainHeader: React.FC = () => {
           <span>Search</span>
         </div>
       </div>
-      <Bell hasNotification={true} />
+      <Bell />
     </div>
   );
 };

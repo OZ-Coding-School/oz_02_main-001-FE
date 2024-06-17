@@ -1,14 +1,14 @@
 import React from "react";
 import Like from "./Like";
 import Scrap from "./Scrap";
-import { RecipeType } from "src/types/recipeItemType";
 import { useNavigate } from "react-router-dom";
 
 interface RecipeItemProps {
+  queryKey: string;
   recipe: RecipeType;
 }
 
-const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
+const RecipeItem: React.FC<RecipeItemProps> = ({ queryKey, recipe }) => {
   const navigate = useNavigate();
   const handleRecipeItemClick = (): void => {
     navigate(`/recipe/${recipe.id}`);
@@ -20,7 +20,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
     >
       <div className="w-[30%]">
         <img
-          src={recipe.image}
+          src={recipe.mainImage}
           className="w-full h-full rounded-[5px] object-cover"
           style={{ aspectRatio: "1/1" }}
         />
@@ -32,10 +32,20 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ recipe }) => {
         </div>
         <div className="flex gap-2 w-full ">
           <span>
-            <Like like={recipe.like} likeStatus={recipe.likeStatus} />
+            <Like
+              queryKey={queryKey}
+              recipe={recipe.id}
+              like={recipe.like}
+              status={recipe.likeStatus}
+            />
           </span>
           <span>
-            <Scrap book={recipe.book} bookStatus={recipe.bookStatus} />
+            <Scrap
+              queryKey={queryKey}
+              recipe={recipe.id}
+              book={recipe.book}
+              status={recipe.bookStatus}
+            />
           </span>
         </div>
       </div>
