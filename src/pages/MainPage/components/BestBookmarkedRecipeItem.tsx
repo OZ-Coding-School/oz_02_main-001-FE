@@ -21,8 +21,7 @@ const BestBookmarkedRecipeItem: React.FC<BestBookmarkedRecipeItemProps> = ({
         <div className="flex flex-row gap-x-3 cursor-pointer" onClick={handleRecipeItemClick}>
           <img
             src={bestBookmarkedData.mainImage}
-            className="w-[55%] border border-gray-200 rounded-[8px] object-cover"
-            style={{ aspectRatio: "1 / 1" }}
+            className="w-[55%] border border-gray-200 rounded-[8px] object-cover aspect-square"
           />
           <div className="flex flex-col justify-between">
             <p>{bestBookmarkedData.title}</p>

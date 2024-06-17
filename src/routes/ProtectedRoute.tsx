@@ -1,14 +1,24 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "js-cookie";
+import { fetchData } from "../api/axios";
+import { apiRoutes } from "../api/apiRoutes";
+import { useQuery } from "@tanstack/react-query";
 
 const ProtectedRoute: React.FC = () => {
-  // 'ndd_access' 쿠키의 값을 가져옴
-  const nddAccess = Cookies.get("ndd_access");
-  console.log("이건 ProtectedRoute 관련", nddAccess);
+  const fetchLogin = async (): Promise<FetchAlertsStatusType> => {
+    return await fetchData("GET", apiRoutes.userLogin);
+  };
+
+  const { data, isFetched } = useQuery<FetchAlertsStatusType, void>({
+    queryFn: fetchLogin,
+    queryKey: ["login"],
+  });
+  if (!isFetched) {
+    return null;
+  }
 
   // 로그인 상태가 아니면 무조건 로그인 페이지로 리디렉션
-  return nddAccess ? <Outlet /> : <Navigate to={"/login"} />;
+  return data?.status === 200 ? <Outlet /> : <Navigate to={"/login"} />;
 };
 
 export default ProtectedRoute;

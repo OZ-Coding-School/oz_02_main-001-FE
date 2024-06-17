@@ -21,8 +21,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({ queryKey, recipe }) => {
       <div className="w-[30%]">
         <img
           src={recipe.mainImage}
-          className="w-full h-full rounded-[5px] object-cover"
-          style={{ aspectRatio: "1/1" }}
+          className="w-full h-full rounded-[5px] object-cover aspect-square"
         />
       </div>
       <div className="w-[70%] flex flex-col justify-between" style={{ aspectRatio: "2/0.85" }}>

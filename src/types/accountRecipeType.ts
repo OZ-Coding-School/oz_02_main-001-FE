@@ -13,5 +13,5 @@ type AccountDataType = {
 
 type RecipesType = {
   id: number;
-  recipeImage: string;
+  mainImage: string;
 };

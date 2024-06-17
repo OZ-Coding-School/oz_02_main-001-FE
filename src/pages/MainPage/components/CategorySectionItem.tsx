@@ -23,8 +23,7 @@ const CategorySectionItem: React.FC<CategorySectionItemProps> = ({ data, index }
           <img
             src={data.mainImage}
             alt="레시피 완성 이미지"
-            className="w-full h-full object-cover"
-            style={{ aspectRatio: "1 / 1" }}
+            className="w-full h-full object-cover aspect-square"
           />
         </div>
         <span className="text-[16px]">{data.title}</span>
