@@ -1,10 +1,10 @@
-import ButtonHeader from "@components/header/ButtonHeader";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import ButtonHeader from "@components/header/ButtonHeader";
 import Footer from "@components/footer/Footer";
 import Search from "../components/Search";
 import IngredientsListItem from "../components/IngredientsListItem";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 
@@ -13,6 +13,14 @@ const IngredientsListPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedIngredients, setSelectedIngredients] = useState<UpdateIngredientType[]>([]);
+  const [selectedIngredientIds, setSelectedIngredientIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    const storedIds = localStorage.getItem("selectedIngredientIds");
+    if (storedIds) {
+      setSelectedIngredientIds(JSON.parse(storedIds));
+    }
+  }, [searchKeyword]);
 
   // 서버에서 재료 데이터를 받아온다
   const { data: ingredients } = useQuery<IngredientsResponseType>({
@@ -60,10 +68,17 @@ const IngredientsListPage: React.FC = () => {
 
     setSelectedIngredients(newData);
 
-    const selectedIdsForStorage = newData
-      .filter((item) => item.status === 1)
-      .map((item) => item.id);
-    localStorage.setItem("selectedIngredientIds", JSON.stringify(selectedIdsForStorage));
+    let updatedIds;
+    if (status === 1) {
+      updatedIds = [...selectedIngredientIds, id];
+    } else {
+      updatedIds = selectedIngredientIds.filter((storedId) => storedId !== id);
+    }
+
+    const uniqueIdsForStorage = Array.from(new Set(updatedIds));
+
+    localStorage.setItem("selectedIngredientIds", JSON.stringify(uniqueIdsForStorage));
+    setSelectedIngredientIds(uniqueIdsForStorage);
   };
 
   const handleSearchKeywordChange = (keyword: string) => {
@@ -83,7 +98,7 @@ const IngredientsListPage: React.FC = () => {
         title="재료 목록"
         buttonText="완료"
       />
-      <div className="sticky top-0 z-10" onClick={() => console.log()}>
+      <div className="sticky top-0 z-10">
         <Search onSearchKeywordChange={handleSearchKeywordChange} />
       </div>
       <div className="overflow-auto flex-grow">
@@ -93,6 +108,7 @@ const IngredientsListPage: React.FC = () => {
               key={ingredient.id}
               ingredient={ingredient}
               handleToggleChange={handleToggleChange}
+              selectedIngredientIds={selectedIngredientIds}
             />
           ))}
         </div>

@@ -9,14 +9,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import Loading from "@components/loading/Loading";
-import { useIngredientStore } from "@store/useIngredientStore";
 
 const RefrigeratorPage: React.FC = () => {
   const navigate = useNavigate();
   const [isDeleteMode, setIsDeleteMode] = useState(false);
   const [allIngredients, setAllIngredients] = useState<IngredientDataType[]>([]);
   const [deleteIngredientItemsList] = useState<UpdateIngredientType[]>([]);
-  const { setRefrigeratorIngredients } = useIngredientStore();
   const queryClient = useQueryClient();
 
   const getFridge = async (): Promise<FetchGetRefrigeratorType> => {
@@ -33,8 +31,10 @@ const RefrigeratorPage: React.FC = () => {
 
   useEffect(() => {
     if (data?.data.ingredients) {
+      const newData = data.data.ingredients;
+      const selectedIdsForStorage = newData.map((item) => item.id);
+      localStorage.setItem("selectedIngredientIds", JSON.stringify(selectedIdsForStorage));
       setAllIngredients(data.data.ingredients);
-      setRefrigeratorIngredients(data.data.ingredients);
     }
   }, [data]);
 
