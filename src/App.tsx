@@ -18,8 +18,6 @@ import RecommendedRecipePage from "./pages/RecommendedRecipePage/page";
 import ErrorPage from "./pages/ErrorPage";
 import SettingPage from "./pages/SettingPage/page";
 import ScrollTo from "./utils/ScrollTo";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import CommonRoute from "./routes/CommonRoute";
 
 function App() {
   return (
@@ -27,27 +25,27 @@ function App() {
       <ScrollTo />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<CommonRoute />}>
-            <Route path="/login" element={<LoginPage />} />
-          </Route>
-          <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            <Route path="/notice" element={<NotificationPage />} />
-            <Route path="/recipe/:recipeId" element={<RecipePage />} />
-            <Route path="/recipeList/:categoryId" element={<RecipeListPage />} />
-            <Route path="/refrigerator" element={<RefrigeratorPage />} />
-            <Route path="/ingredientList" element={<IngredientsListPage />} />
-            <Route path="/ingredientSelection" element={<IngredientSelectionPage />} />
-            <Route path="/recommendedList" element={<RecommendedRecipePage />} />
-            <Route path="/recipeRegistration" element={<RecipeRegistrationPage />} />
-            <Route path="/bookmark" element={<BookMarkPage />} />
-            <Route path="/liked" element={<LikedPage />} />
-            <Route path="/setting" element={<SettingPage />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
-          </Route>
-          <Route path="*" element={<ErrorPage />} />
+          {/* <Route element={<CommonRoute />}> */}
+          <Route path="/login" element={<LoginPage />} />
+          {/* </Route> */}
+          {/* <Route element={<ProtectedRoute />}> */}
+          <Route path="/" element={<MainPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/notice" element={<NotificationPage />} />
+          <Route path="/recipe/:recipeId" element={<RecipePage />} />
+          <Route path="/recipeList/:categoryId" element={<RecipeListPage />} />
+          <Route path="/refrigerator" element={<RefrigeratorPage />} />
+          <Route path="/ingredientList" element={<IngredientsListPage />} />
+          <Route path="/ingredientSelection" element={<IngredientSelectionPage />} />
+          <Route path="/recommendedList" element={<RecommendedRecipePage />} />
+          <Route path="/recipeRegistration" element={<RecipeRegistrationPage />} />
+          <Route path="/bookmark" element={<BookMarkPage />} />
+          <Route path="/liked" element={<LikedPage />} />
+          <Route path="/setting" element={<SettingPage />} />
+          <Route path="/profile/:userId" element={<ProfilePage />} />
         </Route>
+        <Route path="*" element={<ErrorPage />} />
+        {/* </Route> */}
       </Routes>
     </Router>
   );
