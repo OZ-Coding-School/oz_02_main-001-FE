@@ -5,8 +5,7 @@ const SkeletonPostsList: React.FC = () => {
   return (
     <>
       <div
-        className={`grid animate-pulse place-items-center rounded-[8px] bg-gray-200`}
-        style={{ aspectRatio: "1 / 1" }}
+        className={`grid animate-pulse place-items-center rounded-[8px] bg-gray-200 aspect-square`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
