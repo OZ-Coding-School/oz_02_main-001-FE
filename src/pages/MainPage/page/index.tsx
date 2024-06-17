@@ -84,25 +84,25 @@ const MainPage: React.FC = () => {
 
                   <div className="flex flex-col gap-y-10">
                     <CategorySectionList
-                      mainPageData={data.data}
+                      mainPageData={data.data.daily}
                       categoryName="daily"
                       category="일상요리"
                       categoryDescription="everyday cooking recipes"
                     />
                     <CategorySectionList
-                      mainPageData={data.data}
+                      mainPageData={data.data.healthy}
                       categoryName="healthy"
                       category="건강요리"
                       categoryDescription="healthy cooking recipes"
                     />
                     <CategorySectionList
-                      mainPageData={data.data}
+                      mainPageData={data.data.midnightSnack}
                       categoryName="midnight"
                       category="야식"
                       categoryDescription="dessert cooking recipes"
                     />
                     <CategorySectionList
-                      mainPageData={data.data}
+                      mainPageData={data.data.desert}
                       categoryName="desert"
                       category="디저트"
                       categoryDescription="midnight food recipes"

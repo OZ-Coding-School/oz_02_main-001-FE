@@ -9,7 +9,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
 interface CategorySectionListProps {
-  mainPageData: MainDataDataType;
+  mainPageData: MainPageCategoryDataType[];
   categoryName: string;
   category: string;
   categoryDescription: string;
@@ -25,7 +25,6 @@ const CategorySectionList: React.FC<CategorySectionListProps> = ({
   const handleMoreBtnClick = (): void => {
     navigate(`/recipeList/${categoryName}`);
   };
-
   return (
     <>
       <div className="flex flex-col">
@@ -41,7 +40,7 @@ const CategorySectionList: React.FC<CategorySectionListProps> = ({
           modules={[FreeMode]}
           className="w-full h-full"
         >
-          {mainPageData.daily.map((data, index) => (
+          {mainPageData.map((data, index) => (
             <SwiperSlide key={index} className="flex justify-center items-center">
               <CategorySectionItem data={data} index={index} />
             </SwiperSlide>
