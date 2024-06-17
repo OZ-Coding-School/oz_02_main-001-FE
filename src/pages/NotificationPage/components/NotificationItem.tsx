@@ -8,7 +8,7 @@ interface NotificationItemProps {
 const NotificationItem: React.FC<NotificationItemProps> = ({ notice, onClick }) => {
   const [isRead, setIsRead] = useState(notice.status);
 
-  const actionMessage = notice.type === "like" ? "좋아요를 눌렀습니다." : "댓글을 남겼습니다.";
+  const actionMessage = notice.type === 1 ? "좋아요를 눌렀습니다." : "댓글을 남겼습니다.";
 
   useEffect(() => {
     setIsRead(notice.status);
@@ -28,7 +28,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice, onClick }) 
           <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
         </div>
         <div className="mt-2 text-gray-400 text-[14px]">
-          {notice.type === "like"
+          {notice.type === 1
             ? "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?"
             : "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?"}
         </div>
