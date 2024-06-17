@@ -20,7 +20,7 @@ const RecommendedRecipePage: React.FC = () => {
   const { data: recommendedRecipes } = useQuery<RecommendedDataType>({
     queryKey: ["recommendedRecipes"],
   });
-
+  console.log(recommendedRecipes);
   const { mutate, isPending } = useMutation<FetchRecommended>({
     mutationFn: () =>
       fetchData<FetchRecommended, PostRecommendedData>("POST", apiRoutes.recommendRecipe, {
