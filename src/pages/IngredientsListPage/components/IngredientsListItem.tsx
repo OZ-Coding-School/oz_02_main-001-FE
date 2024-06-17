@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoundedSmallButton from "@components/buttons/RoundedSmallButton";
-import { useIngredientStore } from "@store/useIngredientStore";
 
 interface IngredientsListItemProps {
   ingredient: IngredientDataType;
   handleToggleChange: (id: number, status: number) => void;
+  selectedIngredientIds: number[];
 }
 
 const IngredientsListItem: React.FC<IngredientsListItemProps> = ({
   ingredient,
   handleToggleChange,
+  selectedIngredientIds,
 }) => {
-  const { refrigeratorIngredients } = useIngredientStore();
-  const selectedIngredientIds = [
-    ...JSON.parse(localStorage.getItem("selectedIngredientIds")!),
-    ...refrigeratorIngredients,
-  ];
   const isSelected = selectedIngredientIds.includes(ingredient.id);
   const [isClicked, setIsClicked] = useState<boolean>(isSelected);
+
+  useEffect(() => {
+    setIsClicked(isSelected);
+  }, [isSelected]);
 
   const handleClick = () => {
     setIsClicked((prev) => !prev);
