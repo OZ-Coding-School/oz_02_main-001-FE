@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { apiRoutes } from "./../../../../api/apiRoutes";
 import { fetchData } from "./../../../../api/axios";
 import Loading from "@components/loading/Loading";
+import noProfile from "@assets/images/noProfile.png";
 
 interface CommentItemProps {
   comment: CommentType;
@@ -92,7 +93,7 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment }) => {
     <div className="flex justify-between border-t p-4">
       <div className="flex gap-2 w-full">
         <img
-          src={comment.profileImage}
+          src={comment.profileImage || noProfile}
           className="size-[30px] rounded-full cursor-pointer"
           onClick={() => handleShowProfile(comment.userId)}
         />
