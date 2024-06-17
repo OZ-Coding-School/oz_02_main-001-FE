@@ -20,7 +20,6 @@ const PostsList: React.FC<PostsListProps> = ({
   const navigate = useNavigate();
 
   const handleRecipeItemClick = (recipeItemId: number): void => {
-    console.log(recipeItemId);
     navigate(`/recipe/${recipeItemId}`);
   };
   return (
@@ -53,11 +52,10 @@ const PostsList: React.FC<PostsListProps> = ({
               <div
                 onClick={() => handleRecipeItemClick(recipeItem.id)}
                 key={index}
-                className="w-full cursor-pointer relative border rounded-[6px] border-gray-200"
-                style={{ aspectRatio: "1 / 1" }}
+                className="w-full cursor-pointer relative border rounded-[6px] border-gray-200 aspect-square"
               >
                 <img
-                  src={recipeItem.recipeImage}
+                  src={recipeItem.mainImage}
                   alt="레시피 완성 이미지"
                   className="rounded-[6px] w-full h-full object-cover"
                 />

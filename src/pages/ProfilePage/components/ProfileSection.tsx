@@ -63,6 +63,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+    event.target.value = "";
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
