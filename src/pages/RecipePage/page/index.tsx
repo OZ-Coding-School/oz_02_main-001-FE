@@ -85,6 +85,7 @@ const RecipePage: React.FC = () => {
             src={recipeData.data.mainImage}
             alt="레시피 대표 이미지"
             width={"100%"}
+            style={{ maxHeight: "700px" }}
             effect="blur"
             placeholderSrc={recipeData.data.mainImage}
           />
