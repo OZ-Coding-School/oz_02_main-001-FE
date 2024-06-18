@@ -73,11 +73,12 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
         </span>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="w-full flex flex-col gap-6">
         {steps.map((step, index) => (
           <div className="grid gap-3 w-full" key={index}>
             <div className="flex justify-between">
               <StepBadge step={index + 1} />
+
               {steps.length > 1 && (
                 <FiMinusCircle
                   className="size-[24px] text-[#000000]/40 cursor-pointer"
@@ -87,11 +88,11 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
             </div>
             <div className="w-full flex gap-2">
               <textarea
-                className="resize-none p-2 border border-[#000000]/20 rounded-[5px] focus:outline-none flex-grow-[4]"
+                className="max-h-[100px] w-[80%] resize-none p-2 border border-[#000000]/20 rounded-[5px] focus:outline-none  "
                 value={step}
                 onChange={(e) => handleChange(index, e.target.value)}
               />
-              <div className="w-[100px] aspect-square flex-grow-[1]">
+              <div className="w-[100px] aspect-square ">
                 <StepImageUpload order={index + 1} setIsValid={setIsValid} />
               </div>
             </div>
