@@ -90,7 +90,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
                 <StepImageUpload order={index + 1} setIsValid={setIsValid} />
               </div>
               <textarea
-                className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none w-[70%]"
+                className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none"
                 value={step}
                 onChange={(e) => handleChange(index, e.target.value)}
               />
