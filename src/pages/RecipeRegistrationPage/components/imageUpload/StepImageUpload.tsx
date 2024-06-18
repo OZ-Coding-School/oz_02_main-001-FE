@@ -17,11 +17,7 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
 
   const changeImage = useMutation({
     mutationFn: () => {
-      console.log();
       return fetchData("POST", apiRoutes.updateImage, stepImage[order - 1]);
-    },
-    onSuccess: (data) => {
-      console.log(data);
     },
     onError: (error) => {
       deleteImage();
@@ -40,8 +36,6 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
     });
     setStepImage(newData);
   };
-
-  console.log(stepImage);
 
   const deleteImage = () => {
     const newData: imageUpload[] = stepImage.map((image, i) => {

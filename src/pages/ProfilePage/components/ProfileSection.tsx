@@ -110,8 +110,6 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
     setShowModal(false);
   };
 
-  console.log(image);
-
   return (
     <>
       <div className="flex ml-[6%] mr-[2%] items-center pt-10 mb-16">

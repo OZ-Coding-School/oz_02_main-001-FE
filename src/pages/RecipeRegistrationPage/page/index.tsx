@@ -74,8 +74,6 @@ const RecipeRegistrationPage: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    console.log(recipeData);
-
     submit.mutate();
   };
 

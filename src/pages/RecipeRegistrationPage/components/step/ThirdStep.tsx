@@ -28,7 +28,6 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
 
   const { mutate } = useMutation<undefined, undefined, number>({
     mutationFn: (id) => fetchData("DELETE", `${apiRoutes.deleteStepImage}/${id}`),
-    onSuccess: (data) => console.log(data),
     onError: (error) => console.log(error),
   });
 
@@ -87,7 +86,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
               )}
             </div>
             <div className="flex gap-2">
-              <div className="size-[100px]">
+              <div className="w-[100px] aspect-square">
                 <StepImageUpload order={index + 1} setIsValid={setIsValid} />
               </div>
               <textarea
