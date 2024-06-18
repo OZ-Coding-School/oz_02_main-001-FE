@@ -86,7 +86,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
               )}
             </div>
             <div className="flex gap-2">
-              <div className="w-[30%] aspect-square">
+              <div className="w-[100px] aspect-square">
                 <StepImageUpload order={index + 1} setIsValid={setIsValid} />
               </div>
               <textarea
