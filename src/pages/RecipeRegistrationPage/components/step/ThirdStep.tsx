@@ -72,16 +72,14 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
           ( 사진은 필수가 아닙니다 )
         </span>
       </div>
-
       <div className="w-full flex flex-col gap-6">
         {steps.map((step, index) => (
-          <div className="grid gap-3 w-full" key={index}>
+          <div className="grid gap-3 w-full max-h-[125px]" key={index}>
             <div className="flex justify-between">
               <StepBadge step={index + 1} />
-
               {steps.length > 1 && (
                 <FiMinusCircle
-                  className="size-[24px] text-[#000000]/40 cursor-pointer"
+                  className="size-[24px] text-[#000000]/40 cursor-pointer "
                   onClick={() => handleRemoveClick(index)}
                 />
               )}

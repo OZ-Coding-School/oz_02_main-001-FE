@@ -81,7 +81,10 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
 
   return (
     <>
-      <div className="w-full aspect-square cursor-pointer" onClick={handleStepImageClick}>
+      <div
+        className="w-full min-w-[full] aspect-square cursor-pointer"
+        onClick={handleStepImageClick}
+      >
         {stepImage[order - 1].image ? (
           <img src={stepImage[order - 1].image} className="rounded-[5px] size-full object-cover" />
         ) : (
