@@ -8,11 +8,13 @@ import { fetchData } from "../../../api/axios";
 import { apiRoutes } from "../../../api/apiRoutes";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import SkeletonLoader from "../skeleton/SkeletonLoader";
+import { useNavigate } from "react-router-dom";
 
 const MainPage: React.FC = () => {
   const [isMainPageModalOpen, setIsMainPageModalOpen] = useState(false);
   const [userDetail, setUserDetail] = useState<UserDetailType>();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data, error, isLoading } = useQuery<MainPageDataType>({
     queryKey: ["main"],
@@ -48,6 +50,14 @@ const MainPage: React.FC = () => {
       console.log(error);
     },
   });
+
+  useEffect(() => {
+    const redirectedURL = localStorage.getItem("redirectedFrom");
+    if (redirectedURL) {
+      localStorage.setItem("redirectedFrom", "");
+      navigate(redirectedURL.slice(1));
+    }
+  }, []);
 
   const handleSubmitModal = (gender: string, age: number, alertStatus: boolean) => {
     // api로 넘겨야함
