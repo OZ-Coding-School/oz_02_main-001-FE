@@ -31,14 +31,14 @@ const BookMarkPage: React.FC = () => {
   return (
     <>
       <Header hasBackBtn={true} title="스크랩한 페이지" handleBackBtnClick={handleBackBtnClick} />
-      {isLoading ? (
-        <SkeletonRecipeList />
-      ) : (
-        <div className="min-h-[calc(100vh-105px)]">
-          {data?.data && <RecipeList queryKey="book" recipeData={data?.data} />}
-        </div>
-      )}
 
+      <div className="min-h-[calc(100vh-105px)]">
+        {isLoading ? (
+          <SkeletonRecipeList />
+        ) : (
+          data?.data && <RecipeList queryKey="book" recipeData={data?.data} />
+        )}
+      </div>
       <Footer page="bookmark" />
     </>
   );
