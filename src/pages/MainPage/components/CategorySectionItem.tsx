@@ -21,6 +21,7 @@ const CategorySectionItem: React.FC<CategorySectionItemProps> = ({ data, index }
       >
         <div className="w-full h-full mt-5 mb-3 border border-gray-200 rounded-[8px] overflow-hidden">
           <img
+            loading="lazy"
             src={data.mainImage}
             alt="레시피 완성 이미지"
             className="w-full h-full object-cover aspect-square"

@@ -88,6 +88,7 @@ const RecipePage: React.FC = () => {
             style={{ maxHeight: "700px" }}
             effect="blur"
             placeholderSrc={recipeData.data.mainImage}
+            fetchPriority="high"
           />
           <RecipeTitleSection
             user={recipeData.data.user}
