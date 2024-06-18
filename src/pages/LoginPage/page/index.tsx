@@ -4,31 +4,15 @@ import kakaoLogo from "@assets/icons/kakao.png";
 import googleLogo from "@assets/icons/google.png";
 import LoginButtons from "../components/LoginButtons";
 import { apiRoutes } from "../../../api/apiRoutes";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchData } from "../../../api/axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.redirectedFrom?.pathname || "/";
+
   useEffect(() => {
-    // 로그아웃 기능 구현 전까지 일단 자동로그인 주석처리
-    mutationLogin;
-  }, []);
-
-  const fetchLogin = async (): Promise<void> => {
-    return await fetchData("GET", apiRoutes.userLogin);
-  };
-
-  const mutationLogin = useMutation<void, void>({
-    mutationFn: fetchLogin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["login"],
-      });
-      navigate("/");
-    },
-  });
+    localStorage.setItem("redirectedFrom", from);
+  }, [from]);
 
   const handleKakaoLoginClick = () => {
     const currentUrl = window.location.href;

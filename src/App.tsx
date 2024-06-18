@@ -34,7 +34,6 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/notice" element={<NotificationPage />} />
-            <Route path="/recipe/:recipeId" element={<RecipePage />} />
             <Route path="/recipeList/:categoryId" element={<RecipeListPage />} />
             <Route path="/refrigerator" element={<RefrigeratorPage />} />
             <Route path="/ingredientList" element={<IngredientsListPage />} />
@@ -46,6 +45,7 @@ function App() {
             <Route path="/setting" element={<SettingPage />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
           </Route>
+          <Route path="/recipe/:recipeId" element={<RecipePage />} />
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

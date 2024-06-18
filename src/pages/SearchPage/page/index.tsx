@@ -69,6 +69,12 @@ const SearchPage: React.FC = () => {
     setSortType(sortType);
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div>
       <SearchHeader
