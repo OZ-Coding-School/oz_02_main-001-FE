@@ -18,6 +18,9 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
             <div>
               {step.image && (
                 <img
+                  fetchPriority="low"
+                  decoding="async"
+                  loading="lazy"
                   src={step.image}
                   alt={`스텝${index + 1} 이미지`}
                   className="w-[110px] h-[110px] rounded-[10px] object-fit-cover"

@@ -55,9 +55,10 @@ const PostsList: React.FC<PostsListProps> = ({
                 className="w-full cursor-pointer relative border rounded-[6px] border-gray-200 aspect-square"
               >
                 <img
+                  loading="lazy"
                   src={recipeItem.mainImage}
                   alt="레시피 완성 이미지"
-                  className="rounded-[6px] w-full h-full object-cover"
+                  className="rounded-[6px] size-full object-cover"
                 />
               </div>
             ))}
