@@ -53,7 +53,7 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
       <div className="flex ">
         <div
           className="flex justify-center items-center w-[40px] h-[50px] cursor-pointer"
-          onClick={() => handleShareClick(`http://localhost:5173${pathname}`)}
+          onClick={() => handleShareClick(`https://ndd.life${pathname}`)}
         >
           <RiShare2Line className="w-[24px] h-[24px]" />
         </div>
