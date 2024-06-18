@@ -64,7 +64,7 @@ const IngredientSelectionPage: React.FC = () => {
               <div
                 key={ingredient.id}
                 onClick={() => toggleIngredientSelect(ingredient.id)}
-                className={`cursor-pointer font-semibold p-[32px] h-10 rounded-xl flex justify-center items-center relative ${
+                className={`cursor-pointer font-semibold py-[32px] px-[10px] h-10 rounded-xl flex justify-center items-center relative text-center ${
                   selectedIngredients.includes(ingredient.id) ? "bg-softBlue" : "bg-iceBlue"
                 }`}
               >
