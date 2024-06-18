@@ -1,14 +1,23 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { Storage } from "./../utils/Storage";
 
-interface ImageStore {
-  mainImage: imageUpload;
-  setMainImage: (newData: imageUpload) => void;
-  stepImage: imageUpload[];
-  setStepImage: (newData: imageUpload[]) => void;
+interface ImageUploadType {
+  image: string;
+  action?: string;
+  recipe?: number;
+  type: string;
+  order: number;
 }
 
-const useImageStore = create<ImageStore>(
+interface ImageStore {
+  mainImage: ImageUploadType;
+  setMainImage: (newData: ImageUploadType) => void;
+  stepImage: ImageUploadType[];
+  setStepImage: (newData: ImageUploadType[]) => void;
+}
+
+const useImageStore = create<ImageStore>()(
   persist(
     (set) => ({
       mainImage: {
@@ -31,41 +40,34 @@ const useImageStore = create<ImageStore>(
     {
       name: "image-storage",
     },
-  ) as (set: (fn: (state: ImageStore) => ImageStore) => void) => ImageStore,
+  ),
 );
 
-const getStoredImageState = () => {
-  // 로컬 스토리지의 문자열 형태의 데이터를 저장
-  const storedDataString = localStorage.getItem("image-storage");
-  // 문자열 형태의 데이터를 객체 형태로 변환
-  const storedData = storedDataString && JSON.parse(storedDataString);
+const getStoredImageState = (): { mainImage: ImageUploadType; stepImage: ImageUploadType[] } => {
+  const storedDataString = Storage.get("image-storage");
+  const storedData = storedDataString ? JSON.parse(storedDataString) : null;
 
-  if (storedData) {
-    const storedMainImage = storedData.state.mainImage;
-    const storedStepImage = storedData.state.stepImage;
-
-    const mainImage = storedMainImage;
-    const stepImage = storedStepImage;
-
+  if (storedData && storedData.state) {
+    const { mainImage, stepImage } = storedData.state;
     return { mainImage, stepImage };
-  } else {
-    return {
-      mainImage: {
+  }
+
+  return {
+    mainImage: {
+      action: "write",
+      type: "main",
+      order: 1,
+      image: "",
+    },
+    stepImage: [
+      {
         action: "write",
-        type: "main",
+        type: "step",
         order: 1,
         image: "",
       },
-      stepImage: [
-        {
-          action: "write",
-          type: "step",
-          order: 1,
-          image: "",
-        },
-      ],
-    };
-  }
+    ],
+  };
 };
 
 export { useImageStore, getStoredImageState };

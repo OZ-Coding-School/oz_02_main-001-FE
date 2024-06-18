@@ -3,8 +3,9 @@ import ProceedModal from "@components/modal/ProceedModal";
 import { FaRegImages } from "react-icons/fa6";
 import { useMutation } from "@tanstack/react-query";
 import { apiRoutes } from "./../../../../api/apiRoutes";
-import { useImageStore } from "@store/useImageStore";
 import { fetchData } from "./../../../../api/axios";
+import { Storage } from "./../../../../utils/Storage";
+import { useImageStore } from "@store/useImageStore";
 
 interface MainImageUploadProp {
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,15 +14,25 @@ interface MainImageUploadProp {
 const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { mainImage, setMainImage } = useImageStore();
+  const [image, setImage] = useState<string>(
+    JSON.parse(Storage.get("image-storage")!).state.mainImage.image || "",
+  );
 
   const {
     mutate: changeImage,
     isError,
     isPending,
-  } = useMutation({
-    mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage),
+  } = useMutation<FetchImage, Error, string>({
+    mutationFn: (newImageUrl) =>
+      fetchData<FetchImage, ImageUploadType>("POST", apiRoutes.updateImage, {
+        ...mainImage,
+        image: newImageUrl,
+      }),
+    onSuccess: (data) => {
+      setImage(data.data.image);
+    },
     onError: () => {
-      setMainImage({ ...mainImage, image: "" });
+      setImage("");
       alert("이미지 업로드 실패");
     },
   });
@@ -33,7 +44,7 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
   }, [isPending]);
 
   const handleMainImageClick = () => {
-    if (!mainImage.image) {
+    if (!image) {
       document.getElementById("fileInput")?.click();
     } else {
       setShowModal(true);
@@ -45,8 +56,7 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const newImageUrl = e.target?.result as string;
-        setMainImage({ ...mainImage, image: newImageUrl });
-        changeImage();
+        changeImage(newImageUrl);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -55,7 +65,7 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
   };
 
   const handleDeleteImage = (): void => {
-    setMainImage({ ...mainImage, image: "" });
+    setImage("");
     setShowModal(false);
   };
 
@@ -63,14 +73,22 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    setMainImage({ ...mainImage, image });
+  }, [image]);
+
   return (
     <>
       <div className="size-full cursor-pointer" onClick={handleMainImageClick}>
-        {mainImage.image && !isError ? (
-          <img src={mainImage.image} className="rounded-[5px] size-full object-fit-cover" />
+        {isPending ? (
+          <div className="flex flex-col gap-1 justify-center items-center w-full h-full bg-softBlue rounded-[5px]">
+            Loading...
+          </div>
+        ) : image && !isError ? (
+          <img src={image} className="rounded-[5px] w-full h-full object-cover" />
         ) : (
-          <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
-            <FaRegImages className="size-[25%]" />
+          <div className="flex flex-col gap-1 justify-center items-center w-full h-full bg-softBlue rounded-[5px]">
+            <FaRegImages className="w-1/4 h-1/4" />
             <span className="text-[#000000]/50 text-lg">(0/1)</span>
           </div>
         )}
