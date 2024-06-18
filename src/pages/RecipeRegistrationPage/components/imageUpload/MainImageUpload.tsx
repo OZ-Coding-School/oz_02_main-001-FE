@@ -67,7 +67,7 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
     <>
       <div className="size-full cursor-pointer" onClick={handleMainImageClick}>
         {mainImage.image && !isError ? (
-          <img src={mainImage.image} className="rounded-[5px] size-full object-cover" />
+          <img src={mainImage.image} className="rounded-[5px] size-full object-fit-cover" />
         ) : (
           <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
             <FaRegImages className="size-[25%]" />

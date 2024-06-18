@@ -85,15 +85,15 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
                 />
               )}
             </div>
-            <div className="flex gap-2">
-              <div className="w-[100px] aspect-square">
-                <StepImageUpload order={index + 1} setIsValid={setIsValid} />
-              </div>
+            <div className="w-full flex gap-2">
               <textarea
-                className="resize-none p-2 border border-[#000000]/20 rounded-[5px] flex-grow focus:outline-none"
+                className="resize-none p-2 border border-[#000000]/20 rounded-[5px] focus:outline-none flex-grow-[4]"
                 value={step}
                 onChange={(e) => handleChange(index, e.target.value)}
               />
+              <div className="w-[100px] aspect-square flex-grow-[1]">
+                <StepImageUpload order={index + 1} setIsValid={setIsValid} />
+              </div>
             </div>
           </div>
         ))}
