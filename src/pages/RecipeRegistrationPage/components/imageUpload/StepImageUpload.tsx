@@ -1,52 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProceedModal from "@components/modal/ProceedModal";
 import { FaRegImages } from "react-icons/fa6";
 import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "../../../../api/axios";
 import { apiRoutes } from "../../../../api/apiRoutes";
 import { useImageStore } from "@store/useImageStore";
+import { Storage } from "./../../../../utils/Storage";
 
-interface StepImageUploadProps {
+interface StepImageUploadTypeProps {
   order: number;
   setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) => {
+const StepImageUploadType: React.FC<StepImageUploadTypeProps> = ({ order, setIsValid }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { stepImage, setStepImage } = useImageStore();
+  const [image, setImage] = useState<string>(
+    JSON.parse(Storage.get("image-storage")!).state.stepImage[order - 1].image || "",
+  );
 
-  const changeImage = useMutation({
-    mutationFn: () => {
-      return fetchData("POST", apiRoutes.updateImage, stepImage[order - 1]);
+  const {
+    mutate: changeImage,
+    isError,
+    isPending,
+  } = useMutation<FetchImage, Error, string>({
+    mutationFn: (newImageUrl) => {
+      console.log(stepImage[order - 1], image);
+      return fetchData("POST", apiRoutes.updateImage, {
+        ...stepImage[order - 1],
+        image: newImageUrl,
+      });
+    },
+    onSuccess: (data) => {
+      setImage(data.data.image);
     },
     onError: (error) => {
-      deleteImage();
+      setImage("");
       console.log(error);
       alert("이미지 전송 실패");
     },
   });
-
-  const updateImage = (newImageUrl: string) => {
-    const newData: imageUpload[] = stepImage.map((image, i) => {
-      if (order - 1 === i) {
-        return { ...image, image: newImageUrl };
-      } else {
-        return image;
-      }
-    });
-    setStepImage(newData);
-  };
-
-  const deleteImage = () => {
-    const newData: imageUpload[] = stepImage.map((image, i) => {
-      if (order - 1 === i) {
-        return { ...image, image: "" };
-      } else {
-        return image;
-      }
-    });
-    setStepImage(newData);
-  };
 
   const handleStepImageClick = () => {
     if (!stepImage[order - 1].image) {
@@ -61,17 +54,16 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
       const reader = new FileReader();
       reader.onload = (e) => {
         const newImageUrl = e.target?.result as string;
-        updateImage(newImageUrl);
+        changeImage(newImageUrl);
         setIsValid(false);
-        changeImage.mutate();
       };
       reader.readAsDataURL(event.target.files[0]);
     }
   };
 
   const handleDeleteImage = (): void => {
-    deleteImage();
-    changeImage.mutate();
+    setImage("");
+    changeImage("");
     setShowModal(false);
   };
 
@@ -79,14 +71,33 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
     setShowModal(false);
   };
 
+  useEffect(() => {
+    const updateStepImage = () => {
+      const newData: ImageUploadType[] = stepImage.map((stepImage, i) => {
+        if (order - 1 === i) {
+          return { ...stepImage, image };
+        } else {
+          return stepImage;
+        }
+      });
+      setStepImage(newData);
+    };
+
+    updateStepImage();
+  }, [image]);
+
   return (
     <>
       <div
         className="w-full min-w-[full] aspect-square cursor-pointer"
         onClick={handleStepImageClick}
       >
-        {stepImage[order - 1].image ? (
-          <img src={stepImage[order - 1].image} className="rounded-[5px] size-full object-cover" />
+        {isPending ? (
+          <div className="flex flex-col gap-1 justify-center items-center w-full h-full bg-softBlue rounded-[5px]">
+            Loading...
+          </div>
+        ) : image && !isError ? (
+          <img src={image} className="rounded-[5px] size-full object-cover" />
         ) : (
           <div className="flex flex-col gap-1 justify-center items-center size-full bg-softBlue rounded-[5px] ">
             <FaRegImages className="size-[25%]" />
@@ -106,4 +117,4 @@ const StepImageUpload: React.FC<StepImageUploadProps> = ({ order, setIsValid }) 
   );
 };
 
-export default StepImageUpload;
+export default StepImageUploadType;

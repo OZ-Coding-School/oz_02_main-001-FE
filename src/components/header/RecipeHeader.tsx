@@ -3,7 +3,7 @@ import BackButton from "./BackButton";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RiShare2Line } from "react-icons/ri";
 import MoreButton from "@components/buttons/MoreButton";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "./../../api/axios";
 import { apiRoutes } from "./../../api/apiRoutes";
 
@@ -16,6 +16,7 @@ interface RecipeHeaderProps {
  * @returns
  */
 const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
+  const queryClient = useQueryClient();
   const { pathname } = useLocation();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { recipeId } = useParams();
@@ -26,7 +27,10 @@ const RecipeHeader: React.FC<RecipeHeaderProps> = ({ canUpdate }) => {
 
   const { mutate } = useMutation({
     mutationFn: () => fetchData("DELETE", `${apiRoutes.recipes}/${recipeId}`),
-    onSuccess: () => navigate(`/profile/0`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["account"] });
+      navigate(`/profile/0`);
+    },
     onError: (error) => console.log(error),
   });
 
