@@ -26,7 +26,6 @@ const NotificationPage: React.FC = () => {
     onSuccess: (data: PostAlertsType) => {
       queryClient.invalidateQueries({ queryKey: ["notifications"] });
       queryClient.invalidateQueries({ queryKey: ["alertStatus"] });
-      console.log(data);
       if (data.data.length === 1) {
         navigate(`/recipe/${data.data}`);
       }

@@ -28,7 +28,6 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ setIsValid }) => {
 
   const { mutate } = useMutation<undefined, undefined, number>({
     mutationFn: (id) => fetchData("DELETE", `${apiRoutes.deleteStepImage}/${id}`),
-    onSuccess: (data) => console.log(data),
     onError: (error) => console.log(error),
   });
 

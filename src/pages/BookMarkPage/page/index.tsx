@@ -26,7 +26,6 @@ const BookMarkPage: React.FC = () => {
   if (error) {
     console.log(error);
   }
-  console.log(data);
 
   return (
     <>
