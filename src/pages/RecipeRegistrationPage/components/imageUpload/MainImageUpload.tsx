@@ -20,9 +20,6 @@ const MainImageUpload: React.FC<MainImageUploadProp> = ({ setIsValid }) => {
     isPending,
   } = useMutation({
     mutationFn: () => fetchData("POST", apiRoutes.updateImage, mainImage),
-    onSuccess: (data) => {
-      console.log(data);
-    },
     onError: () => {
       setMainImage({ ...mainImage, image: "" });
       alert("이미지 업로드 실패");

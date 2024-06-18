@@ -44,7 +44,6 @@ const IngredientBox: React.FC<IngredientBoxProp> = ({
   const { data, isError, isLoading, isSuccess } = useQuery<data>({
     queryKey: ["searchIngredient", debouncedValue],
     queryFn: () => {
-      console.log(debouncedValue);
       return fetchData("GET", `${apiRoutes.ingredients}/recipe/${debouncedValue}`);
     },
     enabled: !!debouncedValue.trim(),
