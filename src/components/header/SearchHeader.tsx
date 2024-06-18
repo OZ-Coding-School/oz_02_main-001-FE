@@ -7,13 +7,19 @@ interface SearchHeaderProps {
   keyWord: string;
   handleChange: (value: string) => void;
   handleDelete: () => void;
+  inputRef: React.RefObject<HTMLInputElement>;
 }
 
 /**
  * SearchPage에서 사용되는 헤더입니다.
  * @returns
  */
-const SearchHeader: React.FC<SearchHeaderProps> = ({ keyWord, handleChange, handleDelete }) => {
+const SearchHeader: React.FC<SearchHeaderProps> = ({
+  keyWord,
+  handleChange,
+  handleDelete,
+  inputRef,
+}) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(-1);
@@ -28,6 +34,7 @@ const SearchHeader: React.FC<SearchHeaderProps> = ({ keyWord, handleChange, hand
           className="flex items-center w-[98%] h-[38px] rounded-3xl bg-iceBlue text-[#64748B] pl-[20px] focus:outline-none"
           onChange={(e) => handleChange(e.target.value)}
           value={keyWord}
+          ref={inputRef}
           placeholder="음식이나 재료 이름을 검색해주세요."
         />
         <AiOutlineCloseCircle

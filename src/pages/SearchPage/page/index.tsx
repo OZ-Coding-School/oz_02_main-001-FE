@@ -2,7 +2,7 @@ import FilteringButtons from "@components/filtering/FilteringButtons";
 import SearchHeader from "@components/header/SearchHeader";
 import RecipeList from "@components/recipe/RecipeList";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
 import SkeletonRecipeList from "@components/recipe/SkeletonRecipeList";
@@ -14,6 +14,7 @@ const SearchPage: React.FC = () => {
   const [sortedRecipes, setSortedRecipes] = useState<RecipeType[]>([]);
 
   const queryClient = useQueryClient();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (value: string) => {
     setKeyWord(value);
@@ -68,9 +69,20 @@ const SearchPage: React.FC = () => {
     setSortType(sortType);
   };
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div>
-      <SearchHeader keyWord={keyWord} handleChange={handleChange} handleDelete={handleDelete} />
+      <SearchHeader
+        keyWord={keyWord}
+        handleChange={handleChange}
+        handleDelete={handleDelete}
+        inputRef={inputRef}
+      />
       <FilteringButtons sortType={sortType} handleClick={handleSortChange} />
       {debouncedKeyWord === "" && (
         <div className="w-full h-[calc(100vh-95px)] flex justify-center items-center">

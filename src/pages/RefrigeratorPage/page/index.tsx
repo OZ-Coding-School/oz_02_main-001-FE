@@ -117,7 +117,7 @@ const RefrigeratorPage: React.FC = () => {
                 {allIngredients.map((ingredient) => (
                   <div
                     key={ingredient.id}
-                    className="font-semibold p-[32px] h-10 bg-iceBlue rounded-xl flex justify-center items-center relative"
+                    className="font-semibold py-[32px] px-[10px] h-10 bg-iceBlue rounded-xl flex justify-center text-center items-center relative"
                   >
                     <span style={{ letterSpacing: "0.1em" }}>{ingredient.name}</span>
                     {isDeleteMode && (

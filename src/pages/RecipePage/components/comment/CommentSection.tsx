@@ -54,7 +54,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ comments }) => {
       </div>
       <form>
         <div className="w-full p-2">
-          <div className="flex justify-between items-center border border-cloudGray rounded-[5px]">
+          <div className="flex justify-between items-center border border-cloudGray rounded-[5px] overflow-hidden">
             <input
               type="text"
               className="bg-white p-3 w-[95%] h-[50px] focus:outline-none "

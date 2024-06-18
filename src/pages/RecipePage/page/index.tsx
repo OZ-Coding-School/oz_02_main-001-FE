@@ -1,5 +1,5 @@
 import RecipeHeader from "@components/header/RecipeHeader";
-import React from "react";
+import React, { useEffect } from "react";
 import RecipeTitleSection from "../components/title/RecipeTitleSection";
 import PreparedIngredients from "../components/ingredient/PreparedIngredients";
 import RecipeSteps from "../components/step/RecipeSteps";
@@ -11,28 +11,54 @@ import CommentSection from "../components/comment/CommentSection";
 import { useQuery } from "@tanstack/react-query";
 import { fetchData } from "./../../../api/axios";
 import { apiRoutes } from "./../../../api/apiRoutes";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Loading from "@components/loading/Loading";
 
-type data = {
+type Data = {
   data: RecipeDataType;
   message: string;
   status: number;
 };
 
 const RecipePage: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { recipeId } = useParams();
+
+  const fetchLogin = async (): Promise<FetchAlertsStatusType> => {
+    return await fetchData("GET", apiRoutes.userLogin);
+  };
+
+  const { data: loginData } = useQuery<FetchAlertsStatusType, void>({
+    queryFn: fetchLogin,
+    queryKey: ["login"],
+  });
+
+  const handleClick = () => {
+    if (loginData?.status !== 200) navigate("/login", { state: { redirectedFrom: location } });
+  };
 
   const {
     data: recipeData,
     isLoading,
     isError,
-  } = useQuery<data>({
+  } = useQuery<Data>({
     queryKey: [`recipeData${recipeId}`],
     queryFn: () => fetchData("GET", `${apiRoutes.recipes}/${recipeId}`),
   });
+
+  useEffect(() => {
+    const handleDocumentClickCapture = () => {
+      handleClick();
+    };
+    document.addEventListener("click", handleDocumentClickCapture, true);
+
+    return () => {
+      document.removeEventListener("click", handleDocumentClickCapture, true);
+    };
+  }, [loginData]);
 
   if (isLoading) {
     return (
@@ -41,6 +67,7 @@ const RecipePage: React.FC = () => {
       </div>
     );
   }
+
   if (isError) {
     return (
       <div className="flex justify-center items-center w-full h-[100vh]">
@@ -50,7 +77,7 @@ const RecipePage: React.FC = () => {
   }
 
   return (
-    <div>
+    <div onClick={handleClick}>
       {recipeData && (
         <>
           <RecipeHeader canUpdate={recipeData.data.canUpdate} />
