@@ -42,7 +42,7 @@ const MainPage: React.FC = () => {
     mutationFn: fetchDetail,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["detail"],
+        queryKey: ["main"],
       });
       setIsMainPageModalOpen(false);
     },
