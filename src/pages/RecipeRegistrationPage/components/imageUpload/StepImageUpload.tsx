@@ -19,6 +19,10 @@ const StepImageUploadType: React.FC<StepImageUploadTypeProps> = ({ order, setIsV
     JSON.parse(Storage.get("image-storage")!).state.stepImage[order - 1].image || "",
   );
 
+  useEffect(() => {
+    setImage(JSON.parse(Storage.get("image-storage")!).state.stepImage[order - 1].image || "");
+  }, [stepImage]);
+
   const {
     mutate: changeImage,
     isError,
@@ -59,6 +63,7 @@ const StepImageUploadType: React.FC<StepImageUploadTypeProps> = ({ order, setIsV
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+    event.target.value = "";
   };
 
   const handleDeleteImage = (): void => {
