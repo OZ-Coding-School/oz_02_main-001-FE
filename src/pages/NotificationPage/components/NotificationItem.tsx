@@ -7,8 +7,30 @@ interface NotificationItemProps {
 
 const NotificationItem: React.FC<NotificationItemProps> = ({ notice, onClick }) => {
   const [isRead, setIsRead] = useState(notice.status);
-
   const actionMessage = notice.type === 1 ? "좋아요를 눌렀습니다." : "댓글을 남겼습니다.";
+
+  const noticeMessage = (type: number): NoticeMessage => {
+    let noticeItem: NoticeMessage = {
+      noticeMessage: "",
+      actionMessage: "",
+    };
+    switch (type) {
+      case 1:
+        noticeItem.noticeMessage = "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?";
+        noticeItem.actionMessage = "좋아요를 눌렀습니다.";
+        break;
+      case 2:
+        noticeItem.noticeMessage = "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?";
+        noticeItem.actionMessage = "댓글을 남겼습니다.";
+        break;
+      case 3:
+        noticeItem.noticeMessage = "레시피가 얼마나 스크랩 되었는지 확인하러 가볼까요?";
+        noticeItem.actionMessage = "스크랩을 눌렀습니다.";
+        break;
+    }
+
+    return noticeItem;
+  };
 
   useEffect(() => {
     setIsRead(notice.status);
@@ -25,12 +47,11 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notice, onClick }) 
       )}
       <div className="pt-2 pl-4 pr-4">
         <div className="mt-3 leading-tight text-[16px]">
-          <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에 {actionMessage}
+          <strong>{notice.nickname}</strong>님이 {notice.title} 레시피에{" "}
+          {noticeMessage(notice.type).actionMessage}
         </div>
         <div className="mt-2 text-gray-400 text-[14px]">
-          {notice.type === 1
-            ? "레시피에 좋아요가 얼마나 눌렸는지 확인하러 가볼까요?"
-            : "어떤 레시피에 댓글을 남겼는지 확인하러 가볼까요?"}
+          {noticeMessage(notice.type).noticeMessage}
         </div>
         <div className="mt-2 mb-3 text-gray-400 text-[12px]">{formatDate(notice.createdAt)}</div>
       </div>
