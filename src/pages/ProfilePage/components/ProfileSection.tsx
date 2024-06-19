@@ -120,7 +120,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
                 <img
                   src={image}
                   alt="프로필 이미지"
-                  className="w-[90px] h-[90px] mx-auto rounded-full cursor-pointer border border-gray-200"
+                  className="w-[90px] h-[90px] mx-auto rounded-full cursor-pointer border border-gray-200 object-cover"
                   onClick={handleProfileClick}
                 />
                 <input
@@ -135,7 +135,7 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({
                 <img
                   src={image}
                   alt="프로필 이미지"
-                  className="w-[90px] h-[90px] mx-auto rounded-full border border-gray-200"
+                  className="w-[90px] h-[90px] mx-auto rounded-full border border-gray-200 object-cover"
                 />
               </>
             )}
