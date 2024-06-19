@@ -7,7 +7,6 @@ interface NotificationItemProps {
 
 const NotificationItem: React.FC<NotificationItemProps> = ({ notice, onClick }) => {
   const [isRead, setIsRead] = useState(notice.status);
-  const actionMessage = notice.type === 1 ? "좋아요를 눌렀습니다." : "댓글을 남겼습니다.";
 
   const noticeMessage = (type: number): NoticeMessage => {
     let noticeItem: NoticeMessage = {
