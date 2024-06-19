@@ -26,4 +26,9 @@ type PostAlertsRequestType = {
 
 type updateDataType = {
   alerts: number[];
-}
+};
+
+type NoticeMessage = {
+  noticeMessage: string;
+  actionMessage: string;
+};
