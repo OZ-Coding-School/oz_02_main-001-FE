@@ -10,8 +10,8 @@ const BestRecipeList: React.FC<BestRecipeListProps> = ({ mainPageData }) => {
   return (
     <>
       <div className="flex flex-col gap-y-5 p-4">
-        <BestRecipeItem bestRecipeData={mainPageData.best[0]} />
-        <BestBookmarkedRecipeItem bestBookmarkedData={mainPageData.bestBookmarked[0]} />
+        <BestRecipeItem bestRecipeData={mainPageData.best} />
+        <BestBookmarkedRecipeItem bestBookmarkedData={mainPageData.bestBookmarked} />
       </div>
     </>
   );

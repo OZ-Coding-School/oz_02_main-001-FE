@@ -6,8 +6,8 @@ type MainPageDataType = {
 
 type MainDataDataType = {
   detailStatus: number;
-  best: BestRecipeType[];
-  bestBookmarked: BestBookmarkedRecipeType[];
+  best: BestRecipeType;
+  bestBookmarked: BestBookmarkedRecipeType;
   daily: MainPageCategoryDataType[];
   healthy: MainPageCategoryDataType[];
   desert: MainPageCategoryDataType[];
