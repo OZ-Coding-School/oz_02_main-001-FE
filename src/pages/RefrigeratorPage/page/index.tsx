@@ -40,7 +40,9 @@ const RefrigeratorPage: React.FC = () => {
 
   // 레시피 찾아보기
   const handleFindRecipeClick = () => {
-    navigate("/ingredientSelection", { state: { Ingredients: data?.data.ingredients } });
+    navigate("/ingredientSelection", {
+      state: { nickName: data?.data.nickname, Ingredients: data?.data.ingredients },
+    });
   };
 
   // 재료 삭제 버튼 눌렀을때나 완료 버튼 눌렀을때
