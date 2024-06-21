@@ -21,7 +21,7 @@ const BestRecipeItem: React.FC<BestRecipeItemProps> = ({ bestRecipeData }) => {
             fetchPriority="high"
             src={bestRecipeData.mainImage}
             alt="베스트 레시피 이미지"
-            className="w-[55%] border border-gray-200 rounded-[8px] object-cover"
+            className="max-w-[180px] w-[50%] border border-gray-200 rounded-[8px] object-cover"
             style={{ aspectRatio: "1 / 1" }}
             srcSet="small.sebp 500w medium.webp 1000w large.webp 2000w"
           />
