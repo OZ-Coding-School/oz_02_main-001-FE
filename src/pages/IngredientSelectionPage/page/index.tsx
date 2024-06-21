@@ -9,6 +9,7 @@ import Header from "@components/header/Header";
 const IngredientSelectionPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const nickName: string = location.state?.nickName || "";
   const prevSelectedIngredients: IngredientDataType[] = location.state?.Ingredients || [];
   const [selectedIngredients, setSelectedIngredients] = useState<number[]>([]);
   const [ingredients, setIngredients] = useState<IngredientDataType[]>([]);
@@ -50,7 +51,7 @@ const IngredientSelectionPage: React.FC = () => {
       <div id="content" className="flex flex-col flex-grow overflow-hidden">
         <IngredientSelectionItem
           refrigerator={{
-            nickname: "50번째 냉장고",
+            nickname: nickName,
             ingredients,
           }}
           selectAllIngredients={selectAllIngredients}
