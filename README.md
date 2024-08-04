@@ -1,7 +1,31 @@
 ## 📖 프로젝트 소개
 > 나만의 자취 레시피를 공유하고 냉장고 속 재료로 만들 수 있는 레시피를 찾을 수 있는 커뮤니티 서비스
-> https://ndd.life/
 <br/>
+
+배포링크 : https://ndd.life/
+
+## <서비스 시연>
+
+### 메인 페이지
+
+https://github.com/user-attachments/assets/0f3b025b-3299-47a4-9646-547a4a478bd0
+
+### 레시피 조회 기능
+
+https://github.com/user-attachments/assets/860c0ed8-eee8-4392-ae90-ac5703ae4e35
+
+### 냉장고 페이지 시연 : 사용자가 가지고 있는 재료를 토대로 레시피 추천
+
+https://github.com/user-attachments/assets/bb31438f-8fc4-4118-bb3d-797daeada0f2
+
+### 레시피 검색 : 협업 필터링 적용 
+
+https://github.com/user-attachments/assets/cab8bc2a-e31c-4c96-9f15-429ee901a6b6
+
+### 알림 기능
+
+https://github.com/user-attachments/assets/9c264537-9b75-4450-a671-de3fe4b5a9b2
+
 
 ##  🚀 기술 스택
 
